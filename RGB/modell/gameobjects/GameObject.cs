@@ -10,8 +10,8 @@ namespace RGB.modell.gameobjects
     {
         private int i { get; set; }
         private int j { get; set; }
-        private bool isempty;
-        private bool iswall;
+        protected bool isempty;
+        protected bool iswall;
 
         public GameObject(int i, int j)
         {
@@ -31,14 +31,6 @@ namespace RGB.modell.gameobjects
             return iswall;
         }
 
-        public int GetI()
-        {
-            return i;
-        }
-
-        public int GetJ()
-        {
-            return j;
-        }
+        
     }
 }
