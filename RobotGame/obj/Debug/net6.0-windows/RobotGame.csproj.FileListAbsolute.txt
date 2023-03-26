@@ -1,0 +1,17 @@
+D:\Programozas\Szofttechclone\RobotGame\bin\Debug\net6.0-windows\RobotGame.exe
+D:\Programozas\Szofttechclone\RobotGame\bin\Debug\net6.0-windows\RobotGame.deps.json
+D:\Programozas\Szofttechclone\RobotGame\bin\Debug\net6.0-windows\RobotGame.runtimeconfig.json
+D:\Programozas\Szofttechclone\RobotGame\bin\Debug\net6.0-windows\RobotGame.dll
+D:\Programozas\Szofttechclone\RobotGame\bin\Debug\net6.0-windows\RobotGame.pdb
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.csproj.AssemblyReference.cache
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.Form1.resources
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.csproj.GenerateResource.cache
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.AssemblyInfoInputs.cache
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.AssemblyInfo.cs
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.csproj.CoreCompileInputs.cache
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.dll
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\refint\RobotGame.dll
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.pdb
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\RobotGame.genruntimeconfig.cache
+D:\Programozas\Szofttechclone\RobotGame\obj\Debug\net6.0-windows\ref\RobotGame.dll
