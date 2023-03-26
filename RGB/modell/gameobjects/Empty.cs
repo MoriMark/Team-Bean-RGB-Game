@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace RGB.modell.gameobjects
 {
-    internal class Empty
+    public class Empty : GameObject
     {
+        public Empty(int i, int j) : base(i, j)
+        {
+            
+            isempty = true;
+        }
     }
 }
