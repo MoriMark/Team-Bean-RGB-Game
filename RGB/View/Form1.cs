@@ -16,6 +16,7 @@ namespace RGB
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
+            help = new HelpForm();
             help.Show();
         }
 
