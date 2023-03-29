@@ -19,7 +19,7 @@ namespace RGB.View
 
         private void GameView_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
         }
 
     }

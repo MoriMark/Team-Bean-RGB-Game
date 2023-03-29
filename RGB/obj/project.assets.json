@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\nagyd\\.nuget\\packages\\": {}
+    "C:\\Users\\mokus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nagyd\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
+      "projectUniqueName": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
       "projectName": "RGB",
-      "projectPath": "C:\\Users\\nagyd\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
-      "packagesPath": "C:\\Users\\nagyd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nagyd\\Source\\Repos\\team-bean\\RGB\\obj\\",
+      "projectPath": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
+      "packagesPath": "C:\\Users\\mokus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nagyd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mokus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

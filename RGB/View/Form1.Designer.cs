@@ -111,6 +111,7 @@
             Controls.Add(numOfTeams);
             Controls.Add(buttonHelp);
             Controls.Add(buttonGameStart);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
             Text = "RGB";
             ((System.ComponentModel.ISupportInitialize)numOfTeams).EndInit();

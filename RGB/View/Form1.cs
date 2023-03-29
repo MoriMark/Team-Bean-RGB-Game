@@ -20,7 +20,7 @@ namespace RGB
             help.Show();
         }
 
-        private void buttonGameStart_Click(object sender, EventArgs e) 
+        private void buttonGameStart_Click(object sender, EventArgs e)
         {
             this.Hide();
             gameView.ShowDialog();
