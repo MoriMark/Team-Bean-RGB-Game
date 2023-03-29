@@ -12,14 +12,14 @@ namespace RGB.modell.gameobjects
         public int id { get; }
         private static int staticid = 0;
         public BoxColor color { get; }
-        public int intgroup { get; set; }
+        public int ingroup { get; set; }
         public Team attaching { get; set; }
         public Box(int i, int j, BoxColor color) : base(i,j)
         {
             id = staticid;
             staticid++;
             this.color = color;
-            intgroup = 0;
+            ingroup = 0;
         }
 
     }
