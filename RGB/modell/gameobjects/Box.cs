@@ -9,11 +9,11 @@ namespace RGB.modell.gameobjects
 {
     public class Box : GameObject
     {
-        private int id { get; }
+        public int id { get; }
         private static int staticid = 0;
-        private BoxColor color { get; }
-        private int intgroup { get; set; }
-        private Team attaching { get; set; }
+        public BoxColor color { get; }
+        public int intgroup { get; set; }
+        public Team attaching { get; set; }
         public Box(int i, int j, BoxColor color) : base(i,j)
         {
             id = staticid;

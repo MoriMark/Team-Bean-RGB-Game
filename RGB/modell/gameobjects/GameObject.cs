@@ -8,8 +8,8 @@ namespace RGB.modell.gameobjects
 {
     public class GameObject
     {
-        private int i { get; set; }
-        private int j { get; set; }
+        public int i { get; set; }
+        public int j { get; set; }
         protected bool isempty;
         protected bool iswall;
 
