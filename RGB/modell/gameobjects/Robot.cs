@@ -31,7 +31,7 @@ namespace RGB.modell.gameobjects
             }
             else
             {
-                return -1;
+                throw new Exception("This function shouldn't have been called while attached is null!");
             }
         }
     }

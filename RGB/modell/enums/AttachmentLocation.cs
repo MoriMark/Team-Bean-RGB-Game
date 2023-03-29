@@ -8,6 +8,6 @@ namespace RGB.modell.enums
 {
     public enum AttachmentLocation
     {
-        First, Second
+        No, First, Second
     }
 }
