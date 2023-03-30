@@ -202,5 +202,48 @@ namespace RGB.modell.boxlogic
             }
 
         }
+
+        public BoxColor[,] ConvertToMatrix()
+        {
+            int mini = boxes[0].i;
+            int minj = boxes[0].j;
+            int maxi = boxes[0].i;
+            int maxj = boxes[0].j;
+            for(int i = 1; i < boxes.Count; i++)
+            {
+                if(mini > boxes[i].i)
+                {
+                    mini = boxes[i].i;
+                }
+                if(minj > boxes[i].j)
+                {
+                    minj = boxes[i].j;
+                }
+                if(maxi < boxes[i].i)
+                {
+                    maxi = boxes[i].i;
+                }
+                if(maxj < boxes[i].j)
+                {
+                    maxj = boxes[i].j;
+                }
+            }
+
+            BoxColor[,] colormatrix = new BoxColor[(maxi - mini) + 1, (maxj - minj) + 1];
+            for(int i = 0; i < colormatrix.Length; i++)
+            {
+                for(int j=0;j < (maxj - minj) + 1; j++)
+                {
+                    colormatrix[i,j] = BoxColor.NoColor;
+                }
+            }
+
+            for(int i = 0; i < boxes.Count; i++)
+            {
+                colormatrix[boxes[i].i - mini, boxes[i].j - minj] = boxes[i].color;
+            }
+
+            return colormatrix;
+        }
     }
 }
