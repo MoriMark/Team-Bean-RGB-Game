@@ -18,6 +18,7 @@ namespace RGB.View
         public GameView()
         {
             InitializeComponent();
+            /* BOXGROUP TEST
             Box a = new Box(0, 1, BoxColor.Yellow);
             Box b = new Box(0,0, BoxColor.Green);
             Box cbox = new Box(1,1, BoxColor.Blue);
@@ -40,6 +41,7 @@ namespace RGB.View
                     textBox1.Text += c[i,j].ToString();
                 }
             }
+            */
         }
 
         private void GameView_Closing(object sender, System.ComponentModel.CancelEventArgs e)
