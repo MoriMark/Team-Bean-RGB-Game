@@ -2,6 +2,7 @@
 using RGB.modell.gameobjects;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,7 +76,7 @@ namespace RGB.modell.boxlogic
             int i = 0;
             while(!found && i < boxattachments.Count)
             {
-                if(boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No && boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No)
+                if(boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No && boxattachments[i].ContainsBox(boxb) != AttachmentLocation.No)
                 {
                     found= true;
                     boxattachments.RemoveAt(i);
@@ -91,11 +92,11 @@ namespace RGB.modell.boxlogic
             singlebox[1] = true;
             for(int j=0;j<boxattachments.Count;j++)
             {
-                if (boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No)
+                if (boxattachments[j].ContainsBox(boxa) != AttachmentLocation.No)
                 {
                     singlebox[0] = false;
                 }
-                if(boxattachments[i].ContainsBox(boxb) != AttachmentLocation.No)
+                if(boxattachments[j].ContainsBox(boxb) != AttachmentLocation.No)
                 {
                     singlebox[1] = false;
                 }
@@ -154,7 +155,7 @@ namespace RGB.modell.boxlogic
                 {
                     if (nextboxes.Count > 0)
                     {
-                        i = 0;
+                        i -= currentboxes.Count;
                     }
                     for (int j = 0; j < currentboxes.Count; j++)
                         {
@@ -165,8 +166,11 @@ namespace RGB.modell.boxlogic
 
                         }
                         currentboxes.Clear();
-                        currentboxes = nextboxes;
-                        nextboxes.Clear();                                        
+                    for(int j = 0; j < nextboxes.Count; j++)
+                    {
+                        currentboxes.Add(nextboxes[j]);
+                    }
+                    nextboxes.Clear();                                        
                 }
             }
 
