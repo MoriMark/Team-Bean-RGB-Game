@@ -12,15 +12,15 @@ namespace RGB.modell.boxlogic
     {
         private int groupid { get; }
         private static int staticgroupid = 0;
-        List<Box> boxes { get; }
-        List<BoxAttachment> boxattachments;
+        public List<Box> boxes { get; }
+        private List<BoxAttachment> boxattachments;
 
         public BoxGroup(Box boxa, Box boxb)
         {
             boxes = new List<Box>();
             boxattachments = new List<BoxAttachment>();
-            groupid = staticgroupid;
             staticgroupid++;
+            groupid = staticgroupid;
             boxes.Add(boxa);
             boxa.ingroup = groupid;
             boxes.Add(boxb);
@@ -230,9 +230,9 @@ namespace RGB.modell.boxlogic
             }
 
             BoxColor[,] colormatrix = new BoxColor[(maxi - mini) + 1, (maxj - minj) + 1];
-            for(int i = 0; i < colormatrix.Length; i++)
+            for(int i = 0; i < maxi - mini; i++)
             {
-                for(int j=0;j < (maxj - minj) + 1; j++)
+                for(int j=0;j < (maxj - minj); j++)
                 {
                     colormatrix[i,j] = BoxColor.NoColor;
                 }
