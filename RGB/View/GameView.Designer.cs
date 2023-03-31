@@ -28,212 +28,235 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            dataGridViewMessages = new DataGridView();
-            Robot = new DataGridViewTextBoxColumn();
-            Message = new DataGridViewImageColumn();
-            listScores = new ListBox();
-            tableLayoutPanelButtons = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            button7 = new Button();
-            button8 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
-            SuspendLayout();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.dataGridViewMessages = new System.Windows.Forms.DataGridView();
+            this.Robot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Message = new System.Windows.Forms.DataGridViewImageColumn();
+            this.listScores = new System.Windows.Forms.ListBox();
+            this.tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMessages)).BeginInit();
+            this.SuspendLayout();
             // 
             // button1
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location = new Point(57, 849);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 100);
-            button1.TabIndex = 0;
-            button1.Text = "Mozog";
-            button1.UseVisualStyleBackColor = true;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(65, 1132);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(114, 133);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Mozog";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(188, 849);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 100);
-            button2.TabIndex = 1;
-            button2.Text = "Forog";
-            button2.UseVisualStyleBackColor = true;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(215, 1132);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(114, 133);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Forog";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button3.Location = new Point(320, 849);
-            button3.Name = "button3";
-            button3.Size = new Size(100, 100);
-            button3.TabIndex = 2;
-            button3.Text = "Összekapcsol";
-            button3.UseVisualStyleBackColor = true;
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button3.Location = new System.Drawing.Point(366, 1132);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(114, 133);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Összekapcsol";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button4.Location = new Point(458, 849);
-            button4.Name = "button4";
-            button4.Size = new Size(100, 100);
-            button4.TabIndex = 3;
-            button4.Text = "Szétkapcsol";
-            button4.UseVisualStyleBackColor = true;
+            this.button4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button4.Location = new System.Drawing.Point(523, 1132);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(114, 133);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Szétkapcsol";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
-            button5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button5.Location = new Point(591, 849);
-            button5.Name = "button5";
-            button5.Size = new Size(100, 100);
-            button5.TabIndex = 4;
-            button5.Text = "Lekapcsol";
-            button5.UseVisualStyleBackColor = true;
+            this.button5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button5.Location = new System.Drawing.Point(675, 1132);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(114, 133);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "Lekapcsol";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
-            button6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button6.Location = new Point(727, 849);
-            button6.Name = "button6";
-            button6.Size = new Size(100, 100);
-            button6.TabIndex = 5;
-            button6.Text = "Felkapcsol";
-            button6.UseVisualStyleBackColor = true;
+            this.button6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button6.Location = new System.Drawing.Point(831, 1132);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(114, 133);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "Felkapcsol";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // dataGridViewMessages
             // 
-            dataGridViewMessages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMessages.Columns.AddRange(new DataGridViewColumn[] { Robot, Message });
-            dataGridViewMessages.Location = new Point(595, 313);
-            dataGridViewMessages.Name = "dataGridViewMessages";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewMessages.RowTemplate.Height = 25;
-            dataGridViewMessages.Size = new Size(250, 370);
-            dataGridViewMessages.TabIndex = 6;
+            this.dataGridViewMessages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMessages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Robot,
+            this.Message});
+            this.dataGridViewMessages.Location = new System.Drawing.Point(680, 417);
+            this.dataGridViewMessages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dataGridViewMessages.Name = "dataGridViewMessages";
+            this.dataGridViewMessages.RowHeadersWidth = 51;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewMessages.RowTemplate.Height = 25;
+            this.dataGridViewMessages.Size = new System.Drawing.Size(286, 493);
+            this.dataGridViewMessages.TabIndex = 6;
             // 
             // Robot
             // 
-            Robot.HeaderText = "Robot";
-            Robot.Name = "Robot";
+            this.Robot.HeaderText = "Robot";
+            this.Robot.MinimumWidth = 6;
+            this.Robot.Name = "Robot";
+            this.Robot.Width = 125;
             // 
             // Message
             // 
-            Message.HeaderText = "Message";
-            Message.Name = "Message";
-            Message.Resizable = DataGridViewTriState.True;
-            Message.SortMode = DataGridViewColumnSortMode.Automatic;
+            this.Message.HeaderText = "Message";
+            this.Message.MinimumWidth = 6;
+            this.Message.Name = "Message";
+            this.Message.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Message.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Message.Width = 125;
             // 
             // listScores
             // 
-            listScores.FormattingEnabled = true;
-            listScores.ItemHeight = 15;
-            listScores.Location = new Point(595, 689);
-            listScores.Name = "listScores";
-            listScores.Size = new Size(250, 154);
-            listScores.TabIndex = 7;
+            this.listScores.FormattingEnabled = true;
+            this.listScores.ItemHeight = 20;
+            this.listScores.Location = new System.Drawing.Point(680, 919);
+            this.listScores.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listScores.Name = "listScores";
+            this.listScores.Size = new System.Drawing.Size(285, 204);
+            this.listScores.TabIndex = 7;
             // 
             // tableLayoutPanelButtons
             // 
-            tableLayoutPanelButtons.ColumnCount = 1;
-            tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Location = new Point(38, 313);
-            tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
-            tableLayoutPanelButtons.RowCount = 1;
-            tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Size = new Size(530, 530);
-            tableLayoutPanelButtons.TabIndex = 10;
+            this.tableLayoutPanelButtons.ColumnCount = 1;
+            this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelButtons.Location = new System.Drawing.Point(43, 417);
+            this.tableLayoutPanelButtons.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
+            this.tableLayoutPanelButtons.RowCount = 1;
+            this.tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelButtons.Size = new System.Drawing.Size(606, 707);
+            this.tableLayoutPanelButtons.TabIndex = 10;
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Location = new Point(595, 157);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(250, 150);
-            tableLayoutPanel1.TabIndex = 11;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(680, 209);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(286, 200);
+            this.tableLayoutPanel1.TabIndex = 11;
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Location = new Point(318, 157);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(250, 150);
-            tableLayoutPanel2.TabIndex = 12;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(363, 209);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(286, 200);
+            this.tableLayoutPanel2.TabIndex = 12;
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.Location = new Point(38, 157);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(250, 150);
-            tableLayoutPanel3.TabIndex = 13;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(43, 209);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(286, 200);
+            this.tableLayoutPanel3.TabIndex = 13;
             // 
             // button7
             // 
-            button7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button7.Location = new Point(38, 32);
-            button7.Name = "button7";
-            button7.Size = new Size(100, 100);
-            button7.TabIndex = 14;
-            button7.Text = "Küldés";
-            button7.UseVisualStyleBackColor = true;
+            this.button7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button7.Location = new System.Drawing.Point(43, 43);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(114, 133);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Küldés";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            button8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button8.Location = new Point(745, 32);
-            button8.Name = "button8";
-            button8.Size = new Size(100, 100);
-            button8.TabIndex = 15;
-            button8.Text = "Térkép";
-            button8.UseVisualStyleBackColor = true;
+            this.button8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button8.Location = new System.Drawing.Point(851, 43);
+            this.button8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(114, 133);
+            this.button8.TabIndex = 15;
+            this.button8.Text = "Térkép";
+            this.button8.UseVisualStyleBackColor = true;
             // 
             // GameView
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(884, 961);
-            Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(tableLayoutPanel3);
-            Controls.Add(tableLayoutPanel2);
-            Controls.Add(tableLayoutPanel1);
-            Controls.Add(tableLayoutPanelButtons);
-            Controls.Add(listScores);
-            Controls.Add(dataGridViewMessages);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            Name = "GameView";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "RGB";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1010, 1055);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.tableLayoutPanel3);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanelButtons);
+            this.Controls.Add(this.listScores);
+            this.Controls.Add(this.dataGridViewMessages);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.Name = "GameView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "RGB";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMessages)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion

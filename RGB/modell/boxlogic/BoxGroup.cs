@@ -2,6 +2,7 @@
 using RGB.modell.gameobjects;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,15 +13,15 @@ namespace RGB.modell.boxlogic
     {
         private int groupid { get; }
         private static int staticgroupid = 0;
-        List<Box> boxes { get; }
-        List<BoxAttachment> boxattachments;
+        public List<Box> boxes { get; }
+        private List<BoxAttachment> boxattachments;
 
         public BoxGroup(Box boxa, Box boxb)
         {
             boxes = new List<Box>();
             boxattachments = new List<BoxAttachment>();
-            groupid = staticgroupid;
             staticgroupid++;
+            groupid = staticgroupid;
             boxes.Add(boxa);
             boxa.ingroup = groupid;
             boxes.Add(boxb);
@@ -75,7 +76,7 @@ namespace RGB.modell.boxlogic
             int i = 0;
             while(!found && i < boxattachments.Count)
             {
-                if(boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No && boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No)
+                if(boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No && boxattachments[i].ContainsBox(boxb) != AttachmentLocation.No)
                 {
                     found= true;
                     boxattachments.RemoveAt(i);
@@ -91,11 +92,11 @@ namespace RGB.modell.boxlogic
             singlebox[1] = true;
             for(int j=0;j<boxattachments.Count;j++)
             {
-                if (boxattachments[i].ContainsBox(boxa) != AttachmentLocation.No)
+                if (boxattachments[j].ContainsBox(boxa) != AttachmentLocation.No)
                 {
                     singlebox[0] = false;
                 }
-                if(boxattachments[i].ContainsBox(boxb) != AttachmentLocation.No)
+                if(boxattachments[j].ContainsBox(boxb) != AttachmentLocation.No)
                 {
                     singlebox[1] = false;
                 }
@@ -154,7 +155,7 @@ namespace RGB.modell.boxlogic
                 {
                     if (nextboxes.Count > 0)
                     {
-                        i = 0;
+                        i -= currentboxes.Count;
                     }
                     for (int j = 0; j < currentboxes.Count; j++)
                         {
@@ -165,8 +166,11 @@ namespace RGB.modell.boxlogic
 
                         }
                         currentboxes.Clear();
-                        currentboxes = nextboxes;
-                        nextboxes.Clear();                                        
+                    for(int j = 0; j < nextboxes.Count; j++)
+                    {
+                        currentboxes.Add(nextboxes[j]);
+                    }
+                    nextboxes.Clear();                                        
                 }
             }
 
@@ -201,6 +205,49 @@ namespace RGB.modell.boxlogic
                 return null;
             }
 
+        }
+
+        public BoxColor[,] ConvertToMatrix()
+        {
+            int mini = boxes[0].i;
+            int minj = boxes[0].j;
+            int maxi = boxes[0].i;
+            int maxj = boxes[0].j;
+            for(int i = 1; i < boxes.Count; i++)
+            {
+                if(mini > boxes[i].i)
+                {
+                    mini = boxes[i].i;
+                }
+                if(minj > boxes[i].j)
+                {
+                    minj = boxes[i].j;
+                }
+                if(maxi < boxes[i].i)
+                {
+                    maxi = boxes[i].i;
+                }
+                if(maxj < boxes[i].j)
+                {
+                    maxj = boxes[i].j;
+                }
+            }
+
+            BoxColor[,] colormatrix = new BoxColor[(maxi - mini) + 1, (maxj - minj) + 1];
+            for(int i = 0; i < maxi - mini; i++)
+            {
+                for(int j=0;j < (maxj - minj); j++)
+                {
+                    colormatrix[i,j] = BoxColor.NoColor;
+                }
+            }
+
+            for(int i = 0; i < boxes.Count; i++)
+            {
+                colormatrix[boxes[i].i - mini, boxes[i].j - minj] = boxes[i].color;
+            }
+
+            return colormatrix;
         }
     }
 }

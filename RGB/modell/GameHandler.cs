@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RGB.modell.enums
+namespace RGB.modell
 {
-    public enum BoxColor
+    public class GameHandler
     {
-        NoColor, Red, Blue, Green, Yellow
+        private GameRule gameRule;
+
     }
 }
