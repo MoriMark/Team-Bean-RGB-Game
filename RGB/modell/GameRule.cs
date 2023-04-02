@@ -1,4 +1,5 @@
-﻿using RGB.modell.enums;
+﻿using RGB.modell.boxlogic;
+using RGB.modell.enums;
 using RGB.modell.exceptions;
 using RGB.modell.gameobjects;
 using System;
@@ -13,6 +14,8 @@ namespace RGB.modell
     {
         private List<Robot> sequence;
         private Robot current;
+
+        private Dictionary<int, BoxGroup> boxgroups;
 
         Int32 numberOfRounds;
         public Boolean GameIsActive { get; private set; }
@@ -144,5 +147,7 @@ namespace RGB.modell
 
             throw new NotImplementedException();
         }
+
+        
     }
 }
