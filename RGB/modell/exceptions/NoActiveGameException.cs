@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RGB.modell.exceptions
 {
-    public class NotActiveGameException : Exception
+    public class NoActiveGameException : Exception
     {
-        public NotActiveGameException() { }
+        public NoActiveGameException() { }
     }
 }

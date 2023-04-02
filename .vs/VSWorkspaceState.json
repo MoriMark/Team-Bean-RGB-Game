@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\RGB",
+    "\\RGB\\modell",
+    "\\RGB\\modell\\boxlogic"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\RGB\\modell\\boxlogic\\BoxGroup.cs",
   "PreviewInSolutionExplorer": false
 }
