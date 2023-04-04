@@ -148,6 +148,26 @@ namespace RGB.modell
             throw new NotImplementedException();
         }
 
-        
+        public Boolean Weld()
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+
+            throw new NotImplementedException();
+        }
+
+        public Boolean UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+
+            throw new NotImplementedException();
+        }
+
+
     }
 }
