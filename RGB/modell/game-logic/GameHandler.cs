@@ -8,7 +8,12 @@ namespace RGB.modell
 {
     public class GameHandler
     {
-        private GameRule gameRule;
+        public GameRule gameRule { get; private set; }
+
+        public GameHandler()
+        {
+            gameRule = new GameRule();
+        }
 
     }
 }

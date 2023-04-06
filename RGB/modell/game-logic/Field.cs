@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RGB.modell.game_logic
 {
-    public class Field
+    public class Field 
     {
-        const Int32 border = 5;
-        GameObject[,] field;
+        private const Int32 border = 5;
+        private GameObject[,] field;
         public Int32 TableSize { get; private set; }
 
         public Field(Int32 tableSize)
@@ -21,6 +21,11 @@ namespace RGB.modell.game_logic
             TableSize = tableSize;
 
             field = new GameObject[TableSize + 2*border, TableSize + 2*border];
+        }
+
+        public GameObject[,] GetField()
+        {
+            return field;
         }
 
         public GameObject GetValue(Int32 i, Int32 j)
@@ -37,6 +42,15 @@ namespace RGB.modell.game_logic
             if (i >= TableSize || j >= TableSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{TableSize}");
 
             field[i + border, j + border] = value;
+        }
+
+        public Field CalculateVisionOfRobot(Robot robot)
+        {
+            Field calculatedField = (Field)field.Clone();
+
+            //TODO calcualate
+
+            return calculatedField;
         }
     }
 }
