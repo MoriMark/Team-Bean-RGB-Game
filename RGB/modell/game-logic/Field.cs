@@ -83,7 +83,7 @@ namespace RGB.modell.game_logic
                 }
             }
             //Setting boxes
-            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize / 5));
+            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize / 3));
             Random RNG = new Random();
             BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
             int x = 0; int y = 0;

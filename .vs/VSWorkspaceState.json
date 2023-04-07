@@ -3,8 +3,8 @@
     "",
     "\\RGB",
     "\\RGB\\modell",
-    "\\RGB\\modell\\boxlogic"
+    "\\RGB\\View"
   ],
-  "SelectedNode": "\\RGB\\modell\\boxlogic\\BoxGroup.cs",
+  "SelectedNode": "\\RGB\\RGB.sln",
   "PreviewInSolutionExplorer": false
 }
