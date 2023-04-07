@@ -201,38 +201,113 @@ namespace RGB.modell
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public Boolean Lift()
+        public void Lift()
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            throw new NotImplementedException();
+            if (!currentRobot.IsAttached())
+            {
+                switch (currentRobot.facing)
+                {
+                    case Direction.Up:
+                        if (field.GetValue(currentRobot.i-1, currentRobot.j).GetType() == typeof(Box))
+                        {
+                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i - 1, currentRobot.j);
+                        }
+                        break;
+                    case Direction.Down:
+                        if (field.GetValue(currentRobot.i+1, currentRobot.j).GetType() == typeof(Box))
+                        {
+                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i+1, currentRobot.j);
+                        }
+                        break;
+                    case Direction.Left:
+                        if (field.GetValue(currentRobot.i, currentRobot.j -1).GetType() == typeof(Box))
+                        {
+                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i, currentRobot.j-1);
+                        }
+                        break;
+                    case Direction.Right:
+                        if (field.GetValue(currentRobot.i , currentRobot.j+1).GetType() == typeof(Box))
+                        {
+                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i, currentRobot.j+1);
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                currentRobot.Attached = null;
+            }
 
             NextRobot();
         }
 
-        public Boolean Weld()
+        public void Weld()
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            throw new NotImplementedException();
+            switch (currentRobot.facing)
+            {
+                case Direction.Up:
+                    if (field.GetValue(currentRobot.i - 1, currentRobot.j).GetType() == typeof(Box))
+                    {
+                        ((Box)field.GetValue(currentRobot.i - 1, currentRobot.j)).attaching = currentRobot.team;
+                    }
+                    break;
+                case Direction.Down:
+                    if (field.GetValue(currentRobot.i + 1, currentRobot.j).GetType() == typeof(Box))
+                    {
+                        ((Box)field.GetValue(currentRobot.i + 1, currentRobot.j)).attaching = currentRobot.team;
+                    }
+                    break;
+                case Direction.Left:
+                    if (field.GetValue(currentRobot.i, currentRobot.j - 1).GetType() == typeof(Box))
+                    {
+                        ((Box)field.GetValue(currentRobot.i, currentRobot.j - 1)).attaching = currentRobot.team;
+                    }
+                    break;
+                case Direction.Right:
+                    if (field.GetValue(currentRobot.i, currentRobot.j + 1).GetType() == typeof(Box))
+                    {
+                        ((Box)field.GetValue(currentRobot.i, currentRobot.j + 1)).attaching = currentRobot.team;
+                    }
+                    break;
+            }
 
             NextRobot();
         }
 
-        public Boolean UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
+        public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            throw new NotImplementedException();
+            if(field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
+            {
+                BoxGroup tempboxgroup = boxgroups[((Box)field.GetValue(i1, j1)).ingroup];
+                tempboxgroup.DetachAttachment((Box)field.GetValue(i1, j1), (Box)field.GetValue(i2, j2));
+                if (tempboxgroup.CheckGroup() != 0 )
+                {
+                    boxgroups.Remove(tempboxgroup.groupid);
+                }
+                else
+                {
+                    BoxGroup? boxgroupsplit = tempboxgroup.SplitGroup();
+                    if(boxgroupsplit != null)
+                    {
+                        boxgroups.Add(boxgroupsplit.groupid,boxgroupsplit);
+                    }
+                }
+            }
 
             NextRobot();
         }

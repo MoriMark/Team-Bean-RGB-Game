@@ -11,7 +11,7 @@ namespace RGB.modell.boxlogic
 {
     public class BoxGroup
     {
-        private int groupid { get; }
+        public int groupid { get; }
         private static int staticgroupid = 0;
         public List<Box> boxes { get; }
         private List<BoxAttachment> boxattachments;
