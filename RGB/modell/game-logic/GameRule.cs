@@ -1,6 +1,8 @@
 ﻿using RGB.modell.boxlogic;
 using RGB.modell.enums;
+using RGB.modell.events;
 using RGB.modell.exceptions;
+using RGB.modell.game_logic;
 using RGB.modell.gameobjects;
 using System;
 using System.Collections.Generic;
@@ -12,14 +14,19 @@ namespace RGB.modell
 {
     public class GameRule
     {
-        private List<Robot> sequence;
-        private Robot current;
+        private Field field;
+
+        private List<Robot> robots;
+        private Robot currentRobot;
 
         private Dictionary<int, BoxGroup> boxgroups;
 
-        Int32 numberOfRounds;
+        Int32 numberOfCurrentRound;
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
+
+
+        public event EventHandler<UpdateFieldsEventArgs> UpdateFields;
 
         public GameRule()
         {
@@ -30,10 +37,36 @@ namespace RGB.modell
         // TODO doc comment
         public Boolean StartGame()
         {
-            numberOfRounds = 1;
+            if (field is null) throw new TableIsMissingException();
+
+            if (robots is null | robots.Count == 0) throw new RobotsReuiredToPlayException();
+
+            numberOfCurrentRound = 1;
+
+            GameIsActive = true;
+            GameIsPaused = false;
+
+            currentRobot = robots[0];
+            OnFieldsUpdate();
 
             throw new NotImplementedException();
         }
+
+        // TODO doc comment
+        public void SetTable(Field field)
+        {
+            if (GameIsActive) throw new ActiveGameException();
+
+            this.field = field;
+        }
+
+        //Temporary
+        public void SetRobots(List<Robot> robots)
+        {
+            if (GameIsActive) throw new ActiveGameException();
+
+            this.robots = robots;
+        } 
 
         /// <summary>
         /// Pauses or resumes the game.
@@ -62,7 +95,31 @@ namespace RGB.modell
             if (!GameIsActive)
                 throw new NoActiveGameException();
 
-            return current;
+            return currentRobot;
+        }
+
+        /// <summary>
+        /// Advances the current robot to the next one to make it's turn
+        /// </summary>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
+        public void NextRobot()
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+
+            Int32 i = robots.IndexOf(currentRobot);
+            if (i == robots.Count - 1)
+            {
+                currentRobot = robots[0];
+                numberOfCurrentRound++;
+            }
+            else
+            {
+                currentRobot = robots[i + 1];
+            }
         }
 
         /// <summary>
@@ -78,7 +135,9 @@ namespace RGB.modell
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            current.facing = direction;
+            currentRobot.facing = direction;
+
+            NextRobot();
         }
 
         /// <summary>
@@ -97,6 +156,8 @@ namespace RGB.modell
                 throw new GameIsPausedException();
 
             throw new NotImplementedException();
+
+            NextRobot();
         }
 
         /// <summary>
@@ -111,9 +172,9 @@ namespace RGB.modell
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            numberOfRounds++;
-
             // Additional code here
+
+            NextRobot();
         }
 
         /// <summary>
@@ -130,6 +191,8 @@ namespace RGB.modell
                 throw new GameIsPausedException();
 
             throw new NotImplementedException();
+
+            NextRobot();
         }
 
         /// <summary>
@@ -146,6 +209,8 @@ namespace RGB.modell
                 throw new GameIsPausedException();
 
             throw new NotImplementedException();
+
+            NextRobot();
         }
 
         public Boolean Weld()
@@ -156,6 +221,8 @@ namespace RGB.modell
                 throw new GameIsPausedException();
 
             throw new NotImplementedException();
+
+            NextRobot();
         }
 
         public Boolean UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
@@ -166,8 +233,14 @@ namespace RGB.modell
                 throw new GameIsPausedException();
 
             throw new NotImplementedException();
+
+            NextRobot();
         }
 
-
+        private void OnFieldsUpdate()
+        {
+            if (UpdateFields != null)
+                UpdateFields(this, new UpdateFieldsEventArgs(field.CalculateVisionOfRobot(currentRobot)));
+        }
     }
 }
