@@ -43,6 +43,30 @@ namespace RGB.modell.boxlogic
             }
         }
 
+        public BoxGroup(Box originbox, Box attachbox, BoxGroup group1, BoxGroup group2)
+        {
+            boxes = new List<Box>();
+            boxattachments = new List<BoxAttachment>();
+            staticgroupid++;
+            groupid = staticgroupid;
+            boxes = group1.boxes;
+            for(int i=0; i< boxes.Count; i++)
+            {
+                boxes[i].ingroup = groupid;
+            }
+            boxattachments = group1.boxattachments;
+            boxattachments.Add(new BoxAttachment(originbox, attachbox));
+            for(int i=0;i < group2.boxes.Count; i++)
+            {
+                boxes.Add(group2.boxes[i]);
+                group2.boxes[i].ingroup = groupid;
+            }
+            for(int i=0;i<group2.boxattachments.Count; i++)
+            {
+                boxattachments.Add(group2.boxattachments[i]);
+            }
+        }
+
         public void AddBox(Box originbox, Box attachbox) 
         {
             if(attachbox.ingroup != groupid)

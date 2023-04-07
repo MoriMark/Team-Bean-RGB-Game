@@ -113,12 +113,99 @@ namespace RGB.modell
             Int32 i = robots.IndexOf(currentRobot);
             if (i == robots.Count - 1)
             {
+                WeldCheck();
                 currentRobot = robots[0];
                 numberOfCurrentRound++;
             }
             else
             {
                 currentRobot = robots[i + 1];
+            }
+        }
+
+        /// <summary>
+        /// Checks where the welding is succesfull
+        /// </summary>
+        private void WeldCheck()
+        {
+            for(int i=0; i<field.TableSize; i++)
+            {
+                for(int j = 0; j < field.TableSize; j++)
+                {
+                    if(field.GetValue(i,j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
+                    {
+                        if(field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
+                        {
+                            if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
+                            {
+                                BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i + 1, j)));
+                                boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
+                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
+                                //((Box)field.GetValue(i + 1, j)).attaching= Team.NoTeam;
+                            } else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j),(Box)field.GetValue(i + 1, j));
+                            } else if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i + 1, j)).ingroup].AddBox((Box)field.GetValue(i + 1, j), (Box)field.GetValue(i , j));
+                            } else if(((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i+1, j)).ingroup)
+                            {
+                                int delete1 = ((Box)field.GetValue(i, j)).ingroup;
+                                int delete2 = ((Box)field.GetValue(i + 1, j)).ingroup;
+                                BoxGroup tempboxgroup = new BoxGroup((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j), boxgroups[((Box)field.GetValue(i, j)).ingroup], boxgroups[((Box)field.GetValue(i + 1, j)).ingroup]);
+                                boxgroups.Remove(delete1);
+                                boxgroups.Remove(delete2);
+                                boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
+
+                            } else if(((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j));
+                            }
+                        }
+                        if (field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
+                        {
+                            if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
+                            {
+                                BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i, j + 1)));
+                                boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
+                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
+                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i, j));
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j +1 )).ingroup != 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i, j +1 )).ingroup].AddBox((Box)field.GetValue(i, j + 1), (Box)field.GetValue(i, j));
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j +1)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i, j + 1)).ingroup)
+                            {
+                                int delete1 = ((Box)field.GetValue(i, j)).ingroup;
+                                int delete2 = ((Box)field.GetValue(i, j + 1)).ingroup;
+                                BoxGroup tempboxgroup = new BoxGroup((Box)field.GetValue(i, j), (Box)field.GetValue(i, j + 1), boxgroups[((Box)field.GetValue(i, j)).ingroup], boxgroups[((Box)field.GetValue(i, j + 1)).ingroup]);
+                                boxgroups.Remove(delete1);
+                                boxgroups.Remove(delete2);
+                                boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
+
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup != 0)
+                            {
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i, j + 1));
+                            }
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < field.TableSize; i++)
+            {
+                for (int j = 0; j < field.TableSize; j++)
+                {
+                    if (field.GetValue(i, j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
+                    {
+                        ((Box)field.GetValue(i, j)).attaching = Team.NoTeam;
+                    }
+                }
             }
         }
 
