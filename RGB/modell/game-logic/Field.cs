@@ -56,8 +56,9 @@ namespace RGB.modell.game_logic
             return calculatedField;
         }
         //Field generation for the start of the game
-        public void GenerateField(Int32 numOfRobots, Int32 numOfTeams)
+        public List<Robot> GenerateField(Int32 numOfRobots, Int32 numOfTeams)
         {
+            List<Robot> robots = new List<Robot>();
             //Initializing the table with empty fields
             for (int i = 0; i < TableSize + (border * 2); i++)
             {
@@ -143,28 +144,37 @@ namespace RGB.modell.game_logic
                     Team teamCol = teamColors[current];
                     if (playersNeeded[current] > 0)
                     {
+                        Robot robotAdd;
                         switch (teamCol)
                         {
                             case Team.Red:
-                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.RedRobot);
+                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.RedRobot);
+                                field[x + border, y + border] = robotAdd;
+                                robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Green:
-                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.GreenRobot);
+                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.GreenRobot);
+                                field[x + border, y + border] = robotAdd;
+                                robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Yellow:
-                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.YellowRobot);
+                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.YellowRobot);
+                                field[x + border, y + border] = robotAdd;
+                                robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Blue:
-                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.BlueRobot);
+                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.BlueRobot);
+                                field[x + border, y + border] = robotAdd;
+                                robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
@@ -179,6 +189,7 @@ namespace RGB.modell.game_logic
                     y = 0;
                 }
             }
+            return robots;
         }
     }
 }

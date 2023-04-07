@@ -146,6 +146,7 @@ namespace RGB.View
                     //Disabling unseen tiles
                     if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
                     {
+                        _buttons[i, j].Text = "";
                         _buttons[i, j].BackColor = Color.DarkGray;
                         _buttons[i, j].Enabled = false;
                     }

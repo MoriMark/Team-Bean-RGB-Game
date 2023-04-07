@@ -41,7 +41,7 @@ namespace RGB.modell
             int totalRobots = numOfRobots * numOfTeams;
             int tableSize = totalRobots*4;
             field = new Field(tableSize);
-            field.GenerateField(numOfRobots, numOfTeams);
+            robots = field.GenerateField(numOfRobots, numOfTeams);
         }
 
         public GameObject GetCoords(Int32 x, Int32 y)
@@ -64,7 +64,8 @@ namespace RGB.modell
             currentRobot = robots[0];
             OnFieldsUpdate();
 
-            throw new NotImplementedException();
+            return true;
+            //throw new NotImplementedException();
         }
 
         // TODO doc comment
