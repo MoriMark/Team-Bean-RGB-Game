@@ -90,26 +90,95 @@ namespace RGB.modell.game_logic
             while (numOfBoxes > 0)
             {
                 
-                if (RNG.Next(100) > 90)
+                if (RNG.Next(100) > 50)
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
-                    field[x + border, y + border] = new Box(x+border, y+border, boxCol);
+                    switch (boxCol) 
+                    { 
+                        case BoxColor.Red:
+                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.RedBox);
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Green:
+                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.GreenBox);
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Yellow:
+                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.YellowBox);
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Blue:
+                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.BlueBox);
+                            numOfBoxes--;
+                            break;
+                    }
+                }
+                x++;
+                y++;
+                if (x > TableSize || y > TableSize)
+                {
+                    x = 0;
+                    y = 0;
                 }
             }
             //Setting robots
             Int32 numOfPlayers = numOfRobots * numOfTeams;
             x = 0; y = 0;
             Team[] teamColors = { Team.Red, Team.Blue, Team.Green, Team.Yellow };
+            //Each team to have equal amount of robots
+            int[] playersNeeded = new int[numOfTeams];
+            for (int i = 0; i < numOfTeams; i++)
+            {
+                playersNeeded[i] = numOfRobots;
+            }
+            //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                if (RNG.Next(100) > 97)
+                if (RNG.Next(100) > 80)
                 {
-                    Team teamCol = teamColors[RNG.Next(0,3)];
-                    field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol);
+                    int current = RNG.Next(0, numOfTeams);
+                    Team teamCol = teamColors[current];
+                    if (playersNeeded[current] > 0)
+                    {
+                        switch (teamCol)
+                        {
+                            case Team.Red:
+                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.RedRobot);
+                                playersNeeded[current]--;
+                                numOfPlayers--;
+                                break;
+
+                            case Team.Green:
+                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.GreenRobot);
+                                playersNeeded[current]--;
+                                numOfPlayers--;
+                                break;
+
+                            case Team.Yellow:
+                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.YellowRobot);
+                                playersNeeded[current]--;
+                                numOfPlayers--;
+                                break;
+
+                            case Team.Blue:
+                                field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.BlueRobot);
+                                playersNeeded[current]--;
+                                numOfPlayers--;
+                                break;
+                        }
+                    }
+                }
+                x++;
+                y++;
+                if (x > TableSize || y > TableSize)
+                {
+                    x = 0;
+                    y = 0;
                 }
             }
         }
-
-
     }
 }

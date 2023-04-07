@@ -13,15 +13,14 @@ namespace RGB.modell
     {
         public GameRule gameRule { get; private set; }
 
-        public GameHandler()
+        public GameHandler(Int32 numOfPlayers, Int32 numOfTeams)
         {
-            gameRule = new GameRule();
+            gameRule = new GameRule(numOfPlayers, numOfTeams);
         }
 
-        public void DoAction(Actions action) 
-        { 
-            //TODO
-            //does given action in the game
+        public void StartGame()
+        {
+            gameRule.StartGame();
         }
 
         public Robot GetCurrentPlayer()
@@ -32,6 +31,11 @@ namespace RGB.modell
         public GameObject GetCoords(Int32 x, Int32 y)
         {
             return gameRule.GetCoords(x, y);
+        }
+        public void DoAction(Actions action)
+        {
+            //TODO
+            //does given action in the game
         }
     }
 }

@@ -13,7 +13,7 @@ namespace RGB.modell.gameobjects
         public Box? Attached { get; set; }
         public Team team { get; set; }
 
-        public Robot(int i, int j, Direction facing, Team team) : base(i, j)
+        public Robot(int i, int j, Direction facing, Team team, TileType type) : base(i, j, type)
         { 
             this.team = team;
             this.facing = facing;

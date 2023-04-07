@@ -16,7 +16,7 @@ namespace RGB.View
 {
     public partial class GameView : Form
     {
-        private GridButton[,]? _buttons;
+        private GridButton[,] _buttons = null!;
         private int[] currentCoords;
         private int numOfPlayers;
         private int numOfTeams;
@@ -33,7 +33,7 @@ namespace RGB.View
             currentCoords = new int[2]; currentCoords[0] = 0; currentCoords[1] = 0;
             numOfTeams = teams;
             numOfPlayers = players;
-            _gameHandler = new GameHandler();
+            _gameHandler = new GameHandler(players, teams);
             setButtonLayout(ButtonLayouts.Default);
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
@@ -51,7 +51,7 @@ namespace RGB.View
                     _buttons[i, j] = new GridButton(i - 3, j - 3); //-3, so that the middle is 0,0
                     if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
                     {
-                        _buttons[i, j].BackColor = Color.Black;
+                        _buttons[i, j].BackColor = Color.DarkGray;
                         _buttons[i, j].Enabled = false;
                     }
                     else
@@ -84,7 +84,8 @@ namespace RGB.View
             _timer.Tick += roundTimerTick;
             _timer.Enabled = true;
             //Show Table for the first player
-            refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
+            _gameHandler.StartGame();
+            nextRound();
         }
 
 
@@ -96,15 +97,56 @@ namespace RGB.View
                 for (int j = 0; j < 7; j++)
                 {
                     GameObject currentTile = _gameHandler.GetCoords(x + (i - 3), y + (j - 3));
-                    if (currentTile is Box)
+                    _buttons[i,j].Enabled = true;
+                    _buttons[i,j].Text = "";
+                    switch (currentTile.TileType())
                     {
-                        
+                        //draw non Robot and Box types
+                        case TileType.Empty:
+                            _buttons[i, j].BackColor = Color.White;
+                            break;
+                        case TileType.Wall:
+                            _buttons[i, j].BackColor = Color.Black;
+                            break;
+                        case TileType.Obstacle:
+                            _buttons[i, j].BackColor = Color.Gray;
+                            break;
+                        //draw Boxes
+                        case TileType.RedBox:
+                            _buttons[i, j].BackColor = Color.Red;
+                            break;
+                        case TileType.BlueBox:
+                            _buttons[i, j].BackColor = Color.Blue;
+                            break;
+                        case TileType.YellowBox:
+                            _buttons[i, j].BackColor = Color.Yellow;
+                            break;
+                        case TileType.GreenBox:
+                            _buttons[i, j].BackColor = Color.Green;
+                            break;
+                        //draw Robots
+                        case TileType.RedRobot:
+                            _buttons[i, j].BackColor = Color.Red;
+                            _buttons[i, j].Text = "R";
+                            break;
+                        case TileType.BlueRobot:
+                            _buttons[i, j].BackColor = Color.Blue;
+                            _buttons[i, j].Text = "R";
+                            break;
+                        case TileType.GreenRobot:
+                            _buttons[i, j].BackColor = Color.Green;
+                            _buttons[i, j].Text = "R";
+                            break;
+                        case TileType.YellowRobot:
+                            _buttons[i, j].BackColor = Color.Yellow;
+                            _buttons[i, j].Text = "R";
+                            break;
                     }
 
-                    //Setting unseen tiles
+                    //Disabling unseen tiles
                     if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
                     {
-                        _buttons[i, j].BackColor = Color.Black;
+                        _buttons[i, j].BackColor = Color.DarkGray;
                         _buttons[i, j].Enabled = false;
                     }
                 }
@@ -114,7 +156,7 @@ namespace RGB.View
         private void nextRound()
         {
             remainingTime = 300;
-            
+            refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
@@ -164,8 +206,6 @@ namespace RGB.View
                 }
             }
         }
-
-
 
         private void setButtonLayout(ButtonLayouts layout)
         {
