@@ -46,6 +46,7 @@ namespace RGB.View
                     if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
                     {
                         _buttons[i, j].BackColor = Color.Black;
+                        _buttons[i, j].Enabled = false;
                     }
                     else
                     {
@@ -82,12 +83,12 @@ namespace RGB.View
 
         private void refreshViewTable()
         {
-            
+
         }
 
         private void nextRound()
         {
-
+            remainingTime = 300;
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
@@ -99,7 +100,8 @@ namespace RGB.View
             }
             else
             {
-                remainingTimeBar.Value = remainingTime;
+                remaningTimeBar.Value = remainingTime;
+                remaningTimeLabel.Text = Convert.ToString(Convert.ToInt32(Math.Floor((double)remainingTime / 10))) + "." + remainingTime % 10;
             }
         }
 

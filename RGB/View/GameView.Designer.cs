@@ -45,11 +45,12 @@
             button7 = new Button();
             button8 = new Button();
             testLabel = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            remaningTimeLabel = new Label();
+            remaningTimeBar = new ProgressBar();
             tableLayoutPanelButtons = new TableLayoutPanel();
-            playField = new GroupBox();
-            remainingTimeBar = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
-            playField.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -116,13 +117,13 @@
             // 
             dataGridViewMessages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewMessages.Columns.AddRange(new DataGridViewColumn[] { Robot, Message });
-            dataGridViewMessages.Location = new Point(595, 329);
+            dataGridViewMessages.Location = new Point(595, 323);
             dataGridViewMessages.Name = "dataGridViewMessages";
             dataGridViewMessages.RowHeadersWidth = 51;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewMessages.RowTemplate.Height = 25;
-            dataGridViewMessages.Size = new Size(250, 354);
+            dataGridViewMessages.Size = new Size(250, 360);
             dataGridViewMessages.TabIndex = 6;
             // 
             // Robot
@@ -155,7 +156,7 @@
             tableTask3.ColumnCount = 2;
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask3.Location = new Point(595, 138);
+            tableTask3.Location = new Point(595, 118);
             tableTask3.Name = "tableTask3";
             tableTask3.RowCount = 1;
             tableTask3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -167,7 +168,7 @@
             tableTask2.ColumnCount = 2;
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask2.Location = new Point(320, 138);
+            tableTask2.Location = new Point(320, 118);
             tableTask2.Name = "tableTask2";
             tableTask2.RowCount = 1;
             tableTask2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -179,7 +180,7 @@
             tableTask1.ColumnCount = 2;
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask1.Location = new Point(38, 138);
+            tableTask1.Location = new Point(38, 118);
             tableTask1.Name = "tableTask1";
             tableTask1.RowCount = 1;
             tableTask1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -189,7 +190,7 @@
             // button7
             // 
             button7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button7.Location = new Point(38, 32);
+            button7.Location = new Point(38, 12);
             button7.Name = "button7";
             button7.Size = new Size(100, 100);
             button7.TabIndex = 14;
@@ -199,7 +200,7 @@
             // button8
             // 
             button8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button8.Location = new Point(745, 32);
+            button8.Location = new Point(745, 12);
             button8.Name = "button8";
             button8.Size = new Size(100, 100);
             button8.TabIndex = 15;
@@ -216,49 +217,62 @@
             testLabel.TabIndex = 16;
             testLabel.Text = "test";
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.582089F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.41791F));
+            tableLayoutPanel1.Controls.Add(remaningTimeLabel, 0, 0);
+            tableLayoutPanel1.Controls.Add(remaningTimeBar, 1, 0);
+            tableLayoutPanel1.Location = new Point(41, 274);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(804, 37);
+            tableLayoutPanel1.TabIndex = 18;
+            // 
+            // remaningTimeLabel
+            // 
+            remaningTimeLabel.AutoSize = true;
+            remaningTimeLabel.Dock = DockStyle.Fill;
+            remaningTimeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            remaningTimeLabel.Location = new Point(3, 0);
+            remaningTimeLabel.Name = "remaningTimeLabel";
+            remaningTimeLabel.Size = new Size(63, 37);
+            remaningTimeLabel.TabIndex = 0;
+            remaningTimeLabel.Text = "Time";
+            remaningTimeLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // remaningTimeBar
+            // 
+            remaningTimeBar.Dock = DockStyle.Fill;
+            remaningTimeBar.Location = new Point(72, 3);
+            remaningTimeBar.Maximum = 300;
+            remaningTimeBar.Name = "remaningTimeBar";
+            remaningTimeBar.Size = new Size(729, 31);
+            remaningTimeBar.Step = -1;
+            remaningTimeBar.TabIndex = 1;
+            remaningTimeBar.Value = 300;
+            // 
             // tableLayoutPanelButtons
             // 
             tableLayoutPanelButtons.ColumnCount = 1;
             tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Dock = DockStyle.Fill;
-            tableLayoutPanelButtons.Location = new Point(0, 16);
+            tableLayoutPanelButtons.Location = new Point(41, 323);
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             tableLayoutPanelButtons.RowCount = 1;
             tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Size = new Size(520, 514);
-            tableLayoutPanelButtons.TabIndex = 10;
-            // 
-            // playField
-            // 
-            playField.Controls.Add(tableLayoutPanelButtons);
-            playField.Location = new Point(38, 313);
-            playField.Margin = new Padding(0);
-            playField.Name = "playField";
-            playField.Padding = new Padding(0);
-            playField.Size = new Size(520, 530);
-            playField.TabIndex = 17;
-            playField.TabStop = false;
-            // 
-            // remainingTimeBar
-            // 
-            remainingTimeBar.BackColor = Color.FromArgb(0, 64, 0);
-            remainingTimeBar.ForeColor = Color.FromArgb(128, 255, 128);
-            remainingTimeBar.Location = new Point(38, 294);
-            remainingTimeBar.Maximum = 300;
-            remainingTimeBar.Name = "remainingTimeBar";
-            remainingTimeBar.Size = new Size(807, 28);
-            remainingTimeBar.Step = -1;
-            remainingTimeBar.TabIndex = 18;
-            remainingTimeBar.Value = 300;
+            tableLayoutPanelButtons.Size = new Size(520, 520);
+            tableLayoutPanelButtons.TabIndex = 19;
             // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
-            Controls.Add(remainingTimeBar);
-            Controls.Add(playField);
+            Controls.Add(tableLayoutPanelButtons);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(testLabel);
             Controls.Add(button8);
             Controls.Add(button7);
@@ -279,7 +293,8 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "RGB";
             ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).EndInit();
-            playField.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -302,8 +317,9 @@
         private Button button7;
         private Button button8;
         private Label testLabel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label remaningTimeLabel;
+        private ProgressBar remaningTimeBar;
         private TableLayoutPanel tableLayoutPanelButtons;
-        private GroupBox playField;
-        private ProgressBar remainingTimeBar;
     }
 }
