@@ -11,7 +11,7 @@ namespace RGB
         {
             InitializeComponent();
             help = new HelpForm();
-            gameView = new GameView();
+
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -22,6 +22,7 @@ namespace RGB
 
         private void buttonGameStart_Click(object sender, EventArgs e)
         {
+            gameView = new GameView(Convert.ToInt32(numOfRobots.Value), Convert.ToInt32(numOfTeams.Value));
             this.Hide();
             gameView.ShowDialog();
             this.Show();

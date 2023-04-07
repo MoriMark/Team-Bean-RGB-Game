@@ -30,12 +30,12 @@
         {
             buttonGameStart = new Button();
             buttonHelp = new Button();
+            numOfRobots = new NumericUpDown();
             numOfTeams = new NumericUpDown();
-            numericUpDown1 = new NumericUpDown();
             label1 = new Label();
             label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numOfRobots).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numOfTeams).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // buttonGameStart
@@ -60,25 +60,25 @@
             buttonHelp.UseVisualStyleBackColor = true;
             buttonHelp.Click += buttonHelp_Click;
             // 
+            // numOfRobots
+            // 
+            numOfRobots.Location = new Point(482, 329);
+            numOfRobots.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
+            numOfRobots.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numOfRobots.Name = "numOfRobots";
+            numOfRobots.Size = new Size(55, 23);
+            numOfRobots.TabIndex = 2;
+            numOfRobots.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            // 
             // numOfTeams
             // 
-            numOfTeams.Location = new Point(482, 329);
+            numOfTeams.Location = new Point(482, 276);
             numOfTeams.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
-            numOfTeams.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            numOfTeams.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numOfTeams.Name = "numOfTeams";
             numOfTeams.Size = new Size(55, 23);
-            numOfTeams.TabIndex = 2;
+            numOfTeams.TabIndex = 3;
             numOfTeams.Value = new decimal(new int[] { 2, 0, 0, 0 });
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(482, 276);
-            numericUpDown1.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(55, 23);
-            numericUpDown1.TabIndex = 3;
-            numericUpDown1.Value = new decimal(new int[] { 2, 0, 0, 0 });
             // 
             // label1
             // 
@@ -107,15 +107,15 @@
             ClientSize = new Size(884, 961);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(numericUpDown1);
             Controls.Add(numOfTeams);
+            Controls.Add(numOfRobots);
             Controls.Add(buttonHelp);
             Controls.Add(buttonGameStart);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
             Text = "RGB";
+            ((System.ComponentModel.ISupportInitialize)numOfRobots).EndInit();
             ((System.ComponentModel.ISupportInitialize)numOfTeams).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -124,8 +124,8 @@
 
         private Button buttonGameStart;
         private Button buttonHelp;
+        private NumericUpDown numOfRobots;
         private NumericUpDown numOfTeams;
-        private NumericUpDown numericUpDown1;
         private Label label1;
         private Label label2;
     }

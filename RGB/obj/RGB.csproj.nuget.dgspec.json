@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programozas\\Szofttechclone3\\RGB\\RGB.csproj": {}
+    "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj": {}
   },
   "projects": {
-    "D:\\Programozas\\Szofttechclone3\\RGB\\RGB.csproj": {
+    "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programozas\\Szofttechclone3\\RGB\\RGB.csproj",
+        "projectUniqueName": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
         "projectName": "RGB",
-        "projectPath": "D:\\Programozas\\Szofttechclone3\\RGB\\RGB.csproj",
-        "packagesPath": "C:\\Users\\Felhasználó\\.nuget\\packages\\",
-        "outputPath": "D:\\Programozas\\Szofttechclone3\\RGB\\obj\\",
+        "projectPath": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\RGB.csproj",
+        "packagesPath": "C:\\Users\\mokus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mokus\\Source\\Repos\\team-bean\\RGB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felhasználó\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mokus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

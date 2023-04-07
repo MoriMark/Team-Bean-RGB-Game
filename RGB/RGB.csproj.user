@@ -7,6 +7,9 @@
     <Compile Update="View\GameView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\GridButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="View\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
