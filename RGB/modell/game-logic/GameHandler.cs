@@ -24,6 +24,11 @@ namespace RGB.modell
             //does given action in the game
         }
 
+        public Robot GetCurrentPlayer()
+        {
+            return gameRule.CurrentRobot();
+        }
+
         public GameObject GetCoords(Int32 x, Int32 y)
         {
             return gameRule.GetCoords(x, y);

@@ -84,20 +84,37 @@ namespace RGB.View
             _timer.Tick += roundTimerTick;
             _timer.Enabled = true;
             //Show Table for the first player
-            refreshViewTable();
+            refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
         }
 
 
 
-        private void refreshViewTable()
+        private void refreshViewTable(Int32 x, Int32 y)
         {
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    GameObject currentTile = _gameHandler.GetCoords(x + (i - 3), y + (j - 3));
+                    if (currentTile is Box)
+                    {
+                        
+                    }
 
+                    //Setting unseen tiles
+                    if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
+                    {
+                        _buttons[i, j].BackColor = Color.Black;
+                        _buttons[i, j].Enabled = false;
+                    }
+                }
+            }
         }
 
         private void nextRound()
         {
             remainingTime = 300;
-            refreshViewTable();
+            
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
@@ -142,7 +159,7 @@ namespace RGB.View
                         break;
 
                     default:
-                        _gameHandler.doAction(pendingAction);
+                        _gameHandler.DoAction(pendingAction);
                         break;
                 }
             }
