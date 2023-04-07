@@ -11,9 +11,11 @@ namespace RGB.modell.gameobjects
     {
         public Direction facing { get; set; }
         public Box? Attached { get; set; }
+        public Team team { get; set; }
 
-        public Robot(int i, int j, Direction facing) : base(i, j)
+        public Robot(int i, int j, Direction facing, Team team) : base(i, j)
         { 
+            this.team = team;
             this.facing = facing;
             Attached = null;
         }

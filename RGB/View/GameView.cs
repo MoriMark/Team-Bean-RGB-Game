@@ -97,6 +97,7 @@ namespace RGB.View
         private void nextRound()
         {
             remainingTime = 300;
+            refreshViewTable();
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
@@ -123,7 +124,7 @@ namespace RGB.View
 
         private void actionButton_Click(object? sender, EventArgs e)
         {
-            testLabel.Text = "Action Recieved!";
+            //testLabel.Text = "Action Recieved!";
             if (sender is  ActionButton abutton) 
             { 
                 Actions pendingAction = abutton.getAction();

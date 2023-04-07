@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RGB.modell.enums;
+using RGB.modell.game_logic;
+using RGB.modell.gameobjects;
 
 namespace RGB.modell
 {
@@ -16,10 +18,15 @@ namespace RGB.modell
             gameRule = new GameRule();
         }
 
-        public void doAction(Actions action) 
+        public void DoAction(Actions action) 
         { 
             //TODO
             //does given action in the game
+        }
+
+        public GameObject GetCoords(Int32 x, Int32 y)
+        {
+            return gameRule.GetCoords(x, y);
         }
     }
 }

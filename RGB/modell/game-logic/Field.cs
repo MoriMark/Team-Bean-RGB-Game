@@ -1,4 +1,5 @@
-﻿using RGB.modell.gameobjects;
+﻿using RGB.modell.enums;
+using RGB.modell.gameobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace RGB.modell.game_logic
 
             field = new GameObject[TableSize + 2*border, TableSize + 2*border];
         }
+
+        public GameObject GetCoords(Int32 x, Int32 y) {  return field[x, y]; }
 
         public GameObject[,] GetField()
         {
@@ -52,5 +55,61 @@ namespace RGB.modell.game_logic
 
             return calculatedField;
         }
+        //Field generation for the start of the game
+        public void GenerateField(Int32 numOfRobots, Int32 numOfTeams)
+        {
+            //Initializing the table with empty fields
+            for (int i = 0; i < TableSize + (border * 2); i++)
+            {
+                for (int j = 0; j < TableSize + (border * 2); j++)
+                {
+                    field[i, j] = new Empty(i, j);
+                }
+            }
+            //Setting borders
+            for (int i = 0; i < TableSize+(border*2); i++)
+            {
+                for (int j = 0; j < TableSize + (border * 2); j++)
+                {
+                    if (i < 5 || j < 5)
+                    {
+                        field[i, j] = new Wall(i, j);
+                    }
+                    else if (i > TableSize + border || j > TableSize + border)
+                    {
+                        field[i, j] = new Wall(i, j);
+                    }
+                }
+            }
+            //Setting boxes
+            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize / 5));
+            Random RNG = new Random();
+            BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
+            int x = 0; int y = 0;
+
+            while (numOfBoxes > 0)
+            {
+                
+                if (RNG.Next(100) > 90)
+                {
+                    BoxColor boxCol = boxColors[RNG.Next(0,3)];
+                    field[x + border, y + border] = new Box(x+border, y+border, boxCol);
+                }
+            }
+            //Setting robots
+            Int32 numOfPlayers = numOfRobots * numOfTeams;
+            x = 0; y = 0;
+            Team[] teamColors = { Team.Red, Team.Blue, Team.Green, Team.Yellow };
+            while (numOfPlayers > 0)
+            {
+                if (RNG.Next(100) > 97)
+                {
+                    Team teamCol = teamColors[RNG.Next(0,3)];
+                    field[x + border, y + border] = new Robot(x + border, y + border, Direction.Up, teamCol);
+                }
+            }
+        }
+
+
     }
 }

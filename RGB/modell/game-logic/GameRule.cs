@@ -34,6 +34,21 @@ namespace RGB.modell
             GameIsPaused = false;
         }
 
+        public GameRule(Int32 numOfRobots, Int32 numOfTeams)
+        {
+            GameIsActive = false;
+            GameIsPaused = false;
+            int totalRobots = numOfRobots * numOfTeams;
+            int tableSize = totalRobots*4;
+            field = new Field(tableSize);
+            field.GenerateField(numOfRobots, numOfTeams);
+        }
+
+        public GameObject GetCoords(Int32 x, Int32 y)
+        {
+            return field.GetCoords(x, y);
+        }
+
         // TODO doc comment
         public Boolean StartGame()
         {
