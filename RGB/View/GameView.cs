@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RGB.modell;
 
 namespace RGB.View
 {
@@ -22,6 +23,9 @@ namespace RGB.View
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
 
+        private Actions selectedAction;
+        private GameHandler _gameHandler;
+
         public GameView(int players, int teams)
         {
             InitializeComponent();
@@ -29,6 +33,7 @@ namespace RGB.View
             currentCoords = new int[2]; currentCoords[0] = 0; currentCoords[1] = 0;
             numOfTeams = teams;
             numOfPlayers = players;
+            _gameHandler = new GameHandler();
             //Setting up the buttons
             tableLayoutPanelButtons.RowCount = 7;
             tableLayoutPanelButtons.ColumnCount = 7;

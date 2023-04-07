@@ -14,6 +14,5 @@ namespace RGB.modell
         {
             gameRule = new GameRule();
         }
-
     }
 }

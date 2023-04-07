@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            moveButton = new Button();
+            rotateButton = new Button();
+            weldButton = new Button();
+            unweldButton = new Button();
+            disconnectButton = new Button();
+            connectButton = new Button();
             dataGridViewMessages = new DataGridView();
             Robot = new DataGridViewTextBoxColumn();
             Message = new DataGridViewImageColumn();
@@ -42,7 +42,7 @@
             tableTask3 = new TableLayoutPanel();
             tableTask2 = new TableLayoutPanel();
             tableTask1 = new TableLayoutPanel();
-            button7 = new Button();
+            sendButton = new Button();
             button8 = new Button();
             testLabel = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -53,65 +53,65 @@
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // moveButton
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location = new Point(57, 849);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 100);
-            button1.TabIndex = 0;
-            button1.Text = "Mozog";
-            button1.UseVisualStyleBackColor = true;
+            moveButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            moveButton.Location = new Point(57, 849);
+            moveButton.Name = "moveButton";
+            moveButton.Size = new Size(100, 100);
+            moveButton.TabIndex = 0;
+            moveButton.Text = "Move";
+            moveButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // rotateButton
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(188, 849);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 100);
-            button2.TabIndex = 1;
-            button2.Text = "Forog";
-            button2.UseVisualStyleBackColor = true;
+            rotateButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            rotateButton.Location = new Point(188, 849);
+            rotateButton.Name = "rotateButton";
+            rotateButton.Size = new Size(100, 100);
+            rotateButton.TabIndex = 1;
+            rotateButton.Text = "Rotate";
+            rotateButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // weldButton
             // 
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button3.Location = new Point(320, 849);
-            button3.Name = "button3";
-            button3.Size = new Size(100, 100);
-            button3.TabIndex = 2;
-            button3.Text = "Összekapcsol";
-            button3.UseVisualStyleBackColor = true;
+            weldButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            weldButton.Location = new Point(320, 849);
+            weldButton.Name = "weldButton";
+            weldButton.Size = new Size(100, 100);
+            weldButton.TabIndex = 2;
+            weldButton.Text = "Weld";
+            weldButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // unweldButton
             // 
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button4.Location = new Point(458, 849);
-            button4.Name = "button4";
-            button4.Size = new Size(100, 100);
-            button4.TabIndex = 3;
-            button4.Text = "Szétkapcsol";
-            button4.UseVisualStyleBackColor = true;
+            unweldButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            unweldButton.Location = new Point(458, 849);
+            unweldButton.Name = "unweldButton";
+            unweldButton.Size = new Size(100, 100);
+            unweldButton.TabIndex = 3;
+            unweldButton.Text = "Unweld";
+            unweldButton.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // disconnectButton
             // 
-            button5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button5.Location = new Point(591, 849);
-            button5.Name = "button5";
-            button5.Size = new Size(100, 100);
-            button5.TabIndex = 4;
-            button5.Text = "Lekapcsol";
-            button5.UseVisualStyleBackColor = true;
+            disconnectButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            disconnectButton.Location = new Point(591, 849);
+            disconnectButton.Name = "disconnectButton";
+            disconnectButton.Size = new Size(100, 100);
+            disconnectButton.TabIndex = 4;
+            disconnectButton.Text = "Connect";
+            disconnectButton.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // connectButton
             // 
-            button6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button6.Location = new Point(727, 849);
-            button6.Name = "button6";
-            button6.Size = new Size(100, 100);
-            button6.TabIndex = 5;
-            button6.Text = "Felkapcsol";
-            button6.UseVisualStyleBackColor = true;
+            connectButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            connectButton.Location = new Point(727, 849);
+            connectButton.Name = "connectButton";
+            connectButton.Size = new Size(100, 100);
+            connectButton.TabIndex = 5;
+            connectButton.Text = "Disconnect";
+            connectButton.UseVisualStyleBackColor = true;
             // 
             // dataGridViewMessages
             // 
@@ -120,8 +120,8 @@
             dataGridViewMessages.Location = new Point(595, 323);
             dataGridViewMessages.Name = "dataGridViewMessages";
             dataGridViewMessages.RowHeadersWidth = 51;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewMessages.RowTemplate.Height = 25;
             dataGridViewMessages.Size = new Size(250, 360);
             dataGridViewMessages.TabIndex = 6;
@@ -187,15 +187,15 @@
             tableTask1.Size = new Size(250, 150);
             tableTask1.TabIndex = 13;
             // 
-            // button7
+            // sendButton
             // 
-            button7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button7.Location = new Point(38, 12);
-            button7.Name = "button7";
-            button7.Size = new Size(100, 100);
-            button7.TabIndex = 14;
-            button7.Text = "Küldés";
-            button7.UseVisualStyleBackColor = true;
+            sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            sendButton.Location = new Point(38, 12);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(100, 100);
+            sendButton.TabIndex = 14;
+            sendButton.Text = "Send";
+            sendButton.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
@@ -275,18 +275,18 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(testLabel);
             Controls.Add(button8);
-            Controls.Add(button7);
+            Controls.Add(sendButton);
             Controls.Add(tableTask1);
             Controls.Add(tableTask2);
             Controls.Add(tableTask3);
             Controls.Add(listScores);
             Controls.Add(dataGridViewMessages);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(connectButton);
+            Controls.Add(disconnectButton);
+            Controls.Add(unweldButton);
+            Controls.Add(weldButton);
+            Controls.Add(rotateButton);
+            Controls.Add(moveButton);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "GameView";
@@ -301,12 +301,12 @@
 
         #endregion
 
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
+        private Button moveButton;
+        private Button rotateButton;
+        private Button weldButton;
+        private Button unweldButton;
+        private Button disconnectButton;
+        private Button connectButton;
         private DataGridView dataGridViewMessages;
         private DataGridViewTextBoxColumn Robot;
         private DataGridViewImageColumn Message;
@@ -314,7 +314,7 @@
         private TableLayoutPanel tableTask3;
         private TableLayoutPanel tableTask2;
         private TableLayoutPanel tableTask1;
-        private Button button7;
+        private Button sendButton;
         private Button button8;
         private Label testLabel;
         private TableLayoutPanel tableLayoutPanel1;
