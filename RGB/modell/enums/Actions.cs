@@ -8,10 +8,11 @@ namespace RGB.modell.enums
 {
     public enum Actions
     {
-        MoveUp, MoveDown, MoveLeft, MoveRight, 
-        TurnLeft, TurnRight,
+        MoveUp, MoveDown, MoveLeft, MoveRight, Move,
+        RotateLeft, RotateRight, Rotate,
         Weld, Unweld,
         Connect, Disconnect,
-        Wait
+        Wait,
+        Cancel
     }
 }

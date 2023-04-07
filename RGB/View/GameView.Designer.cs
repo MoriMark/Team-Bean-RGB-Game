@@ -28,13 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            moveButton = new Button();
-            rotateButton = new Button();
-            weldButton = new Button();
-            unweldButton = new Button();
-            disconnectButton = new Button();
-            connectButton = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dataGridViewMessages = new DataGridView();
             Robot = new DataGridViewTextBoxColumn();
             Message = new DataGridViewImageColumn();
@@ -49,69 +43,10 @@
             remaningTimeLabel = new Label();
             remaningTimeBar = new ProgressBar();
             tableLayoutPanelButtons = new TableLayoutPanel();
+            actionButtons = new TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // moveButton
-            // 
-            moveButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            moveButton.Location = new Point(57, 849);
-            moveButton.Name = "moveButton";
-            moveButton.Size = new Size(100, 100);
-            moveButton.TabIndex = 0;
-            moveButton.Text = "Move";
-            moveButton.UseVisualStyleBackColor = true;
-            // 
-            // rotateButton
-            // 
-            rotateButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            rotateButton.Location = new Point(188, 849);
-            rotateButton.Name = "rotateButton";
-            rotateButton.Size = new Size(100, 100);
-            rotateButton.TabIndex = 1;
-            rotateButton.Text = "Rotate";
-            rotateButton.UseVisualStyleBackColor = true;
-            // 
-            // weldButton
-            // 
-            weldButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            weldButton.Location = new Point(320, 849);
-            weldButton.Name = "weldButton";
-            weldButton.Size = new Size(100, 100);
-            weldButton.TabIndex = 2;
-            weldButton.Text = "Weld";
-            weldButton.UseVisualStyleBackColor = true;
-            // 
-            // unweldButton
-            // 
-            unweldButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            unweldButton.Location = new Point(458, 849);
-            unweldButton.Name = "unweldButton";
-            unweldButton.Size = new Size(100, 100);
-            unweldButton.TabIndex = 3;
-            unweldButton.Text = "Unweld";
-            unweldButton.UseVisualStyleBackColor = true;
-            // 
-            // disconnectButton
-            // 
-            disconnectButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            disconnectButton.Location = new Point(591, 849);
-            disconnectButton.Name = "disconnectButton";
-            disconnectButton.Size = new Size(100, 100);
-            disconnectButton.TabIndex = 4;
-            disconnectButton.Text = "Connect";
-            disconnectButton.UseVisualStyleBackColor = true;
-            // 
-            // connectButton
-            // 
-            connectButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            connectButton.Location = new Point(727, 849);
-            connectButton.Name = "connectButton";
-            connectButton.Size = new Size(100, 100);
-            connectButton.TabIndex = 5;
-            connectButton.Text = "Disconnect";
-            connectButton.UseVisualStyleBackColor = true;
             // 
             // dataGridViewMessages
             // 
@@ -120,8 +55,8 @@
             dataGridViewMessages.Location = new Point(595, 323);
             dataGridViewMessages.Name = "dataGridViewMessages";
             dataGridViewMessages.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewMessages.RowTemplate.Height = 25;
             dataGridViewMessages.Size = new Size(250, 360);
             dataGridViewMessages.TabIndex = 6;
@@ -266,11 +201,26 @@
             tableLayoutPanelButtons.Size = new Size(520, 520);
             tableLayoutPanelButtons.TabIndex = 19;
             // 
+            // actionButtons
+            // 
+            actionButtons.ColumnCount = 1;
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            actionButtons.Location = new Point(44, 849);
+            actionButtons.Margin = new Padding(0);
+            actionButtons.Name = "actionButtons";
+            actionButtons.RowCount = 1;
+            actionButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            actionButtons.Size = new Size(801, 100);
+            actionButtons.TabIndex = 20;
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(actionButtons);
             Controls.Add(tableLayoutPanelButtons);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(testLabel);
@@ -281,12 +231,6 @@
             Controls.Add(tableTask3);
             Controls.Add(listScores);
             Controls.Add(dataGridViewMessages);
-            Controls.Add(connectButton);
-            Controls.Add(disconnectButton);
-            Controls.Add(unweldButton);
-            Controls.Add(weldButton);
-            Controls.Add(rotateButton);
-            Controls.Add(moveButton);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "GameView";
@@ -300,13 +244,6 @@
         }
 
         #endregion
-
-        private Button moveButton;
-        private Button rotateButton;
-        private Button weldButton;
-        private Button unweldButton;
-        private Button disconnectButton;
-        private Button connectButton;
         private DataGridView dataGridViewMessages;
         private DataGridViewTextBoxColumn Robot;
         private DataGridViewImageColumn Message;
@@ -321,5 +258,6 @@
         private Label remaningTimeLabel;
         private ProgressBar remaningTimeBar;
         private TableLayoutPanel tableLayoutPanelButtons;
+        private TableLayoutPanel actionButtons;
     }
 }
