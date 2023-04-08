@@ -46,7 +46,7 @@ namespace RGB.modell
 
         public GameObject GetFieldValue(Int32 x, Int32 y)
         {
-            return field.GetValue(x, y);    //-5 for border size
+            return field.GetValue(x, y);
         }
 
         // TODO doc comment

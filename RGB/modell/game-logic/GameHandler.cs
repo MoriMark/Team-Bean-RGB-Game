@@ -14,6 +14,8 @@ namespace RGB.modell
     {
         private List<Actions> actionsThisTurn;
 
+        public event EventHandler? robotChanged;
+
         public GameRule gameRule { get; private set; }
 
         public GameHandler(Int32 numOfPlayers, Int32 numOfTeams)
@@ -47,6 +49,7 @@ namespace RGB.modell
             {
                 case Actions.Wait:
                     NextRobot();
+                    robotChanged(this, EventArgs.Empty);
                     break;
                 default:
                     break;

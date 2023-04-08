@@ -44,6 +44,10 @@ namespace RGB.View
             setButtonLayout(ButtonLayouts.Default);
             currentLayout = ButtonLayouts.Default;
             currentRobotCoords = new Coordinate();
+
+            //Subscribe to gameHandler events
+            _gameHandler.robotChanged += robotChanged;
+
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
             tableLayoutPanelButtons.ColumnCount = 7;
@@ -178,8 +182,12 @@ namespace RGB.View
             currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
             currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
             remainingTime = 300;
-            _gameHandler.NextRobot();
             refreshViewTable(currentRobotCoords.X, currentRobotCoords.Y);
+        }
+
+        private void robotChanged(object? sender, EventArgs e)
+        {
+            NextRobot();
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
@@ -187,7 +195,7 @@ namespace RGB.View
             remainingTime--;
             if (remainingTime < 0)
             {
-                NextRobot();
+                _gameHandler.NextRobot();
             }
             else
             {
