@@ -20,10 +20,12 @@ namespace RGB.View
         private int[] currentCoords;
         private int numOfPlayers;
         private int numOfTeams;
+        private int tableSize;
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
 
-        private Actions selectedAction;
+        private ButtonLayouts currentLayout;
+        //private Actions selectedAction;
         private GameHandler _gameHandler;
 
         public GameView(int players, int teams)
@@ -34,7 +36,10 @@ namespace RGB.View
             numOfTeams = teams;
             numOfPlayers = players;
             _gameHandler = new GameHandler(players, teams);
+            int totalRobots = players * teams;
+            tableSize = totalRobots * 4;
             setButtonLayout(ButtonLayouts.Default);
+            currentLayout = ButtonLayouts.Default;
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
             tableLayoutPanelButtons.ColumnCount = 7;
@@ -96,10 +101,20 @@ namespace RGB.View
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    GameObject currentTile = _gameHandler.GetCoords(x + (i - 3), y + (j - 3));
+                    TileType type;
+                    if (((x + (i - 3)) >= 5 && (y + (j - 3)) >= 5)
+                        && ((x + (i - 3)) < tableSize + 5 && (y + (j - 3)) < tableSize + 5))
+                    {
+                        type = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3)).TileType();
+                    }
+                    else
+                    {
+                        type = TileType.Wall;
+                    }
+                    
                     _buttons[i,j].Enabled = true;
                     _buttons[i,j].Text = "";
-                    switch (currentTile.TileType())
+                    switch (type)
                     {
                         //draw non Robot and Box types
                         case TileType.Empty:
@@ -178,7 +193,8 @@ namespace RGB.View
         {
             if (sender is GridButton button)
             {
-                testLabel.Text = button.GridX + "," + button.GridY + "\n" + numOfPlayers + "\n" + numOfTeams;
+                testLabel.Text = "Player position\nX: " + _gameHandler.GetCurrentPlayer().i + " Y: " + _gameHandler.GetCurrentPlayer().j
+                                + "\nClicked Tile X: " + (button.GridX + _gameHandler.GetCurrentPlayer().i) + " Y: " + (button.GridY + _gameHandler.GetCurrentPlayer().j);
             }
         }
 
@@ -192,17 +208,32 @@ namespace RGB.View
                 switch (pendingAction)
                 {
                     case Actions.Move:
-                        setButtonLayout(ButtonLayouts.Move);
+                        if (!(currentLayout == ButtonLayouts.Move))
+                        {
+                            setButtonLayout(ButtonLayouts.Move);
+                            currentLayout = ButtonLayouts.Move;
+                        }
                         break;
+
                     case Actions.Rotate:
-                        setButtonLayout(ButtonLayouts.Rotate);
+                        if (!(currentLayout == ButtonLayouts.Rotate))
+                        {
+                            setButtonLayout(ButtonLayouts.Rotate);
+                            currentLayout = ButtonLayouts.Rotate;
+                        }
                         break;
                     case Actions.Cancel:
                         setButtonLayout(ButtonLayouts.Default);
+                        currentLayout = ButtonLayouts.Default;
                         break;
 
                     default:
                         _gameHandler.DoAction(pendingAction);
+                        if (!(currentLayout == ButtonLayouts.Default))
+                        {
+                            setButtonLayout(ButtonLayouts.Default);
+                            currentLayout = ButtonLayouts.Default;
+                        }
                         break;
                 }
             }
@@ -286,10 +317,10 @@ namespace RGB.View
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
 
-                    Button moveUpButton = new ActionButton(Actions.Move);
-                    Button moveDownButton = new ActionButton(Actions.Move);
-                    Button moveLeftButton = new ActionButton(Actions.Move);
-                    Button moveRightButton = new ActionButton(Actions.Move);
+                    Button moveUpButton = new ActionButton(Actions.MoveUp);
+                    Button moveDownButton = new ActionButton(Actions.MoveDown);
+                    Button moveLeftButton = new ActionButton(Actions.MoveLeft);
+                    Button moveRightButton = new ActionButton(Actions.MoveRight);
                     Button cancelMoveButton = new ActionButton(Actions.Cancel);
 
                     moveUpButton.Dock = DockStyle.Fill;
@@ -347,8 +378,8 @@ namespace RGB.View
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
 
-                    Button rotateLeftButton = new ActionButton(Actions.Move);
-                    Button rotateRightButton = new ActionButton(Actions.Move);
+                    Button rotateLeftButton = new ActionButton(Actions.RotateLeft);
+                    Button rotateRightButton = new ActionButton(Actions.RotateRight);
                     Button cancelRotateButton = new ActionButton(Actions.Cancel);
 
                     rotateLeftButton.Dock = DockStyle.Fill;

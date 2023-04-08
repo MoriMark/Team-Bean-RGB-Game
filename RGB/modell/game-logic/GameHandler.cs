@@ -28,9 +28,9 @@ namespace RGB.modell
             return gameRule.CurrentRobot();
         }
 
-        public GameObject GetCoords(Int32 x, Int32 y)
+        public GameObject GetFieldValue(Int32 x, Int32 y)
         {
-            return gameRule.GetCoords(x, y);
+            return gameRule.GetFieldValue(x, y);
         }
         public void DoAction(Actions action)
         {

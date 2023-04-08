@@ -44,9 +44,9 @@ namespace RGB.modell
             robots = field.GenerateField(numOfRobots, numOfTeams);
         }
 
-        public GameObject GetCoords(Int32 x, Int32 y)
+        public GameObject GetFieldValue(Int32 x, Int32 y)
         {
-            return field.GetCoords(x, y);
+            return field.GetValue(x-5, y-5);    //-5 for border size
         }
 
         // TODO doc comment

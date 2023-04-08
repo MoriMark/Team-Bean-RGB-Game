@@ -3,8 +3,9 @@
     "",
     "\\RGB",
     "\\RGB\\modell",
+    "\\RGB\\modell\\game-logic",
     "\\RGB\\View"
   ],
-  "SelectedNode": "\\RGB\\RGB.sln",
+  "SelectedNode": "\\RGB\\modell\\game-logic\\Field.cs",
   "PreviewInSolutionExplorer": false
 }

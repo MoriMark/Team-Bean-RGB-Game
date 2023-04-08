@@ -24,8 +24,6 @@ namespace RGB.modell.game_logic
             field = new GameObject[TableSize + 2*border, TableSize + 2*border];
         }
 
-        public GameObject GetCoords(Int32 x, Int32 y) {  return field[x, y]; }
-
         public GameObject[,] GetField()
         {
             return field;
@@ -83,7 +81,7 @@ namespace RGB.modell.game_logic
                 }
             }
             //Setting boxes
-            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize / 3));
+            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize*2));
             Random RNG = new Random();
             BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
             int x = 0; int y = 0;
@@ -91,7 +89,7 @@ namespace RGB.modell.game_logic
             while (numOfBoxes > 0)
             {
                 
-                if (RNG.Next(100) > 50)
+                if (RNG.Next(100) > 85)
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
                     switch (boxCol) 
@@ -138,7 +136,7 @@ namespace RGB.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                if (RNG.Next(100) > 80)
+                if (RNG.Next(100) > 90)
                 {
                     int current = RNG.Next(0, numOfTeams);
                     Team teamCol = teamColors[current];
