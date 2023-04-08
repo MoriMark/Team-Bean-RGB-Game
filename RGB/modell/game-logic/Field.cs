@@ -89,28 +89,28 @@ namespace RGB.modell.game_logic
             while (numOfBoxes > 0)
             {
                 
-                if (RNG.Next(100) > 85)
+                if (RNG.Next(100) > 85 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
-                    switch (boxCol) 
+                    switch (boxCol)
                     { 
                         case BoxColor.Red:
-                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.RedBox));
+                            SetValue(x, y, new Box(x, y, boxCol, TileType.RedBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Green:
-                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.GreenBox));
+                            SetValue(x, y, new Box(x, y, boxCol, TileType.GreenBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Yellow:
-                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.YellowBox));
+                            SetValue(x, y, new Box(x, y, boxCol, TileType.YellowBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Blue:
-                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.BlueBox));
+                            SetValue(x, y, new Box(x, y, boxCol, TileType.BlueBox));
                             numOfBoxes--;
                             break;
                     }
@@ -139,7 +139,7 @@ namespace RGB.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                if (RNG.Next(100) > 90)
+                if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     int current = RNG.Next(0, numOfTeams);
                     Team teamCol = teamColors[current];
@@ -149,32 +149,32 @@ namespace RGB.modell.game_logic
                         switch (teamCol)
                         {
                             case Team.Red:
-                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.RedRobot);
-                                field[x + border, y + border] = robotAdd;
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot);
+                                SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Green:
-                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.GreenRobot);
-                                field[x + border, y + border] = robotAdd;
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot);
+                                SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Yellow:
-                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.YellowRobot);
-                                field[x + border, y + border] = robotAdd;
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot);
+                                SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Blue:
-                                robotAdd = new Robot(x + border, y + border, Direction.Up, teamCol, TileType.BlueRobot);
-                                field[x + border, y + border] = robotAdd;
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot);
+                                SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
                                 numOfPlayers--;

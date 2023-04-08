@@ -25,6 +25,7 @@ namespace RGB.View
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
 
+        private Coordinate currentRobotCoords;
         private List<Coordinate> selectedTiles;
         private ButtonLayouts currentLayout;
         private Actions selectedAction;
@@ -42,6 +43,7 @@ namespace RGB.View
             selectedTiles = new List<Coordinate>();
             setButtonLayout(ButtonLayouts.Default);
             currentLayout = ButtonLayouts.Default;
+            currentRobotCoords = new Coordinate();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
             tableLayoutPanelButtons.ColumnCount = 7;
@@ -104,8 +106,8 @@ namespace RGB.View
                 for (int j = 0; j < 7; j++)
                 {
                     TileType type;
-                    if (((x + (i - 3)) >= 5 && (y + (j - 3)) >= 5)
-                        && ((x + (i - 3)) <= tableSize + 5 && (y + (j - 3)) <= tableSize + 5))
+                    if ((x + (i - 3) > -1 && y + (j - 3) > -1) && 
+                        (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
                     {
                         type = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3)).TileType();
                     }
@@ -173,9 +175,11 @@ namespace RGB.View
 
         private void NextRobot()
         {
+            currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
+            currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
             remainingTime = 300;
             _gameHandler.NextRobot();
-            refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
+            refreshViewTable(currentRobotCoords.X, currentRobotCoords.Y);
         }
 
         private void roundTimerTick(object? sender, EventArgs e)
