@@ -95,31 +95,34 @@ namespace RGB.modell.game_logic
                     switch (boxCol) 
                     { 
                         case BoxColor.Red:
-                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.RedBox);
+                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.RedBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Green:
-                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.GreenBox);
+                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.GreenBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Yellow:
-                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.YellowBox);
+                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.YellowBox));
                             numOfBoxes--;
                             break;
 
                         case BoxColor.Blue:
-                            field[x + border, y + border] = new Box(x + border, y + border, boxCol, TileType.BlueBox);
+                            SetValue(x, y, new Box(x + border, y + border, boxCol, TileType.BlueBox));
                             numOfBoxes--;
                             break;
                     }
                 }
                 x++;
-                y++;
-                if (x > TableSize || y > TableSize)
+                if (x >= TableSize)
                 {
                     x = 0;
+                    y++;
+                }
+                if (y >= TableSize) 
+                {
                     y = 0;
                 }
             }
@@ -180,10 +183,13 @@ namespace RGB.modell.game_logic
                     }
                 }
                 x++;
-                y++;
-                if (x > TableSize || y > TableSize)
+                if (x >= TableSize)
                 {
                     x = 0;
+                    y++;
+                }
+                if (y >= TableSize)
+                {
                     y = 0;
                 }
             }

@@ -23,6 +23,11 @@ namespace RGB.modell
             gameRule.StartGame();
         }
 
+        public void NextRound()
+        {
+            gameRule.NextRobot();
+        }
+
         public Robot GetCurrentPlayer()
         {
             return gameRule.CurrentRobot();

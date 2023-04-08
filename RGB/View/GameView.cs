@@ -103,7 +103,7 @@ namespace RGB.View
                 {
                     TileType type;
                     if (((x + (i - 3)) >= 5 && (y + (j - 3)) >= 5)
-                        && ((x + (i - 3)) < tableSize + 5 && (y + (j - 3)) < tableSize + 5))
+                        && ((x + (i - 3)) <= tableSize + 5 && (y + (j - 3)) <= tableSize + 5))
                     {
                         type = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3)).TileType();
                     }
@@ -171,7 +171,8 @@ namespace RGB.View
 
         private void nextRound()
         {
-            remainingTime = 300;
+            remainingTime = 20;
+            _gameHandler.NextRound();
             refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
         }
 
