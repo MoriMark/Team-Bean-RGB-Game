@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using RGB.modell.enums;
 using RGB.modell.game_logic;
 using RGB.modell.gameobjects;
+using RGB.modell.structs;
 
 namespace RGB.modell
 {
     public class GameHandler
     {
+        private List<Actions> actionsThisTurn;
+
         public GameRule gameRule { get; private set; }
 
         public GameHandler(Int32 numOfPlayers, Int32 numOfTeams)
         {
             gameRule = new GameRule(numOfPlayers, numOfTeams);
+            actionsThisTurn = new List<Actions>();
         }
 
         public void StartGame()
@@ -23,7 +27,7 @@ namespace RGB.modell
             gameRule.StartGame();
         }
 
-        public void NextRound()
+        public void NextRobot()
         {
             gameRule.NextRobot();
         }
@@ -37,10 +41,16 @@ namespace RGB.modell
         {
             return gameRule.GetFieldValue(x, y);
         }
-        public void DoAction(Actions action)
+        public void AttemptAction(List<Coordinate> coords, Actions action)
         {
-            //TODO
-            //does given action in the game
+            switch (action) 
+            {
+                case Actions.Wait:
+                    NextRobot();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

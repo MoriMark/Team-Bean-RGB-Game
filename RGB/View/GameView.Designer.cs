@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridViewMessages = new DataGridView();
             Robot = new DataGridViewTextBoxColumn();
             Message = new DataGridViewImageColumn();
@@ -44,6 +44,7 @@
             remaningTimeBar = new ProgressBar();
             tableLayoutPanelButtons = new TableLayoutPanel();
             actionButtons = new TableLayoutPanel();
+            alertLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -55,8 +56,8 @@
             dataGridViewMessages.Location = new Point(595, 323);
             dataGridViewMessages.Name = "dataGridViewMessages";
             dataGridViewMessages.RowHeadersWidth = 51;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewMessages.RowTemplate.Height = 25;
             dataGridViewMessages.Size = new Size(250, 360);
             dataGridViewMessages.TabIndex = 6;
@@ -215,11 +216,22 @@
             actionButtons.Size = new Size(801, 100);
             actionButtons.TabIndex = 20;
             // 
+            // alertLabel
+            // 
+            alertLabel.AutoSize = true;
+            alertLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            alertLabel.Location = new Point(396, 29);
+            alertLabel.Name = "alertLabel";
+            alertLabel.Size = new Size(62, 30);
+            alertLabel.TabIndex = 21;
+            alertLabel.Text = "Alert";
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(alertLabel);
             Controls.Add(actionButtons);
             Controls.Add(tableLayoutPanelButtons);
             Controls.Add(tableLayoutPanel1);
@@ -259,5 +271,6 @@
         private ProgressBar remaningTimeBar;
         private TableLayoutPanel tableLayoutPanelButtons;
         private TableLayoutPanel actionButtons;
+        private Label alertLabel;
     }
 }

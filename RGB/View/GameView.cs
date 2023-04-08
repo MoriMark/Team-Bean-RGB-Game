@@ -11,33 +11,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RGB.modell;
+using RGB.modell.structs;
 
 namespace RGB.View
 {
     public partial class GameView : Form
     {
         private GridButton[,] _buttons = null!;
-        private int[] currentCoords;
+        private int selectionsNeeded;
         private int numOfPlayers;
         private int numOfTeams;
         private int tableSize;
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
 
+        private List<Coordinate> selectedTiles;
         private ButtonLayouts currentLayout;
-        //private Actions selectedAction;
+        private Actions selectedAction;
         private GameHandler _gameHandler;
 
         public GameView(int players, int teams)
         {
             InitializeComponent();
             //Set trivial values
-            currentCoords = new int[2]; currentCoords[0] = 0; currentCoords[1] = 0;
             numOfTeams = teams;
             numOfPlayers = players;
             _gameHandler = new GameHandler(players, teams);
             int totalRobots = players * teams;
             tableSize = totalRobots * 4;
+            selectedTiles = new List<Coordinate>();
             setButtonLayout(ButtonLayouts.Default);
             currentLayout = ButtonLayouts.Default;
             //Setting up the grid buttons
@@ -90,7 +92,7 @@ namespace RGB.View
             _timer.Enabled = true;
             //Show Table for the first player
             _gameHandler.StartGame();
-            nextRound();
+            NextRobot();
         }
 
 
@@ -111,9 +113,9 @@ namespace RGB.View
                     {
                         type = TileType.Wall;
                     }
-                    
-                    _buttons[i,j].Enabled = true;
-                    _buttons[i,j].Text = "";
+
+                    _buttons[i, j].Enabled = true;
+                    _buttons[i, j].Text = "";
                     switch (type)
                     {
                         //draw non Robot and Box types
@@ -169,10 +171,10 @@ namespace RGB.View
             }
         }
 
-        private void nextRound()
+        private void NextRobot()
         {
-            remainingTime = 20;
-            _gameHandler.NextRound();
+            remainingTime = 300;
+            _gameHandler.NextRobot();
             refreshViewTable(_gameHandler.GetCurrentPlayer().i, _gameHandler.GetCurrentPlayer().j);
         }
 
@@ -181,19 +183,27 @@ namespace RGB.View
             remainingTime--;
             if (remainingTime < 0)
             {
-                nextRound();
+                NextRobot();
             }
             else
             {
                 remaningTimeBar.Value = remainingTime;
                 remaningTimeLabel.Text = Convert.ToString(Convert.ToInt32(Math.Floor((double)remainingTime / 10))) + "." + remainingTime % 10;
             }
+            updateAlertLabel();
         }
 
         private void GridButton_Click(object? sender, EventArgs e)
         {
             if (sender is GridButton button)
             {
+                if (selectionsNeeded > 0)
+                {
+                    Coordinate coord = new Coordinate(_gameHandler.GetCurrentPlayer().i+button.GridX, button.GridY + _gameHandler.GetCurrentPlayer().j);
+                    selectedTiles.Add(coord);
+                    selectionsNeeded--;
+                }
+
                 testLabel.Text = "Player position\nX: " + _gameHandler.GetCurrentPlayer().i + " Y: " + _gameHandler.GetCurrentPlayer().j
                                 + "\nClicked Tile X: " + (button.GridX + _gameHandler.GetCurrentPlayer().i) + " Y: " + (button.GridY + _gameHandler.GetCurrentPlayer().j);
             }
@@ -202,11 +212,11 @@ namespace RGB.View
         private void actionButton_Click(object? sender, EventArgs e)
         {
             //testLabel.Text = "Action Recieved!";
-            if (sender is  ActionButton abutton) 
-            { 
-                Actions pendingAction = abutton.getAction();
-
-                switch (pendingAction)
+            if (sender is ActionButton abutton)
+            {
+                selectedAction = abutton.getAction();
+                //Actions that only change the buttonlayout
+                switch (selectedAction)
                 {
                     case Actions.Move:
                         if (!(currentLayout == ButtonLayouts.Move))
@@ -224,12 +234,20 @@ namespace RGB.View
                         }
                         break;
                     case Actions.Cancel:
-                        setButtonLayout(ButtonLayouts.Default);
-                        currentLayout = ButtonLayouts.Default;
+                        if (!(currentLayout == ButtonLayouts.Default))
+                        {
+                            setButtonLayout(ButtonLayouts.Default);
+                            currentLayout = ButtonLayouts.Default;
+                        }
                         break;
-
+                    //actions that interact with the field
+                    case Actions.Unweld:
+                        selectedTiles.Clear();
+                        selectionsNeeded = 2;
+                        _gameHandler.AttemptAction(selectedTiles, selectedAction);
+                        break;
                     default:
-                        _gameHandler.DoAction(pendingAction);
+                        _gameHandler.AttemptAction(selectedTiles, selectedAction);
                         if (!(currentLayout == ButtonLayouts.Default))
                         {
                             setButtonLayout(ButtonLayouts.Default);
@@ -246,7 +264,7 @@ namespace RGB.View
             {
                 case ButtonLayouts.Default:
                     actionButtons.Controls.Clear();
-                    actionButtons.ColumnCount = 6;
+                    actionButtons.ColumnCount = 7;
                     actionButtons.RowCount = 1;
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
@@ -257,6 +275,7 @@ namespace RGB.View
                     Button unWeldButton = new ActionButton(Actions.Unweld);
                     Button connectButton = new ActionButton(Actions.Connect);
                     Button disConnectButton = new ActionButton(Actions.Disconnect);
+                    Button waitButton = new ActionButton(Actions.Wait);
 
                     moveButton.Dock = DockStyle.Fill;
                     rotateButton.Dock = DockStyle.Fill;
@@ -264,6 +283,7 @@ namespace RGB.View
                     unWeldButton.Dock = DockStyle.Fill;
                     connectButton.Dock = DockStyle.Fill;
                     disConnectButton.Dock = DockStyle.Fill;
+                    waitButton.Dock = DockStyle.Fill;
 
                     moveButton.BackColor = Color.White;
                     rotateButton.BackColor = Color.White;
@@ -271,6 +291,7 @@ namespace RGB.View
                     unWeldButton.BackColor = Color.White;
                     connectButton.BackColor = Color.White;
                     disConnectButton.BackColor = Color.White;
+                    waitButton.BackColor = Color.White;
 
                     moveButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     rotateButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
@@ -278,6 +299,7 @@ namespace RGB.View
                     unWeldButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     connectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     disConnectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                    waitButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
 
                     moveButton.Text = "Move";
                     rotateButton.Text = "Rotate";
@@ -285,6 +307,7 @@ namespace RGB.View
                     unWeldButton.Text = "Unweld";
                     connectButton.Text = "Connect";
                     disConnectButton.Text = "Disconnect";
+                    waitButton.Text = "Wait";
 
                     moveButton.Click += actionButton_Click;
                     rotateButton.Click += actionButton_Click;
@@ -292,6 +315,7 @@ namespace RGB.View
                     unWeldButton.Click += actionButton_Click;
                     connectButton.Click += actionButton_Click;
                     disConnectButton.Click += actionButton_Click;
+                    waitButton.Click += actionButton_Click;
 
                     actionButtons.Margin = new Padding(0);
                     actionButtons.Padding = new Padding(0);
@@ -303,12 +327,13 @@ namespace RGB.View
                     }
                     actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    actionButtons.Controls.Add(moveButton,          0, 0);
-                    actionButtons.Controls.Add(rotateButton,        1, 0);
-                    actionButtons.Controls.Add(weldButton,          2, 0);
-                    actionButtons.Controls.Add(unWeldButton,        3, 0);
-                    actionButtons.Controls.Add(connectButton,       4, 0);
-                    actionButtons.Controls.Add(disConnectButton,    5, 0);
+                    actionButtons.Controls.Add(moveButton, 0, 0);
+                    actionButtons.Controls.Add(rotateButton, 1, 0);
+                    actionButtons.Controls.Add(weldButton, 2, 0);
+                    actionButtons.Controls.Add(unWeldButton, 3, 0);
+                    actionButtons.Controls.Add(connectButton, 4, 0);
+                    actionButtons.Controls.Add(disConnectButton, 5, 0);
+                    actionButtons.Controls.Add(waitButton, 6, 0);
 
                     break;
                 case ButtonLayouts.Move:
@@ -335,7 +360,7 @@ namespace RGB.View
                     moveLeftButton.BackColor = Color.White;
                     moveRightButton.BackColor = Color.White;
                     cancelMoveButton.BackColor = Color.White;
-                    
+
 
                     moveUpButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     moveDownButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
@@ -418,6 +443,18 @@ namespace RGB.View
                     actionButtons.Controls.Add(cancelRotateButton, 2, 0);
 
                     break;
+            }
+        }
+
+        private void updateAlertLabel()
+        {
+            if (selectionsNeeded > 0)
+            {
+                alertLabel.Text = $"Select {selectionsNeeded} more block(s)";
+            }
+            else
+            {
+                alertLabel.Text = string.Empty;
             }
         }
     }
