@@ -227,3 +227,8 @@ AppPackages/
 /.vs/slnx.sqlite
 /RGB/obj/Debug/net6.0-windows/RGB.assets.cache
 /RGB/obj/Debug/net6.0-windows/RGB.GeneratedMSBuildEditorConfig.editorconfig
+/.vs/team-bean/v17/.wsuo
+/.vs/VSWorkspaceState.json
+/RGB/.vs/RGB/DesignTimeBuild/.dtbcache.v2
+/RGB/.vs/RGB/v17/.suo
+/.vs/team-bean/FileContentIndex/0d9487ae-a6a9-4e15-9bb4-4fef12015916.vsidx

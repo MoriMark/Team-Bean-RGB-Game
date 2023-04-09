@@ -88,7 +88,7 @@ namespace RGB.modell.game_logic
 
             while (numOfBoxes > 0)
             {
-                x = RNG.Next(16); y = RNG.Next(16);   
+                x = RNG.Next(TableSize); y = RNG.Next(TableSize);   
                 if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
@@ -128,7 +128,7 @@ namespace RGB.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                x = RNG.Next(16); y = RNG.Next(16);
+                x = RNG.Next(TableSize); y = RNG.Next(TableSize);
                 if (RNG.Next(100) > 96 && GetValue(x, y).IsEmpty())
                 {
                     int current = RNG.Next(0, numOfTeams);
