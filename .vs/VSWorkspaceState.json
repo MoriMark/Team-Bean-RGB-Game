@@ -3,8 +3,9 @@
     "",
     "\\RGB",
     "\\RGB\\modell",
-    "\\RGB\\modell\\boxlogic"
+    "\\RGB\\modell\\game-logic",
+    "\\RGB\\View"
   ],
-  "SelectedNode": "\\RGB\\modell\\boxlogic\\BoxGroup.cs",
+  "SelectedNode": "\\RGB\\modell\\game-logic\\Field.cs",
   "PreviewInSolutionExplorer": false
 }

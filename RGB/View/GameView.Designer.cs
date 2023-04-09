@@ -28,254 +28,275 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.dataGridViewMessages = new System.Windows.Forms.DataGridView();
-            this.Robot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Message = new System.Windows.Forms.DataGridViewImageColumn();
-            this.listScores = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMessages)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(65, 1132);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 133);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Mozog";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(215, 1132);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 133);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Forog";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(366, 1132);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 133);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Összekapcsol";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(523, 1132);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 133);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Szétkapcsol";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(675, 1132);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 133);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Lekapcsol";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button6.Location = new System.Drawing.Point(831, 1132);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(114, 133);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Felkapcsol";
-            this.button6.UseVisualStyleBackColor = true;
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            dataGridViewMessages = new DataGridView();
+            Robot = new DataGridViewTextBoxColumn();
+            Message = new DataGridViewImageColumn();
+            listScores = new ListBox();
+            tableTask3 = new TableLayoutPanel();
+            tableTask2 = new TableLayoutPanel();
+            tableTask1 = new TableLayoutPanel();
+            sendButton = new Button();
+            button8 = new Button();
+            testLabel = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            remaningTimeLabel = new Label();
+            remaningTimeBar = new ProgressBar();
+            tableLayoutPanelButtons = new TableLayoutPanel();
+            actionButtons = new TableLayoutPanel();
+            alertLabel = new Label();
+            roundLabel = new Label();
+            moveLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // dataGridViewMessages
             // 
-            this.dataGridViewMessages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMessages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Robot,
-            this.Message});
-            this.dataGridViewMessages.Location = new System.Drawing.Point(680, 417);
-            this.dataGridViewMessages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataGridViewMessages.Name = "dataGridViewMessages";
-            this.dataGridViewMessages.RowHeadersWidth = 51;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewMessages.RowTemplate.Height = 25;
-            this.dataGridViewMessages.Size = new System.Drawing.Size(286, 493);
-            this.dataGridViewMessages.TabIndex = 6;
+            dataGridViewMessages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewMessages.Columns.AddRange(new DataGridViewColumn[] { Robot, Message });
+            dataGridViewMessages.Location = new Point(595, 323);
+            dataGridViewMessages.Name = "dataGridViewMessages";
+            dataGridViewMessages.RowHeadersWidth = 51;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewMessages.RowTemplate.Height = 25;
+            dataGridViewMessages.Size = new Size(250, 360);
+            dataGridViewMessages.TabIndex = 6;
             // 
             // Robot
             // 
-            this.Robot.HeaderText = "Robot";
-            this.Robot.MinimumWidth = 6;
-            this.Robot.Name = "Robot";
-            this.Robot.Width = 125;
+            Robot.HeaderText = "Robot";
+            Robot.MinimumWidth = 6;
+            Robot.Name = "Robot";
+            Robot.Width = 125;
             // 
             // Message
             // 
-            this.Message.HeaderText = "Message";
-            this.Message.MinimumWidth = 6;
-            this.Message.Name = "Message";
-            this.Message.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Message.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Message.Width = 125;
+            Message.HeaderText = "Message";
+            Message.MinimumWidth = 6;
+            Message.Name = "Message";
+            Message.Resizable = DataGridViewTriState.True;
+            Message.SortMode = DataGridViewColumnSortMode.Automatic;
+            Message.Width = 125;
             // 
             // listScores
             // 
-            this.listScores.FormattingEnabled = true;
-            this.listScores.ItemHeight = 20;
-            this.listScores.Location = new System.Drawing.Point(680, 919);
-            this.listScores.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listScores.Name = "listScores";
-            this.listScores.Size = new System.Drawing.Size(285, 204);
-            this.listScores.TabIndex = 7;
+            listScores.FormattingEnabled = true;
+            listScores.ItemHeight = 15;
+            listScores.Location = new Point(595, 689);
+            listScores.Name = "listScores";
+            listScores.Size = new Size(250, 154);
+            listScores.TabIndex = 7;
             // 
-            // tableLayoutPanelButtons
+            // tableTask3
             // 
-            this.tableLayoutPanelButtons.ColumnCount = 1;
-            this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelButtons.Location = new System.Drawing.Point(43, 417);
-            this.tableLayoutPanelButtons.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
-            this.tableLayoutPanelButtons.RowCount = 1;
-            this.tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelButtons.Size = new System.Drawing.Size(606, 707);
-            this.tableLayoutPanelButtons.TabIndex = 10;
+            tableTask3.ColumnCount = 2;
+            tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableTask3.Location = new Point(595, 118);
+            tableTask3.Name = "tableTask3";
+            tableTask3.RowCount = 1;
+            tableTask3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableTask3.Size = new Size(250, 150);
+            tableTask3.TabIndex = 11;
             // 
-            // tableLayoutPanel1
+            // tableTask2
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(680, 209);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(286, 200);
-            this.tableLayoutPanel1.TabIndex = 11;
+            tableTask2.ColumnCount = 2;
+            tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableTask2.Location = new Point(320, 118);
+            tableTask2.Name = "tableTask2";
+            tableTask2.RowCount = 1;
+            tableTask2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableTask2.Size = new Size(250, 150);
+            tableTask2.TabIndex = 12;
             // 
-            // tableLayoutPanel2
+            // tableTask1
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(363, 209);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(286, 200);
-            this.tableLayoutPanel2.TabIndex = 12;
+            tableTask1.ColumnCount = 2;
+            tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableTask1.Location = new Point(38, 118);
+            tableTask1.Name = "tableTask1";
+            tableTask1.RowCount = 1;
+            tableTask1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableTask1.Size = new Size(250, 150);
+            tableTask1.TabIndex = 13;
             // 
-            // tableLayoutPanel3
+            // sendButton
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(43, 209);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(286, 200);
-            this.tableLayoutPanel3.TabIndex = 13;
-            // 
-            // button7
-            // 
-            this.button7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button7.Location = new System.Drawing.Point(43, 43);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(114, 133);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Küldés";
-            this.button7.UseVisualStyleBackColor = true;
+            sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            sendButton.Location = new Point(627, 12);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(100, 100);
+            sendButton.TabIndex = 14;
+            sendButton.Text = "Send";
+            sendButton.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button8.Location = new System.Drawing.Point(851, 43);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(114, 133);
-            this.button8.TabIndex = 15;
-            this.button8.Text = "Térkép";
-            this.button8.UseVisualStyleBackColor = true;
+            button8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button8.Location = new Point(745, 12);
+            button8.Name = "button8";
+            button8.Size = new Size(100, 100);
+            button8.TabIndex = 15;
+            button8.Text = "Térkép";
+            button8.UseVisualStyleBackColor = true;
+            // 
+            // testLabel
+            // 
+            testLabel.AutoSize = true;
+            testLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            testLabel.Location = new Point(411, 75);
+            testLabel.Name = "testLabel";
+            testLabel.Size = new Size(31, 17);
+            testLabel.TabIndex = 16;
+            testLabel.Text = "test";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.582089F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.41791F));
+            tableLayoutPanel1.Controls.Add(remaningTimeLabel, 0, 0);
+            tableLayoutPanel1.Controls.Add(remaningTimeBar, 1, 0);
+            tableLayoutPanel1.Location = new Point(41, 274);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(804, 37);
+            tableLayoutPanel1.TabIndex = 18;
+            // 
+            // remaningTimeLabel
+            // 
+            remaningTimeLabel.AutoSize = true;
+            remaningTimeLabel.Dock = DockStyle.Fill;
+            remaningTimeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            remaningTimeLabel.Location = new Point(3, 0);
+            remaningTimeLabel.Name = "remaningTimeLabel";
+            remaningTimeLabel.Size = new Size(63, 37);
+            remaningTimeLabel.TabIndex = 0;
+            remaningTimeLabel.Text = "Time";
+            remaningTimeLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // remaningTimeBar
+            // 
+            remaningTimeBar.Dock = DockStyle.Fill;
+            remaningTimeBar.Location = new Point(72, 3);
+            remaningTimeBar.Maximum = 300;
+            remaningTimeBar.Name = "remaningTimeBar";
+            remaningTimeBar.Size = new Size(729, 31);
+            remaningTimeBar.Step = -1;
+            remaningTimeBar.TabIndex = 1;
+            remaningTimeBar.Value = 300;
+            // 
+            // tableLayoutPanelButtons
+            // 
+            tableLayoutPanelButtons.ColumnCount = 1;
+            tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelButtons.Location = new Point(41, 323);
+            tableLayoutPanelButtons.Margin = new Padding(0);
+            tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
+            tableLayoutPanelButtons.RowCount = 1;
+            tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanelButtons.Size = new Size(520, 520);
+            tableLayoutPanelButtons.TabIndex = 19;
+            // 
+            // actionButtons
+            // 
+            actionButtons.ColumnCount = 1;
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            actionButtons.Location = new Point(44, 849);
+            actionButtons.Margin = new Padding(0);
+            actionButtons.Name = "actionButtons";
+            actionButtons.RowCount = 1;
+            actionButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            actionButtons.Size = new Size(801, 100);
+            actionButtons.TabIndex = 20;
+            // 
+            // alertLabel
+            // 
+            alertLabel.AutoSize = true;
+            alertLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            alertLabel.Location = new Point(396, 29);
+            alertLabel.Name = "alertLabel";
+            alertLabel.Size = new Size(62, 30);
+            alertLabel.TabIndex = 21;
+            alertLabel.Text = "Alert";
+            // 
+            // roundLabel
+            // 
+            roundLabel.AutoSize = true;
+            roundLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            roundLabel.Location = new Point(38, 29);
+            roundLabel.Name = "roundLabel";
+            roundLabel.Size = new Size(57, 21);
+            roundLabel.TabIndex = 22;
+            roundLabel.Text = "Turn 0";
+            // 
+            // moveLabel
+            // 
+            moveLabel.AutoSize = true;
+            moveLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            moveLabel.Location = new Point(38, 52);
+            moveLabel.Name = "moveLabel";
+            moveLabel.Size = new Size(66, 21);
+            moveLabel.TabIndex = 23;
+            moveLabel.Text = "Move 0";
             // 
             // GameView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 1055);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.tableLayoutPanel3);
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.tableLayoutPanelButtons);
-            this.Controls.Add(this.listScores);
-            this.Controls.Add(this.dataGridViewMessages);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximizeBox = false;
-            this.Name = "GameView";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RGB";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMessages)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(884, 961);
+            Controls.Add(moveLabel);
+            Controls.Add(roundLabel);
+            Controls.Add(alertLabel);
+            Controls.Add(actionButtons);
+            Controls.Add(tableLayoutPanelButtons);
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(testLabel);
+            Controls.Add(button8);
+            Controls.Add(sendButton);
+            Controls.Add(tableTask1);
+            Controls.Add(tableTask2);
+            Controls.Add(tableTask3);
+            Controls.Add(listScores);
+            Controls.Add(dataGridViewMessages);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "GameView";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "RGB";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
         private DataGridView dataGridViewMessages;
         private DataGridViewTextBoxColumn Robot;
         private DataGridViewImageColumn Message;
         private ListBox listScores;
-        private TableLayoutPanel tableLayoutPanelButtons;
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
-        private TableLayoutPanel tableLayoutPanel3;
-        private Button button7;
+        private TableLayoutPanel tableTask3;
+        private TableLayoutPanel tableTask2;
+        private TableLayoutPanel tableTask1;
+        private Button sendButton;
         private Button button8;
+        private Label testLabel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label remaningTimeLabel;
+        private ProgressBar remaningTimeBar;
+        private TableLayoutPanel tableLayoutPanelButtons;
+        private TableLayoutPanel actionButtons;
+        private Label alertLabel;
+        private Label roundLabel;
+        private Label moveLabel;
     }
 }

@@ -9,7 +9,7 @@ namespace RGB.modell.gameobjects
     public class Obstacle : GameObject
     {
         private int obstaclelife;
-        public Obstacle(int i, int j, int obstaclelife) : base(i, j)
+        public Obstacle(int i, int j, int obstaclelife) : base(i, j, enums.TileType.Obstacle)
         { 
             this.obstaclelife = obstaclelife;
         }

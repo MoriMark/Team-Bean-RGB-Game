@@ -14,7 +14,7 @@ namespace RGB.modell.gameobjects
         public BoxColor color { get; }
         public int ingroup { get; set; }
         public Team attaching { get; set; }
-        public Box(int i, int j, BoxColor color) : base(i,j)
+        public Box(int i, int j, BoxColor color, TileType type) : base(i,j, type)
         {
             id = staticid;
             staticid++;
