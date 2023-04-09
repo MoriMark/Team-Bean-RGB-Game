@@ -15,9 +15,9 @@ namespace RGB.modell.gameobjects
 
         public Robot(int i, int j, Direction facing, Team team, TileType type) : base(i, j, type)
         { 
-            this.team = team;
             this.facing = facing;
             Attached = null;
+            this.team = team;
         }
 
         public bool IsAttached()

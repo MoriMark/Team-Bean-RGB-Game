@@ -11,7 +11,7 @@ namespace RGB.modell.boxlogic
 {
     public class BoxGroup
     {
-        private int groupid { get; }
+        public int groupid { get; }
         private static int staticgroupid = 0;
         public List<Box> boxes { get; }
         private List<BoxAttachment> boxattachments;
@@ -40,6 +40,30 @@ namespace RGB.modell.boxlogic
             for(int i=0; i<boxes.Count; i++)
             {
                 boxes[i].ingroup = groupid;
+            }
+        }
+
+        public BoxGroup(Box originbox, Box attachbox, BoxGroup group1, BoxGroup group2)
+        {
+            boxes = new List<Box>();
+            boxattachments = new List<BoxAttachment>();
+            staticgroupid++;
+            groupid = staticgroupid;
+            boxes = group1.boxes;
+            for(int i=0; i< boxes.Count; i++)
+            {
+                boxes[i].ingroup = groupid;
+            }
+            boxattachments = group1.boxattachments;
+            boxattachments.Add(new BoxAttachment(originbox, attachbox));
+            for(int i=0;i < group2.boxes.Count; i++)
+            {
+                boxes.Add(group2.boxes[i]);
+                group2.boxes[i].ingroup = groupid;
+            }
+            for(int i=0;i<group2.boxattachments.Count; i++)
+            {
+                boxattachments.Add(group2.boxattachments[i]);
             }
         }
 
