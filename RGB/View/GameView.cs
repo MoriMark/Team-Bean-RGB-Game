@@ -21,6 +21,7 @@ namespace RGB.View
         private int selectionsNeeded;
         private int numOfPlayers;
         private int numOfTeams;
+        private int totalRobots;
         private int tableSize;
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
@@ -38,7 +39,7 @@ namespace RGB.View
             numOfTeams = teams;
             numOfPlayers = players;
             _gameHandler = new GameHandler(players, teams);
-            int totalRobots = players * teams;
+            totalRobots = players * teams;
             tableSize = totalRobots * 4;
             selectedTiles = new List<Coordinate>();
             setButtonLayout(ButtonLayouts.Default);
@@ -110,7 +111,7 @@ namespace RGB.View
                 for (int j = 0; j < 7; j++)
                 {
                     TileType type;
-                    if ((x + (i - 3) > -1 && y + (j - 3) > -1) && 
+                    if ((x + (i - 3) > -1 && y + (j - 3) > -1) &&
                         (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
                     {
                         type = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3)).TileType();
@@ -202,7 +203,7 @@ namespace RGB.View
                 remaningTimeBar.Value = remainingTime;
                 remaningTimeLabel.Text = Convert.ToString(Convert.ToInt32(Math.Floor((double)remainingTime / 10))) + "." + remainingTime % 10;
             }
-            updateAlertLabel();
+            updateLabels();
         }
 
         private void GridButton_Click(object? sender, EventArgs e)
@@ -211,7 +212,7 @@ namespace RGB.View
             {
                 if (selectionsNeeded > 0)
                 {
-                    Coordinate coord = new Coordinate(_gameHandler.GetCurrentPlayer().i+button.GridX, button.GridY + _gameHandler.GetCurrentPlayer().j);
+                    Coordinate coord = new Coordinate(_gameHandler.GetCurrentPlayer().i + button.GridX, button.GridY + _gameHandler.GetCurrentPlayer().j);
                     selectedTiles.Add(coord);
                     selectionsNeeded--;
                 }
@@ -458,7 +459,7 @@ namespace RGB.View
             }
         }
 
-        private void updateAlertLabel()
+        private void updateLabels()
         {
             if (selectionsNeeded > 0)
             {
@@ -468,6 +469,10 @@ namespace RGB.View
             {
                 alertLabel.Text = string.Empty;
             }
+            int rounds = _gameHandler.round;
+            int moves = _gameHandler.move;
+            roundLabel.Text = $"Round {rounds}";
+            moveLabel.Text = $"Move {moves}";
         }
     }
 }

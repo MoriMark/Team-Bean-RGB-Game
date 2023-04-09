@@ -45,6 +45,8 @@
             tableLayoutPanelButtons = new TableLayoutPanel();
             actionButtons = new TableLayoutPanel();
             alertLabel = new Label();
+            roundLabel = new Label();
+            moveLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -126,7 +128,7 @@
             // sendButton
             // 
             sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sendButton.Location = new Point(38, 12);
+            sendButton.Location = new Point(627, 12);
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(100, 100);
             sendButton.TabIndex = 14;
@@ -226,11 +228,33 @@
             alertLabel.TabIndex = 21;
             alertLabel.Text = "Alert";
             // 
+            // roundLabel
+            // 
+            roundLabel.AutoSize = true;
+            roundLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            roundLabel.Location = new Point(38, 29);
+            roundLabel.Name = "roundLabel";
+            roundLabel.Size = new Size(57, 21);
+            roundLabel.TabIndex = 22;
+            roundLabel.Text = "Turn 0";
+            // 
+            // moveLabel
+            // 
+            moveLabel.AutoSize = true;
+            moveLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            moveLabel.Location = new Point(38, 52);
+            moveLabel.Name = "moveLabel";
+            moveLabel.Size = new Size(66, 21);
+            moveLabel.TabIndex = 23;
+            moveLabel.Text = "Move 0";
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(moveLabel);
+            Controls.Add(roundLabel);
             Controls.Add(alertLabel);
             Controls.Add(actionButtons);
             Controls.Add(tableLayoutPanelButtons);
@@ -272,5 +296,7 @@
         private TableLayoutPanel tableLayoutPanelButtons;
         private TableLayoutPanel actionButtons;
         private Label alertLabel;
+        private Label roundLabel;
+        private Label moveLabel;
     }
 }

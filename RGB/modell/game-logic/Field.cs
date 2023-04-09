@@ -81,15 +81,15 @@ namespace RGB.modell.game_logic
                 }
             }
             //Setting boxes
-            Int32 numOfBoxes = Convert.ToInt32(Math.Floor((double)TableSize*2));
+            Int32 numOfBoxes = TableSize;
             Random RNG = new Random();
             BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
-            int x = 0; int y = 0;
+            int x; int y;
 
             while (numOfBoxes > 0)
             {
-                
-                if (RNG.Next(100) > 85 && GetValue(x, y).IsEmpty())
+                x = RNG.Next(16); y = RNG.Next(16);   
+                if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
                     switch (boxCol)
@@ -115,20 +115,9 @@ namespace RGB.modell.game_logic
                             break;
                     }
                 }
-                x++;
-                if (x >= TableSize)
-                {
-                    x = 0;
-                    y++;
-                }
-                if (y >= TableSize) 
-                {
-                    y = 0;
-                }
             }
             //Setting robots
             Int32 numOfPlayers = numOfRobots * numOfTeams;
-            x = 0; y = 0;
             Team[] teamColors = { Team.Red, Team.Blue, Team.Green, Team.Yellow };
             //Each team to have equal amount of robots
             int[] playersNeeded = new int[numOfTeams];
@@ -139,7 +128,8 @@ namespace RGB.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
+                x = RNG.Next(16); y = RNG.Next(16);
+                if (RNG.Next(100) > 96 && GetValue(x, y).IsEmpty())
                 {
                     int current = RNG.Next(0, numOfTeams);
                     Team teamCol = teamColors[current];
@@ -181,16 +171,6 @@ namespace RGB.modell.game_logic
                                 break;
                         }
                     }
-                }
-                x++;
-                if (x >= TableSize)
-                {
-                    x = 0;
-                    y++;
-                }
-                if (y >= TableSize)
-                {
-                    y = 0;
                 }
             }
             return robots;
