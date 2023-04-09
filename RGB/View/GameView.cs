@@ -178,6 +178,7 @@ namespace RGB.View
             }
         }
 
+
         private void NextRobot()
         {
             currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
@@ -196,7 +197,7 @@ namespace RGB.View
             remainingTime--;
             if (remainingTime < 0)
             {
-                _gameHandler.NextRobot();
+                _gameHandler.AttemptAction(selectedTiles, Actions.Wait);
             }
             else
             {

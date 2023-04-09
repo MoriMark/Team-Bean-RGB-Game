@@ -37,11 +37,6 @@ namespace RGB.modell
             gameRule.StartGame();
         }
 
-        public void NextRobot()
-        {
-            gameRule.NextRobot();
-        }
-
         public Robot GetCurrentPlayer()
         {
             return gameRule.CurrentRobot();
