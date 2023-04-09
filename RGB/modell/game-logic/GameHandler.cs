@@ -51,7 +51,7 @@ namespace RGB.modell
             switch (action) 
             {
                 case Actions.Wait:
-                    NextRobot();
+                    gameRule.NextRobot();
                     robotChanged(this, EventArgs.Empty);
                     break;
                 default:
