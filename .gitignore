@@ -224,3 +224,6 @@ AppPackages/
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+/RGB/obj/Debug/net6.0-windows/RGB.assets.cache
+/RGB/obj/Debug/net6.0-windows/RGB.GeneratedMSBuildEditorConfig.editorconfig
+/.vs/slnx.sqlite
