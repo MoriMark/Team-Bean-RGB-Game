@@ -12,7 +12,7 @@ namespace RGB.modell
 {
     public class GameHandler
     {
-        private List<RobotAction> actionsThisTurn;
+        public List<RobotAction> actionsThisTurn;
         public int move { get; set; }
         public int round { get; set; }
         private int numOfPlayers;
@@ -46,11 +46,10 @@ namespace RGB.modell
         {
             return gameRule.GetFieldValue(x, y);
         }
-        public void addAction(List<Coordinate> coords, Actions action)
+        public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
-            actionsThisTurn.Add(new RobotAction(coords, action));
+            actionsThisTurn.Add(new RobotAction(robot, coords, action));
             gameRule.NextRobot();
-            robotChanged(this, EventArgs.Empty);
             move++;
             if (move > (numOfTeams*numOfPlayers))
             {
@@ -58,12 +57,35 @@ namespace RGB.modell
                 round++;
                 resolveActions();
             }
+            robotChanged(this, EventArgs.Empty);
         }
         private void resolveActions()
         {
             foreach(RobotAction action in actionsThisTurn) 
             {
-                
+                Coordinate destination;
+                switch(action.action) 
+                {
+                    case Actions.MoveUp:
+                        destination = new Coordinate(action.robot.i - 1, action.robot.j);
+                        gameRule.MakeStep(destination.X,destination.Y, action.robot);
+                        break;
+
+                    case Actions.MoveDown:
+                        destination = new Coordinate(action.robot.i + 1, action.robot.j);
+                        gameRule.MakeStep(destination.X, destination.Y, action.robot);
+                        break;
+
+                    case Actions.MoveLeft:
+                        destination = new Coordinate(action.robot.i, action.robot.j - 1);
+                        gameRule.MakeStep(destination.X, destination.Y, action.robot);
+                        break;
+
+                    case Actions.MoveRight:
+                        destination = new Coordinate(action.robot.i, action.robot.j + 1);
+                        gameRule.MakeStep(destination.X, destination.Y, action.robot);
+                        break;
+                }
             }
             actionsThisTurn.Clear();
         }

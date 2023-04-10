@@ -251,16 +251,36 @@ namespace RGB.modell
         /// <exception cref="NoActiveGameException"></exception>
         /// <exception cref="GameIsPausedException"></exception>
         /// <exception cref="NotImplementedException"></exception>
-        public void MakeStep(Int32 i, Int32 j)
+        public void MakeStep(Int32 i, Int32 j, Robot robot)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+            bool placeable = false;
+            try
+            {
+                placeable = field.GetValue(i, j).IsEmpty();
+            }
+            catch (Exception e)
+            { 
+                
+            }
 
-            throw new NotImplementedException();
+            if (!((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j))
+                && placeable)
+            {
+                //set empty at robot old location
+                field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                //set robot to the new location
+                field.SetValue(i, j, robot);
+                //tell the robot it's new location
+                robot.i = i;
+                robot.j = j;
 
-            NextRobot();
+
+                NextRobot();
+            }
         }
 
         /// <summary>

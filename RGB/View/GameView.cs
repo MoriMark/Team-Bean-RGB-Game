@@ -283,7 +283,7 @@ namespace RGB.View
             remainingTime--;
             if (remainingTime < 0)
             {
-                _gameHandler.addAction(selectedTiles, Actions.Wait);
+                _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, Actions.Wait);
             }
             else
             {
@@ -342,7 +342,7 @@ namespace RGB.View
                             selectedTiles.Clear();
                         }
                         break;
-                    //actions that interact with the field
+                    //actions that interact with the field and end your turn
                     case Actions.Unweld:
                         if (!(currentLayout == ButtonLayouts.Unwelding))
                         {
@@ -353,13 +353,13 @@ namespace RGB.View
                         }
                         if (selectionsNeeded == 0 && selectedTiles.Count == 2)
                         {
-                            _gameHandler.addAction(selectedTiles, selectedAction);
+                            _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, selectedAction);
                             setButtonLayout(ButtonLayouts.Default);
                             currentLayout= ButtonLayouts.Default;
                         }
                         break;
                     default:
-                        _gameHandler.addAction(selectedTiles, selectedAction);
+                        _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, selectedAction);
                         if (!(currentLayout == ButtonLayouts.Default))
                         {
                             setButtonLayout(ButtonLayouts.Default);
@@ -574,6 +574,7 @@ namespace RGB.View
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";
             moveLabel.Text = $"Move {moves}";
+            testLabel.Text = $"{_gameHandler.actionsThisTurn.Count}\nX: {_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
         }
     }
 }

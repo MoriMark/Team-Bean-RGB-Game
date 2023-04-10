@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RGB.modell.enums;
+using RGB.modell.gameobjects;
 
 namespace RGB.modell.game_logic
 {
@@ -12,11 +13,13 @@ namespace RGB.modell.game_logic
     {
         public List<Coordinate> coordinates;
         public Actions action;
+        public Robot robot;
 
-        public RobotAction(List<Coordinate> coordinates, Actions action) 
+        public RobotAction(Robot robot, List<Coordinate> coordinates, Actions action) 
         {
             this.action = action;
             this.coordinates = coordinates;
+            this.robot = robot;
         }
     }
 }
