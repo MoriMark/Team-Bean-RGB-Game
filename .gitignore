@@ -232,3 +232,7 @@ AppPackages/
 /RGB/.vs/RGB/DesignTimeBuild/.dtbcache.v2
 /RGB/.vs/RGB/v17/.suo
 /.vs/team-bean/FileContentIndex/0d9487ae-a6a9-4e15-9bb4-4fef12015916.vsidx
+/RGB/obj/project.assets.json
+/RGB/obj/project.nuget.cache
+/RGB/obj/RGB.csproj.nuget.dgspec.json
+/RGB/obj/RGB.csproj.nuget.g.props

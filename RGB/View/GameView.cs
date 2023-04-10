@@ -316,8 +316,8 @@ namespace RGB.View
                     selectionsNeeded--;
                 }
 
-                testLabel.Text = "Player position\nX: " + _gameHandler.GetCurrentPlayer().i + " Y: " + _gameHandler.GetCurrentPlayer().j
-                                + "\nClicked Tile X: " + (button.GridX + _gameHandler.GetCurrentPlayer().i) + " Y: " + (button.GridY + _gameHandler.GetCurrentPlayer().j);
+                //testLabel.Text = "Player position\nX: " + _gameHandler.GetCurrentPlayer().i + " Y: " + _gameHandler.GetCurrentPlayer().j
+                //                + "\nClicked Tile X: " + (button.GridX + _gameHandler.GetCurrentPlayer().i) + " Y: " + (button.GridY + _gameHandler.GetCurrentPlayer().j);
             }
         }
 
@@ -609,9 +609,9 @@ namespace RGB.View
             testLabel.Text = string.Empty;
             foreach (RobotAction ra in _gameHandler.actionsThisTurn)
             {
-                testLabel.Text += $"{ra.action.ToString()} ";
+                //testLabel.Text += $"{ra.action.ToString()} ";
             }
-            testLabel.Text += $"\nCurrent position\nX:{_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
+            //testLabel.Text += $"\nCurrent position\nX:{_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
         }
     }
 }
