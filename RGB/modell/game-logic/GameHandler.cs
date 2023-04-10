@@ -64,6 +64,7 @@ namespace RGB.modell
             foreach(RobotAction action in actionsThisTurn) 
             {
                 Coordinate destination;
+                Direction direction;
                 switch(action.action) 
                 {
                     case Actions.MoveUp:
@@ -85,6 +86,42 @@ namespace RGB.modell
                         destination = new Coordinate(action.robot.i, action.robot.j + 1);
                         gameRule.MakeStep(destination.X, destination.Y, action.robot);
                         break;
+
+                    case Actions.RotateLeft:
+                        switch (action.robot.facing)
+                        {
+                            case Direction.Up:
+                                gameRule.MakeTurn(Direction.Left);
+                                break;
+                            case Direction.Down:
+                                gameRule.MakeTurn(Direction.Right);
+                                break;
+                            case Direction.Left:
+                                gameRule.MakeTurn(Direction.Down);
+                                break;
+                            case Direction.Right:
+                                gameRule.MakeTurn(Direction.Up);
+                                break;
+                        }
+                        break;
+
+                    case Actions.RotateRight:
+                        switch (action.robot.facing)
+                        {
+                            case Direction.Up:
+                                gameRule.MakeTurn(Direction.Right);
+                                break;
+                            case Direction.Down:
+                                gameRule.MakeTurn(Direction.Left);
+                                break;
+                            case Direction.Left:
+                                gameRule.MakeTurn(Direction.Up);
+                                break;
+                            case Direction.Right:
+                                gameRule.MakeTurn(Direction.Down);
+                                break;
+                        }
+                    break;
                 }
             }
             actionsThisTurn.Clear();
