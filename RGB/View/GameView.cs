@@ -47,7 +47,7 @@ namespace RGB.View
             currentRobotCoords = new Coordinate();
 
             //Subscribe to gameHandler events
-            _gameHandler.robotChanged += robotChanged;
+            _gameHandler.robotChanged += NextRobot;
 
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
@@ -99,7 +99,7 @@ namespace RGB.View
             _timer.Enabled = true;
             //Show Table for the first player
             _gameHandler.StartGame();
-            NextRobot();
+            NextRobot(null, EventArgs.Empty);
         }
 
 
@@ -114,7 +114,8 @@ namespace RGB.View
                     if ((x + (i - 3) > -1 && y + (j - 3) > -1) &&
                         (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
                     {
-                        type = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3)).TileType();
+                        GameObject currentField = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3));
+                        type = currentField.TileType();
                     }
                     else
                     {
@@ -179,7 +180,7 @@ namespace RGB.View
         }
 
 
-        private void NextRobot()
+        private void NextRobot(object? sender, EventArgs e)
         {
             currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
             currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
@@ -187,17 +188,12 @@ namespace RGB.View
             refreshViewTable(currentRobotCoords.X, currentRobotCoords.Y);
         }
 
-        private void robotChanged(object? sender, EventArgs e)
-        {
-            NextRobot();
-        }
-
         private void roundTimerTick(object? sender, EventArgs e)
         {
             remainingTime--;
             if (remainingTime < 0)
             {
-                _gameHandler.AttemptAction(selectedTiles, Actions.Wait);
+                _gameHandler.addAction(selectedTiles, Actions.Wait);
             }
             else
             {
@@ -258,10 +254,10 @@ namespace RGB.View
                     case Actions.Unweld:
                         selectedTiles.Clear();
                         selectionsNeeded = 2;
-                        _gameHandler.AttemptAction(selectedTiles, selectedAction);
+                        _gameHandler.addAction(selectedTiles, selectedAction);
                         break;
                     default:
-                        _gameHandler.AttemptAction(selectedTiles, selectedAction);
+                        _gameHandler.addAction(selectedTiles, selectedAction);
                         if (!(currentLayout == ButtonLayouts.Default))
                         {
                             setButtonLayout(ButtonLayouts.Default);

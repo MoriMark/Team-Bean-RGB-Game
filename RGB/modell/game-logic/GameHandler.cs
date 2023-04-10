@@ -12,13 +12,13 @@ namespace RGB.modell
 {
     public class GameHandler
     {
-        private List<Actions> actionsThisTurn;
+        private List<RobotAction> actionsThisTurn;
         public int move { get; set; }
         public int round { get; set; }
         private int numOfPlayers;
         private int numOfTeams;
 
-        public event EventHandler? robotChanged;
+        public event EventHandler robotChanged = null!;
 
         public GameRule gameRule { get; private set; }
 
@@ -29,7 +29,7 @@ namespace RGB.modell
             this.numOfPlayers = numOfPlayers;
             this.numOfTeams = numOfTeams;
             gameRule = new GameRule(numOfPlayers, numOfTeams);
-            actionsThisTurn = new List<Actions>();
+            actionsThisTurn = new List<RobotAction>();
         }
 
         public void StartGame()
@@ -46,22 +46,24 @@ namespace RGB.modell
         {
             return gameRule.GetFieldValue(x, y);
         }
-        public void AttemptAction(List<Coordinate> coords, Actions action)
+        public void addAction(List<Coordinate> coords, Actions action)
         {
-            switch (action) 
-            {
-                case Actions.Wait:
-                    gameRule.NextRobot();
-                    robotChanged(this, EventArgs.Empty);
-                    break;
-                default:
-                    break;
-            }
+            actionsThisTurn.Add(new RobotAction(coords, action));
+            gameRule.NextRobot();
+            robotChanged(this, EventArgs.Empty);
             move++;
             if (move > (numOfTeams*numOfPlayers))
             {
                 move = 1;
                 round++;
+                resolveActions();
+            }
+        }
+        private void resolveActions()
+        {
+            foreach(RobotAction action in actionsThisTurn) 
+            {
+                
             }
         }
     }

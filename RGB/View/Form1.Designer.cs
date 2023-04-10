@@ -34,19 +34,21 @@
             numOfTeams = new NumericUpDown();
             label1 = new Label();
             label2 = new Label();
-            tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)numOfRobots).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numOfTeams).BeginInit();
-            tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // buttonGameStart
             // 
             buttonGameStart.Anchor = AnchorStyles.None;
             buttonGameStart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonGameStart.Location = new Point(317, 563);
+            buttonGameStart.Location = new Point(317, 640);
             buttonGameStart.Name = "buttonGameStart";
             buttonGameStart.Size = new Size(250, 50);
             buttonGameStart.TabIndex = 0;
@@ -58,7 +60,7 @@
             // 
             buttonHelp.Anchor = AnchorStyles.Top;
             buttonHelp.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonHelp.Location = new Point(317, 634);
+            buttonHelp.Location = new Point(317, 738);
             buttonHelp.Name = "buttonHelp";
             buttonHelp.Size = new Size(250, 50);
             buttonHelp.TabIndex = 1;
@@ -68,8 +70,9 @@
             // 
             // numOfRobots
             // 
+            numOfRobots.Anchor = AnchorStyles.Left;
             numOfRobots.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numOfRobots.Location = new Point(449, 280);
+            numOfRobots.Location = new Point(486, 35);
             numOfRobots.Margin = new Padding(10);
             numOfRobots.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
             numOfRobots.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -80,9 +83,9 @@
             // 
             // numOfTeams
             // 
-            numOfTeams.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            numOfTeams.Anchor = AnchorStyles.Left;
             numOfTeams.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numOfTeams.Location = new Point(449, 231);
+            numOfTeams.Location = new Point(486, 35);
             numOfTeams.Margin = new Padding(10);
             numOfTeams.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
             numOfTeams.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -93,10 +96,10 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(293, 239);
+            label1.Location = new Point(330, 39);
             label1.Margin = new Padding(10);
             label1.Name = "label1";
             label1.Size = new Size(136, 21);
@@ -105,52 +108,64 @@
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(298, 280);
+            label2.Location = new Point(335, 39);
             label2.Margin = new Padding(10);
             label2.Name = "label2";
             label2.Size = new Size(131, 21);
             label2.TabIndex = 5;
             label2.Text = "Robotok száma:";
             // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(numOfRobots, 1, 1);
-            tableLayoutPanel1.Controls.Add(label2, 0, 1);
-            tableLayoutPanel1.Controls.Add(numOfTeams, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(3, 3);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(878, 540);
-            tableLayoutPanel1.TabIndex = 6;
-            // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(buttonGameStart, 0, 1);
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 0);
-            tableLayoutPanel2.Controls.Add(buttonHelp, 0, 2);
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 1);
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
+            tableLayoutPanel2.Controls.Add(buttonHelp, 0, 3);
+            tableLayoutPanel2.Controls.Add(buttonGameStart, 0, 2);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 3;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 86.41304F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 13.586957F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 329F));
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 52.20949F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 47.79051F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 140F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 225F));
             tableLayoutPanel2.Size = new Size(884, 961);
             tableLayoutPanel2.TabIndex = 7;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2141228F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.7858772F));
+            tableLayoutPanel3.Controls.Add(label1, 0, 0);
+            tableLayoutPanel3.Controls.Add(numOfTeams, 1, 0);
+            tableLayoutPanel3.Dock = DockStyle.Bottom;
+            tableLayoutPanel3.Location = new Point(3, 208);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.Size = new Size(878, 100);
+            tableLayoutPanel3.TabIndex = 8;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2141228F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.7858772F));
+            tableLayoutPanel1.Controls.Add(numOfRobots, 1, 0);
+            tableLayoutPanel1.Controls.Add(label2, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(3, 314);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(878, 100);
+            tableLayoutPanel1.TabIndex = 8;
             // 
             // Form1
             // 
@@ -163,9 +178,11 @@
             Text = "RGB";
             ((System.ComponentModel.ISupportInitialize)numOfRobots).EndInit();
             ((System.ComponentModel.ISupportInitialize)numOfTeams).EndInit();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -177,7 +194,8 @@
         private NumericUpDown numOfTeams;
         private Label label1;
         private Label label2;
-        private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel3;
     }
 }
