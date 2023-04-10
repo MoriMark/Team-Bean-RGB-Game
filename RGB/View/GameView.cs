@@ -73,6 +73,8 @@ namespace RGB.View
                         _buttons[i, j].BackColor = Color.White;
                     }
                     _buttons[i, j].Dock = DockStyle.Fill;
+                    _buttons[i, j].Font = new Font("Segoe UI",12,FontStyle.Bold);
+                    _buttons[i, j].ForeColor = Color.White;
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].Padding = new Padding(0);
                     _buttons[i, j].Margin = new Padding(0);
@@ -110,18 +112,23 @@ namespace RGB.View
             {
                 for (int j = 0; j < 7; j++)
                 {
+                    GameObject currentField = null!;
+                    Robot currentRobot = null!;
                     TileType type;
                     if ((x + (i - 3) > -1 && y + (j - 3) > -1) &&
                         (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
                     {
-                        GameObject currentField = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3));
+                        currentField = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3));
                         type = currentField.TileType();
                     }
                     else
                     {
                         type = TileType.Wall;
                     }
-
+                    if (currentField is Robot)
+                    {
+                        currentRobot = (Robot)currentField;
+                    }
                     _buttons[i, j].Enabled = true;
                     _buttons[i, j].Text = "";
                     switch (type)
@@ -151,20 +158,104 @@ namespace RGB.View
                             break;
                         //draw Robots
                         case TileType.RedRobot:
+                            if (currentRobot != null)
+                            {
+                                Direction d = currentRobot.facing;
+                                switch (d) 
+                                {
+                                    case Direction.Up:
+                                        _buttons[i, j].Text = "A\nI";
+                                        break;
+
+                                    case Direction.Down:
+                                        _buttons[i, j].Text = "I\nV";
+                                        break;
+
+                                    case Direction.Left:
+                                        _buttons[i, j].Text = "<-";
+                                        break;
+
+                                    case Direction.Right:
+                                        _buttons[i, j].Text = "->";
+                                        break;
+                                }
+                            }
                             _buttons[i, j].BackColor = Color.Red;
-                            _buttons[i, j].Text = "R";
                             break;
                         case TileType.BlueRobot:
+                            if (currentRobot != null)
+                            {
+                                Direction d = currentRobot.facing;
+                                switch (d)
+                                {
+                                    case Direction.Up:
+                                        _buttons[i, j].Text = "A\nI";
+                                        break;
+
+                                    case Direction.Down:
+                                        _buttons[i, j].Text = "I\nV";
+                                        break;
+
+                                    case Direction.Left:
+                                        _buttons[i, j].Text = "<-";
+                                        break;
+
+                                    case Direction.Right:
+                                        _buttons[i, j].Text = "->";
+                                        break;
+                                }
+                            }
                             _buttons[i, j].BackColor = Color.Blue;
-                            _buttons[i, j].Text = "R";
                             break;
                         case TileType.GreenRobot:
+                            if (currentRobot != null)
+                            {
+                                Direction d = currentRobot.facing;
+                                switch (d)
+                                {
+                                    case Direction.Up:
+                                        _buttons[i, j].Text = "A\nI";
+                                        break;
+
+                                    case Direction.Down:
+                                        _buttons[i, j].Text = "I\nV";
+                                        break;
+
+                                    case Direction.Left:
+                                        _buttons[i, j].Text = "<-";
+                                        break;
+
+                                    case Direction.Right:
+                                        _buttons[i, j].Text = "->";
+                                        break;
+                                }
+                            }
                             _buttons[i, j].BackColor = Color.Green;
-                            _buttons[i, j].Text = "R";
                             break;
                         case TileType.YellowRobot:
+                            if (currentRobot != null)
+                            {
+                                Direction d = currentRobot.facing;
+                                switch (d)
+                                {
+                                    case Direction.Up:
+                                        _buttons[i, j].Text = "A\nI";
+                                        break;
+
+                                    case Direction.Down:
+                                        _buttons[i, j].Text = "I\nV";
+                                        break;
+
+                                    case Direction.Left:
+                                        _buttons[i, j].Text = "<-";
+                                        break;
+
+                                    case Direction.Right:
+                                        _buttons[i, j].Text = "->";
+                                        break;
+                                }
+                            }
                             _buttons[i, j].BackColor = Color.Yellow;
-                            _buttons[i, j].Text = "R";
                             break;
                     }
 
@@ -178,7 +269,6 @@ namespace RGB.View
                 }
             }
         }
-
 
         private void NextRobot(object? sender, EventArgs e)
         {

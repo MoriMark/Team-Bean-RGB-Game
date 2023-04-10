@@ -65,6 +65,7 @@ namespace RGB.modell
             {
                 
             }
+            actionsThisTurn.Clear();
         }
     }
 }
