@@ -8,6 +8,6 @@ namespace RGB.modell.enums
 {
     public enum ButtonLayouts
     {
-        Default, Move, Rotate
+        Default, Move, Rotate, Unwelding
     }
 }

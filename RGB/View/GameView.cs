@@ -248,13 +248,25 @@ namespace RGB.View
                         {
                             setButtonLayout(ButtonLayouts.Default);
                             currentLayout = ButtonLayouts.Default;
+                            selectionsNeeded = 0;
+                            selectedTiles.Clear();
                         }
                         break;
                     //actions that interact with the field
                     case Actions.Unweld:
-                        selectedTiles.Clear();
-                        selectionsNeeded = 2;
-                        _gameHandler.addAction(selectedTiles, selectedAction);
+                        if (!(currentLayout == ButtonLayouts.Unwelding))
+                        {
+                            selectedTiles.Clear();
+                            selectionsNeeded = 2;
+                            setButtonLayout(ButtonLayouts.Unwelding);
+                            currentLayout = ButtonLayouts.Unwelding;
+                        }
+                        if (selectionsNeeded == 0 && selectedTiles.Count == 2)
+                        {
+                            _gameHandler.addAction(selectedTiles, selectedAction);
+                            setButtonLayout(ButtonLayouts.Default);
+                            currentLayout= ButtonLayouts.Default;
+                        }
                         break;
                     default:
                         _gameHandler.addAction(selectedTiles, selectedAction);
@@ -270,6 +282,96 @@ namespace RGB.View
 
         private void setButtonLayout(ButtonLayouts layout)
         {
+            Button moveButton = new ActionButton(Actions.Move);
+            Button rotateButton = new ActionButton(Actions.Rotate);
+            Button weldButton = new ActionButton(Actions.Weld);
+            Button unWeldButton = new ActionButton(Actions.Unweld);
+            Button connectButton = new ActionButton(Actions.Connect);
+            Button disConnectButton = new ActionButton(Actions.Disconnect);
+            Button waitButton = new ActionButton(Actions.Wait);
+            Button moveUpButton = new ActionButton(Actions.MoveUp);
+            Button moveDownButton = new ActionButton(Actions.MoveDown);
+            Button moveLeftButton = new ActionButton(Actions.MoveLeft);
+            Button moveRightButton = new ActionButton(Actions.MoveRight);
+            Button rotateLeftButton = new ActionButton(Actions.RotateLeft);
+            Button rotateRightButton = new ActionButton(Actions.RotateRight);
+            Button cancelButton = new ActionButton(Actions.Cancel);
+
+            moveButton.Dock = DockStyle.Fill;
+            rotateButton.Dock = DockStyle.Fill;
+            weldButton.Dock = DockStyle.Fill;
+            unWeldButton.Dock = DockStyle.Fill;
+            connectButton.Dock = DockStyle.Fill;
+            disConnectButton.Dock = DockStyle.Fill;
+            waitButton.Dock = DockStyle.Fill;
+            moveUpButton.Dock = DockStyle.Fill;
+            moveDownButton.Dock = DockStyle.Fill;
+            moveLeftButton.Dock = DockStyle.Fill;
+            moveRightButton.Dock = DockStyle.Fill;
+            rotateLeftButton.Dock = DockStyle.Fill;
+            rotateRightButton.Dock = DockStyle.Fill;
+            cancelButton.Dock = DockStyle.Fill;
+
+            moveButton.BackColor = Color.White;
+            rotateButton.BackColor = Color.White;
+            weldButton.BackColor = Color.White;
+            unWeldButton.BackColor = Color.White;
+            connectButton.BackColor = Color.White;
+            disConnectButton.BackColor = Color.White;
+            waitButton.BackColor = Color.White;
+            moveUpButton.BackColor = Color.White;
+            moveDownButton.BackColor = Color.White;
+            moveLeftButton.BackColor = Color.White;
+            moveRightButton.BackColor = Color.White;
+            rotateLeftButton.BackColor = Color.White;
+            rotateRightButton.BackColor = Color.White;
+            cancelButton.BackColor = Color.White;
+
+            moveButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            rotateButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            weldButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            unWeldButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            connectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            disConnectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            waitButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            moveUpButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            moveDownButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            moveLeftButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            moveRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            rotateLeftButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            rotateRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            cancelButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            moveButton.Text = "Move";
+            rotateButton.Text = "Rotate";
+            weldButton.Text = "Weld";
+            unWeldButton.Text = "Unweld";
+            connectButton.Text = "Connect";
+            disConnectButton.Text = "Disconnect";
+            waitButton.Text = "Wait";
+            moveUpButton.Text = "Up";
+            moveDownButton.Text = "Down";
+            moveLeftButton.Text = "Left";
+            moveRightButton.Text = "Right";
+            rotateLeftButton.Text = "Left";
+            rotateRightButton.Text = "Right";
+            cancelButton.Text = "Cancel";
+
+            moveButton.Click += actionButton_Click;
+            rotateButton.Click += actionButton_Click;
+            weldButton.Click += actionButton_Click;
+            unWeldButton.Click += actionButton_Click;
+            connectButton.Click += actionButton_Click;
+            disConnectButton.Click += actionButton_Click;
+            waitButton.Click += actionButton_Click;
+            moveUpButton.Click += actionButton_Click;
+            moveDownButton.Click += actionButton_Click;
+            moveLeftButton.Click += actionButton_Click;
+            moveRightButton.Click += actionButton_Click;
+            rotateLeftButton.Click += actionButton_Click;
+            rotateRightButton.Click += actionButton_Click;
+            cancelButton.Click += actionButton_Click;
+
             switch (layout)
             {
                 case ButtonLayouts.Default:
@@ -278,54 +380,6 @@ namespace RGB.View
                     actionButtons.RowCount = 1;
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
-
-                    Button moveButton = new ActionButton(Actions.Move);
-                    Button rotateButton = new ActionButton(Actions.Rotate);
-                    Button weldButton = new ActionButton(Actions.Weld);
-                    Button unWeldButton = new ActionButton(Actions.Unweld);
-                    Button connectButton = new ActionButton(Actions.Connect);
-                    Button disConnectButton = new ActionButton(Actions.Disconnect);
-                    Button waitButton = new ActionButton(Actions.Wait);
-
-                    moveButton.Dock = DockStyle.Fill;
-                    rotateButton.Dock = DockStyle.Fill;
-                    weldButton.Dock = DockStyle.Fill;
-                    unWeldButton.Dock = DockStyle.Fill;
-                    connectButton.Dock = DockStyle.Fill;
-                    disConnectButton.Dock = DockStyle.Fill;
-                    waitButton.Dock = DockStyle.Fill;
-
-                    moveButton.BackColor = Color.White;
-                    rotateButton.BackColor = Color.White;
-                    weldButton.BackColor = Color.White;
-                    unWeldButton.BackColor = Color.White;
-                    connectButton.BackColor = Color.White;
-                    disConnectButton.BackColor = Color.White;
-                    waitButton.BackColor = Color.White;
-
-                    moveButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    rotateButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    weldButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    unWeldButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    connectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    disConnectButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    waitButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-
-                    moveButton.Text = "Move";
-                    rotateButton.Text = "Rotate";
-                    weldButton.Text = "Weld";
-                    unWeldButton.Text = "Unweld";
-                    connectButton.Text = "Connect";
-                    disConnectButton.Text = "Disconnect";
-                    waitButton.Text = "Wait";
-
-                    moveButton.Click += actionButton_Click;
-                    rotateButton.Click += actionButton_Click;
-                    weldButton.Click += actionButton_Click;
-                    unWeldButton.Click += actionButton_Click;
-                    connectButton.Click += actionButton_Click;
-                    disConnectButton.Click += actionButton_Click;
-                    waitButton.Click += actionButton_Click;
 
                     actionButtons.Margin = new Padding(0);
                     actionButtons.Padding = new Padding(0);
@@ -353,43 +407,6 @@ namespace RGB.View
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
 
-                    Button moveUpButton = new ActionButton(Actions.MoveUp);
-                    Button moveDownButton = new ActionButton(Actions.MoveDown);
-                    Button moveLeftButton = new ActionButton(Actions.MoveLeft);
-                    Button moveRightButton = new ActionButton(Actions.MoveRight);
-                    Button cancelMoveButton = new ActionButton(Actions.Cancel);
-
-                    moveUpButton.Dock = DockStyle.Fill;
-                    moveDownButton.Dock = DockStyle.Fill;
-                    moveLeftButton.Dock = DockStyle.Fill;
-                    moveRightButton.Dock = DockStyle.Fill;
-                    cancelMoveButton.Dock = DockStyle.Fill;
-
-                    moveUpButton.BackColor = Color.White;
-                    moveDownButton.BackColor = Color.White;
-                    moveLeftButton.BackColor = Color.White;
-                    moveRightButton.BackColor = Color.White;
-                    cancelMoveButton.BackColor = Color.White;
-
-
-                    moveUpButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    moveDownButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    moveLeftButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    moveRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    cancelMoveButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-
-                    moveUpButton.Text = "Up";
-                    moveDownButton.Text = "Down";
-                    moveLeftButton.Text = "Left";
-                    moveRightButton.Text = "Right";
-                    cancelMoveButton.Text = "Cancel";
-
-                    moveUpButton.Click += actionButton_Click;
-                    moveDownButton.Click += actionButton_Click;
-                    moveLeftButton.Click += actionButton_Click;
-                    moveRightButton.Click += actionButton_Click;
-                    cancelMoveButton.Click += actionButton_Click;
-
                     actionButtons.Margin = new Padding(0);
                     actionButtons.Padding = new Padding(0);
                     actionButtons.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
@@ -400,11 +417,11 @@ namespace RGB.View
                     }
                     actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    actionButtons.Controls.Add(moveLeftButton, 0, 0);
-                    actionButtons.Controls.Add(moveUpButton, 1, 0);
-                    actionButtons.Controls.Add(moveDownButton, 2, 0);
+                    actionButtons.Controls.Add(moveLeftButton,  0, 0);
+                    actionButtons.Controls.Add(moveUpButton,    1, 0);
+                    actionButtons.Controls.Add(moveDownButton,  2, 0);
                     actionButtons.Controls.Add(moveRightButton, 3, 0);
-                    actionButtons.Controls.Add(cancelMoveButton, 4, 0);
+                    actionButtons.Controls.Add(cancelButton,    4, 0);
 
                     break;
                 case ButtonLayouts.Rotate:
@@ -414,29 +431,27 @@ namespace RGB.View
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
 
-                    Button rotateLeftButton = new ActionButton(Actions.RotateLeft);
-                    Button rotateRightButton = new ActionButton(Actions.RotateRight);
-                    Button cancelRotateButton = new ActionButton(Actions.Cancel);
+                    actionButtons.Margin = new Padding(0);
+                    actionButtons.Padding = new Padding(0);
+                    actionButtons.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
 
-                    rotateLeftButton.Dock = DockStyle.Fill;
-                    rotateRightButton.Dock = DockStyle.Fill;
-                    cancelRotateButton.Dock = DockStyle.Fill;
+                    for (int i = 0; i < actionButtons.ColumnCount; i++)
+                    {
+                        actionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / actionButtons.ColumnCount));
+                    }
+                    actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    rotateLeftButton.BackColor = Color.White;
-                    rotateRightButton.BackColor = Color.White;
-                    cancelRotateButton.BackColor = Color.White;
+                    actionButtons.Controls.Add(rotateLeftButton,    0, 0);
+                    actionButtons.Controls.Add(rotateRightButton,   1, 0);
+                    actionButtons.Controls.Add(cancelButton,        2, 0);
 
-                    rotateLeftButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    rotateRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    cancelRotateButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-
-                    rotateLeftButton.Text = "Left";
-                    rotateRightButton.Text = "Right";
-                    cancelRotateButton.Text = "Cancel";
-
-                    rotateLeftButton.Click += actionButton_Click;
-                    rotateRightButton.Click += actionButton_Click;
-                    cancelRotateButton.Click += actionButton_Click;
+                    break;
+                case ButtonLayouts.Unwelding:
+                    actionButtons.Controls.Clear();
+                    actionButtons.ColumnCount = 2;
+                    actionButtons.RowCount = 1;
+                    actionButtons.RowStyles.Clear();
+                    actionButtons.ColumnStyles.Clear();
 
                     actionButtons.Margin = new Padding(0);
                     actionButtons.Padding = new Padding(0);
@@ -448,9 +463,8 @@ namespace RGB.View
                     }
                     actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    actionButtons.Controls.Add(rotateLeftButton, 0, 0);
-                    actionButtons.Controls.Add(rotateRightButton, 1, 0);
-                    actionButtons.Controls.Add(cancelRotateButton, 2, 0);
+                    actionButtons.Controls.Add(unWeldButton, 0, 0);
+                    actionButtons.Controls.Add(cancelButton, 1, 0);
 
                     break;
             }
