@@ -10,6 +10,7 @@ namespace RGB.modell.gameobjects
     public class Box : GameObject
     {
         public int id { get; }
+        public int health { get; set; }
         private static int staticid = 0;
         public BoxColor color { get; }
         public int ingroup { get; set; }
@@ -20,6 +21,8 @@ namespace RGB.modell.gameobjects
             staticid++;
             this.color = color;
             ingroup = 0;
+            Random RNG = new Random();
+            health = RNG.Next(1,5);
         }
 
     }

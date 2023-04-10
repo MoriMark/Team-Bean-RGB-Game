@@ -323,6 +323,7 @@ namespace RGB.View
                         {
                             setButtonLayout(ButtonLayouts.Move);
                             currentLayout = ButtonLayouts.Move;
+                            selectedAction = Actions.None;
                         }
                         break;
 
@@ -331,6 +332,7 @@ namespace RGB.View
                         {
                             setButtonLayout(ButtonLayouts.Rotate);
                             currentLayout = ButtonLayouts.Rotate;
+                            selectedAction = Actions.None;
                         }
                         break;
                     case Actions.Cancel:
@@ -340,6 +342,7 @@ namespace RGB.View
                             currentLayout = ButtonLayouts.Default;
                             selectionsNeeded = 0;
                             selectedTiles.Clear();
+                            selectedAction = Actions.None;
                         }
                         break;
                     //actions that interact with the field and end your turn
@@ -353,9 +356,11 @@ namespace RGB.View
                         }
                         if (selectionsNeeded == 0 && selectedTiles.Count == 2)
                         {
+                            alertLabel.Text = "Ready to Unweld!";
                             _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, selectedAction);
                             setButtonLayout(ButtonLayouts.Default);
                             currentLayout= ButtonLayouts.Default;
+                            selectedAction = Actions.None;
                         }
                         break;
                     default:
@@ -365,6 +370,7 @@ namespace RGB.View
                             setButtonLayout(ButtonLayouts.Default);
                             currentLayout = ButtonLayouts.Default;
                         }
+                        selectedAction = Actions.None;
                         break;
                 }
             }
@@ -385,6 +391,7 @@ namespace RGB.View
             Button moveRightButton = new ActionButton(Actions.MoveRight);
             Button rotateLeftButton = new ActionButton(Actions.RotateLeft);
             Button rotateRightButton = new ActionButton(Actions.RotateRight);
+            Button cleanButton = new ActionButton(Actions.Clean);
             Button cancelButton = new ActionButton(Actions.Cancel);
 
             moveButton.Dock = DockStyle.Fill;
@@ -400,6 +407,7 @@ namespace RGB.View
             moveRightButton.Dock = DockStyle.Fill;
             rotateLeftButton.Dock = DockStyle.Fill;
             rotateRightButton.Dock = DockStyle.Fill;
+            cleanButton.Dock = DockStyle.Fill;
             cancelButton.Dock = DockStyle.Fill;
 
             moveButton.BackColor = Color.White;
@@ -415,6 +423,7 @@ namespace RGB.View
             moveRightButton.BackColor = Color.White;
             rotateLeftButton.BackColor = Color.White;
             rotateRightButton.BackColor = Color.White;
+            cleanButton.BackColor = Color.White;
             cancelButton.BackColor = Color.White;
 
             moveButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
@@ -430,6 +439,7 @@ namespace RGB.View
             moveRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             rotateLeftButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             rotateRightButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            cleanButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             cancelButton.Font = new Font("Segoe UI", 12, FontStyle.Bold);
 
             moveButton.Text = "Move";
@@ -445,6 +455,7 @@ namespace RGB.View
             moveRightButton.Text = "Right";
             rotateLeftButton.Text = "Left";
             rotateRightButton.Text = "Right";
+            cleanButton.Text = "Clean";
             cancelButton.Text = "Cancel";
 
             moveButton.Click += actionButton_Click;
@@ -460,13 +471,14 @@ namespace RGB.View
             moveRightButton.Click += actionButton_Click;
             rotateLeftButton.Click += actionButton_Click;
             rotateRightButton.Click += actionButton_Click;
+            cleanButton.Click += actionButton_Click;
             cancelButton.Click += actionButton_Click;
 
             switch (layout)
             {
                 case ButtonLayouts.Default:
                     actionButtons.Controls.Clear();
-                    actionButtons.ColumnCount = 7;
+                    actionButtons.ColumnCount = 8;
                     actionButtons.RowCount = 1;
                     actionButtons.RowStyles.Clear();
                     actionButtons.ColumnStyles.Clear();
@@ -487,7 +499,8 @@ namespace RGB.View
                     actionButtons.Controls.Add(unWeldButton, 3, 0);
                     actionButtons.Controls.Add(connectButton, 4, 0);
                     actionButtons.Controls.Add(disConnectButton, 5, 0);
-                    actionButtons.Controls.Add(waitButton, 6, 0);
+                    actionButtons.Controls.Add(cleanButton, 6, 0);
+                    actionButtons.Controls.Add(waitButton, 7, 0);
 
                     break;
                 case ButtonLayouts.Move:
@@ -568,7 +581,14 @@ namespace RGB.View
             }
             else
             {
-                alertLabel.Text = string.Empty;
+                if (selectedAction == Actions.Unweld)
+                {
+                    alertLabel.Text = "Ready to unweld!";
+                }
+                else
+                {
+                    alertLabel.Text = string.Empty;
+                }
             }
             int rounds = _gameHandler.round;
             int moves = _gameHandler.move;

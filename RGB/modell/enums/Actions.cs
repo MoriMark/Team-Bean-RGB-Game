@@ -13,6 +13,8 @@ namespace RGB.modell.enums
         Weld, Unweld,
         Connect, Disconnect,
         Wait,
-        Cancel
+        Clean,
+        Cancel,
+        None
     }
 }
