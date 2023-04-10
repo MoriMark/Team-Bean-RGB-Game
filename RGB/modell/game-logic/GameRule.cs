@@ -306,14 +306,16 @@ namespace RGB.modell
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public Boolean Clean()
+        public void Clean(Robot robot)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+
 
             NextRobot();
         }

@@ -114,6 +114,7 @@ namespace RGB.View
                 {
                     GameObject currentField = null!;
                     Robot currentRobot = null!;
+                    Box currentBox = null!;
                     TileType type;
                     if ((x + (i - 3) > -1 && y + (j - 3) > -1) &&
                         (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
@@ -129,8 +130,13 @@ namespace RGB.View
                     {
                         currentRobot = (Robot)currentField;
                     }
+                    else if (currentField is Box)
+                    {
+                        currentBox = (Box)currentField;
+                    }
                     _buttons[i, j].Enabled = true;
                     _buttons[i, j].Text = "";
+                    _buttons[i, j].ForeColor = Color.White;
                     switch (type)
                     {
                         //draw non Robot and Box types
@@ -145,15 +151,20 @@ namespace RGB.View
                             break;
                         //draw Boxes
                         case TileType.RedBox:
+                            _buttons[i, j].Text = $"{currentBox.health}";
                             _buttons[i, j].BackColor = Color.Red;
                             break;
                         case TileType.BlueBox:
+                            _buttons[i, j].Text = $"{currentBox.health}";
                             _buttons[i, j].BackColor = Color.Blue;
                             break;
                         case TileType.YellowBox:
+                            _buttons[i, j].Text = $"{currentBox.health}";
                             _buttons[i, j].BackColor = Color.Yellow;
+                            _buttons[i, j].ForeColor = Color.Black;
                             break;
                         case TileType.GreenBox:
+                            _buttons[i, j].Text = $"{currentBox.health}";
                             _buttons[i, j].BackColor = Color.Green;
                             break;
                         //draw Robots

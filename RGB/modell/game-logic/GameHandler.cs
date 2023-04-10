@@ -122,6 +122,10 @@ namespace RGB.modell
                                 break;
                         }
                     break;
+
+                    case Actions.Clean:
+                        gameRule.Clean(action.robot);
+                        break;
                 }
             }
             actionsThisTurn.Clear();
