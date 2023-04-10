@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RGB.modell;
 using RGB.modell.structs;
+using RGB.modell.game_logic;
 
 namespace RGB.View
 {
@@ -605,7 +606,12 @@ namespace RGB.View
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";
             moveLabel.Text = $"Move {moves}";
-            testLabel.Text = $"{_gameHandler.actionsThisTurn.Count}\nX: {_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
+            testLabel.Text = string.Empty;
+            foreach (RobotAction ra in _gameHandler.actionsThisTurn)
+            {
+                testLabel.Text += $"{ra.action.ToString()} ";
+            }
+            testLabel.Text += $"\nCurrent position\nX:{_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
         }
     }
 }

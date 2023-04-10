@@ -59,6 +59,7 @@ namespace RGB.modell
             }
             robotChanged(this, EventArgs.Empty);
         }
+
         private void resolveActions()
         {
             foreach(RobotAction action in actionsThisTurn) 
@@ -125,6 +126,17 @@ namespace RGB.modell
 
                     case Actions.Clean:
                         gameRule.Clean(action.robot);
+                        break;
+
+                    case Actions.Wait:
+                        gameRule.Pass();
+                        break;
+                    case Actions.Unweld:
+                        if (action.coordinates.Count == 2)
+                        {
+                            gameRule.UnWeld(action.coordinates[0].X, action.coordinates[0].Y,
+                                action.coordinates[1].X, action.coordinates[1].Y);
+                        }
                         break;
                 }
             }
