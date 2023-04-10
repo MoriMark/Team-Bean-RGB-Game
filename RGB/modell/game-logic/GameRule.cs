@@ -4,6 +4,7 @@ using RGB.modell.events;
 using RGB.modell.exceptions;
 using RGB.modell.game_logic;
 using RGB.modell.gameobjects;
+using RGB.modell.structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -315,8 +316,63 @@ namespace RGB.modell
 
             //throw new NotImplementedException();
 
+            //Getting the coordinate to be cleaned
+            Coordinate cleaning;
+            switch(robot.facing)
+            {
+                case Direction.Up:
+                    if (robot.i - 1 < 0)
+                    {
+                        cleaning = new Coordinate(-1, -1);
+                        break;
+                    }
+                    cleaning = new Coordinate(robot.i - 1, robot.j);
+                    break;
+                case Direction.Down:
+                    if (robot.i + 1 >= field.TableSize)
+                    {
+                        cleaning = new Coordinate(-1, -1);
+                        break;
+                    }
+                    cleaning = new Coordinate(robot.i + 1, robot.j);
+                    break;
+                case Direction.Left:
+                    if (robot.j - 1 < 0)
+                    {
+                        cleaning = new Coordinate(-1, -1);
+                        break;
+                    }
+                    cleaning = new Coordinate(robot.i, robot.j - 1);
+                    break;
+                case Direction.Right:
+                    if (robot.j + 1 >= field.TableSize)
+                    {
+                        cleaning = new Coordinate(-1, -1);
+                        break;
+                    }
+                    cleaning = new Coordinate(robot.i, robot.j + 1);
+                    break;
+                default:
+                    cleaning = new Coordinate(-1,-1);
+                    break;
+            }
 
+            if (cleaning.X == -1 ||  cleaning.Y == -1)
+                { return;}
 
+            if (field.GetValue(cleaning.X, cleaning.Y) is Box)
+            {
+                Box cleaningBox = (Box)field.GetValue(cleaning.X, cleaning.Y);
+                cleaningBox.health--;
+                if (cleaningBox.health <= 0)
+                {
+                    field.SetValue(cleaning.X, cleaning.Y, new Empty(cleaning.X, cleaning.Y));
+                }
+                else
+                {
+                    field.SetValue(cleaning.X, cleaning.Y, cleaningBox);
+                }
+            }
             NextRobot();
         }
 
