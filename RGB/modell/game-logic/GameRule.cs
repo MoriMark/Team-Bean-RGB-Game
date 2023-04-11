@@ -280,8 +280,9 @@ namespace RGB.modell
                 robot.j = j;
 
 
-                NextRobot();
             }
+
+            NextRobot();
         }
 
         /// <summary>
