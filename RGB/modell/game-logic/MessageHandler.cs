@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Message = RGB.modell.structs.Message;
+
 namespace RGB.modell
 {
     public class MessageHandler
     {
         private List<Message> messages;
-
+        
         public MessageHandler()
         {
             messages = new List<Message>();
