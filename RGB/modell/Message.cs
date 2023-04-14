@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RGB.modell
 {
-    public class Message
+    public struct Message
     {
         public readonly Robot robot;
         public readonly Symbol symbol;
