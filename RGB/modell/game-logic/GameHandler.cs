@@ -22,6 +22,8 @@ namespace RGB.modell
 
         public GameRule gameRule { get; private set; }
 
+        public MessageHandler messageHandler { get; private set; }
+
         public GameHandler(Int32 numOfPlayers, Int32 numOfTeams)
         {
             move = 1;
@@ -30,6 +32,7 @@ namespace RGB.modell
             this.numOfTeams = numOfTeams;
             gameRule = new GameRule(numOfPlayers, numOfTeams);
             actionsThisTurn = new List<RobotAction>();
+            messageHandler = new MessageHandler();
         }
 
         public void StartGame()
