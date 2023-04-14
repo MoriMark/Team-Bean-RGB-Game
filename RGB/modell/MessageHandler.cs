@@ -37,6 +37,11 @@ namespace RGB.modell
             messages.RemoveAll(m => m.robot == robot);
         }
 
+        /// <summary>
+        /// Deletes the n oldest messages of a robot.
+        /// </summary>
+        /// <param name="robot">The robot whose messages will be deleted.</param>
+        /// <param name="n">Maximum number of messages to be deleted.</param>
         public void DeleteMessagesOfRobot(Robot robot, Int32 n)
         {
             messages.Reverse();
