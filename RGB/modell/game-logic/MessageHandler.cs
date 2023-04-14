@@ -1,5 +1,6 @@
 ﻿using RGB.modell.enums;
 using RGB.modell.gameobjects;
+using RGB.modell.structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

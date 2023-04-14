@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RGB.modell
+namespace RGB.modell.structs
 {
     public struct Message
     {
