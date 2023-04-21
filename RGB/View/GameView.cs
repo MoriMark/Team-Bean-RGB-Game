@@ -27,6 +27,7 @@ namespace RGB.View
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
 
+        private Symbol selectedSymbol;
         private Coordinate currentRobotCoords;
         private List<Coordinate> selectedTiles;
         private ButtonLayouts currentLayout;
@@ -46,10 +47,11 @@ namespace RGB.View
             setButtonLayout(ButtonLayouts.Default);
             currentLayout = ButtonLayouts.Default;
             currentRobotCoords = new Coordinate();
+            selectedSymbol = Symbol.None;
 
             //Subscribe to gameHandler events
             _gameHandler.robotChanged += NextRobot;
-
+            setUpSymbolButtons();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
             tableLayoutPanelButtons.ColumnCount = 7;
@@ -74,7 +76,7 @@ namespace RGB.View
                         _buttons[i, j].BackColor = Color.White;
                     }
                     _buttons[i, j].Dock = DockStyle.Fill;
-                    _buttons[i, j].Font = new Font("Segoe UI",12,FontStyle.Bold);
+                    _buttons[i, j].Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     _buttons[i, j].ForeColor = Color.White;
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].Padding = new Padding(0);
@@ -105,7 +107,93 @@ namespace RGB.View
             NextRobot(null, EventArgs.Empty);
         }
 
+        private void setUpSymbolButtons()
+        {
+            SymbolButton upButton = new SymbolButton(Symbol.GoUp);
+            SymbolButton downButton = new SymbolButton(Symbol.GoDown);
+            SymbolButton leftButton = new SymbolButton(Symbol.GoLeft);
+            SymbolButton rightButton = new SymbolButton(Symbol.GoRight);
+            SymbolButton givingBoxButton = new SymbolButton(Symbol.GivingBoxToYou);
+            SymbolButton givingCaravanButton = new SymbolButton(Symbol.GivingCaravanToYou);
+            SymbolButton askForBoxesButton = new SymbolButton(Symbol.ObligateItFromYou);
+            SymbolButton smileyButton = new SymbolButton(Symbol.Smiley);
+            SymbolButton gloomyButton = new SymbolButton(Symbol.Gloomy);
+            SymbolButton delightedButton = new SymbolButton(Symbol.Delighted);
+            SymbolButton authButton = new SymbolButton(Symbol.Authorative);
+            SymbolButton taskOneButton = new SymbolButton(Symbol.Task1);
+            SymbolButton taskTwoButton = new SymbolButton(Symbol.Task2);
+            SymbolButton taskThreeButton = new SymbolButton(Symbol.Task3);
 
+            upButton.Dock = DockStyle.Fill;
+            downButton.Dock = DockStyle.Fill;
+            leftButton.Dock = DockStyle.Fill;
+            rightButton.Dock = DockStyle.Fill;
+            givingBoxButton.Dock = DockStyle.Fill;
+            givingCaravanButton.Dock = DockStyle.Fill;
+            askForBoxesButton.Dock = DockStyle.Fill;
+            smileyButton.Dock = DockStyle.Fill;
+            gloomyButton.Dock = DockStyle.Fill;
+            delightedButton.Dock = DockStyle.Fill;
+            authButton.Dock = DockStyle.Fill;
+            taskOneButton.Dock = DockStyle.Fill;
+            taskTwoButton.Dock = DockStyle.Fill;
+            taskThreeButton.Dock = DockStyle.Fill;
+
+            upButton.Click += SymbolButton_Click;
+            downButton.Click += SymbolButton_Click;
+            leftButton.Click += SymbolButton_Click;
+            rightButton.Click += SymbolButton_Click;
+            givingBoxButton.Click += SymbolButton_Click;
+            givingCaravanButton.Click += SymbolButton_Click;
+            askForBoxesButton.Click += SymbolButton_Click;
+            smileyButton.Click += SymbolButton_Click;
+            gloomyButton.Click += SymbolButton_Click;
+            delightedButton.Click += SymbolButton_Click;
+            authButton.Click += SymbolButton_Click;
+            taskOneButton.Click += SymbolButton_Click;
+            taskTwoButton.Click += SymbolButton_Click;
+            taskThreeButton.Click += SymbolButton_Click;
+
+            symbolLayoutPanel.RowCount = 2;
+            symbolLayoutPanel.ColumnCount = 7;
+            symbolLayoutPanel.RowStyles.Clear();
+            symbolLayoutPanel.ColumnStyles.Clear();
+
+            symbolLayoutPanel.Margin = new Padding(0);
+            symbolLayoutPanel.Padding = new Padding(0);
+            symbolLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+
+            for (int i = 0; i < symbolLayoutPanel.ColumnCount; i++)
+            {
+                symbolLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / symbolLayoutPanel.ColumnCount));
+            }
+            for (int i = 0; i < symbolLayoutPanel.RowCount; i++)
+            {
+                symbolLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / symbolLayoutPanel.RowCount));
+            }
+
+            symbolLayoutPanel.Controls.Add(upButton, 0, 0);
+            symbolLayoutPanel.Controls.Add(downButton, 1, 0);
+            symbolLayoutPanel.Controls.Add(leftButton, 2, 0);
+            symbolLayoutPanel.Controls.Add(rightButton, 3, 0);
+            symbolLayoutPanel.Controls.Add(givingBoxButton, 4, 0);
+            symbolLayoutPanel.Controls.Add(givingCaravanButton, 5, 0);
+            symbolLayoutPanel.Controls.Add(askForBoxesButton, 6, 0);
+            symbolLayoutPanel.Controls.Add(smileyButton, 0, 1);
+            symbolLayoutPanel.Controls.Add(gloomyButton, 1, 1);
+            symbolLayoutPanel.Controls.Add(delightedButton, 2, 1);
+            symbolLayoutPanel.Controls.Add(authButton, 3, 1);
+            symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
+            symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
+            symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
+
+
+        }
+
+        private void AskForBoxesButton_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void refreshViewTable(Int32 x, Int32 y)
         {
@@ -173,7 +261,7 @@ namespace RGB.View
                             if (currentRobot != null)
                             {
                                 Direction d = currentRobot.facing;
-                                switch (d) 
+                                switch (d)
                                 {
                                     case Direction.Up:
                                         _buttons[i, j].Text = "A\nI";
@@ -295,7 +383,7 @@ namespace RGB.View
             remainingTime--;
             if (remainingTime < 0)
             {
-                _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, Actions.Wait);
+                _gameHandler.addAction(_gameHandler.GetCurrentPlayer(), selectedTiles, Actions.Wait);
             }
             else
             {
@@ -369,14 +457,14 @@ namespace RGB.View
                         if (selectionsNeeded == 0 && selectedTiles.Count == 2)
                         {
                             alertLabel.Text = "Ready to Unweld!";
-                            _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, selectedAction);
+                            _gameHandler.addAction(_gameHandler.GetCurrentPlayer(), selectedTiles, selectedAction);
                             setButtonLayout(ButtonLayouts.Default);
-                            currentLayout= ButtonLayouts.Default;
+                            currentLayout = ButtonLayouts.Default;
                             selectedAction = Actions.None;
                         }
                         break;
                     default:
-                        _gameHandler.addAction(_gameHandler.GetCurrentPlayer(),selectedTiles, selectedAction);
+                        _gameHandler.addAction(_gameHandler.GetCurrentPlayer(), selectedTiles, selectedAction);
                         if (!(currentLayout == ButtonLayouts.Default))
                         {
                             setButtonLayout(ButtonLayouts.Default);
@@ -385,6 +473,15 @@ namespace RGB.View
                         selectedAction = Actions.None;
                         break;
                 }
+            }
+        }
+
+        private void SymbolButton_Click(object? sender, EventArgs e)
+        {
+            if (sender is SymbolButton)
+            {
+                SymbolButton symbolButton = (SymbolButton)sender;
+                testLabel.Text = symbolButton.symbol.ToString();
             }
         }
 
@@ -532,11 +629,11 @@ namespace RGB.View
                     }
                     actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    actionButtons.Controls.Add(moveLeftButton,  0, 0);
-                    actionButtons.Controls.Add(moveUpButton,    1, 0);
-                    actionButtons.Controls.Add(moveDownButton,  2, 0);
+                    actionButtons.Controls.Add(moveLeftButton, 0, 0);
+                    actionButtons.Controls.Add(moveUpButton, 1, 0);
+                    actionButtons.Controls.Add(moveDownButton, 2, 0);
                     actionButtons.Controls.Add(moveRightButton, 3, 0);
-                    actionButtons.Controls.Add(cancelButton,    4, 0);
+                    actionButtons.Controls.Add(cancelButton, 4, 0);
 
                     break;
                 case ButtonLayouts.Rotate:
@@ -556,9 +653,9 @@ namespace RGB.View
                     }
                     actionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-                    actionButtons.Controls.Add(rotateLeftButton,    0, 0);
-                    actionButtons.Controls.Add(rotateRightButton,   1, 0);
-                    actionButtons.Controls.Add(cancelButton,        2, 0);
+                    actionButtons.Controls.Add(rotateLeftButton, 0, 0);
+                    actionButtons.Controls.Add(rotateRightButton, 1, 0);
+                    actionButtons.Controls.Add(cancelButton, 2, 0);
 
                     break;
                 case ButtonLayouts.Unwelding:

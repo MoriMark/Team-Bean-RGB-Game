@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            dataGridViewMessages = new DataGridView();
-            Robot = new DataGridViewTextBoxColumn();
-            Message = new DataGridViewImageColumn();
             listScores = new ListBox();
             tableTask3 = new TableLayoutPanel();
             tableTask2 = new TableLayoutPanel();
@@ -47,38 +43,12 @@
             alertLabel = new Label();
             roundLabel = new Label();
             moveLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).BeginInit();
+            messageLayoutPanel = new TableLayoutPanel();
+            alertAndSymbols = new TableLayoutPanel();
+            symbolLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
+            alertAndSymbols.SuspendLayout();
             SuspendLayout();
-            // 
-            // dataGridViewMessages
-            // 
-            dataGridViewMessages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMessages.Columns.AddRange(new DataGridViewColumn[] { Robot, Message });
-            dataGridViewMessages.Location = new Point(595, 323);
-            dataGridViewMessages.Name = "dataGridViewMessages";
-            dataGridViewMessages.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMessages.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewMessages.RowTemplate.Height = 25;
-            dataGridViewMessages.Size = new Size(250, 360);
-            dataGridViewMessages.TabIndex = 6;
-            // 
-            // Robot
-            // 
-            Robot.HeaderText = "Robot";
-            Robot.MinimumWidth = 6;
-            Robot.Name = "Robot";
-            Robot.Width = 125;
-            // 
-            // Message
-            // 
-            Message.HeaderText = "Message";
-            Message.MinimumWidth = 6;
-            Message.Name = "Message";
-            Message.Resizable = DataGridViewTriState.True;
-            Message.SortMode = DataGridViewColumnSortMode.Automatic;
-            Message.Width = 125;
             // 
             // listScores
             // 
@@ -94,11 +64,11 @@
             tableTask3.ColumnCount = 2;
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask3.Location = new Point(595, 118);
+            tableTask3.Location = new Point(642, 168);
             tableTask3.Name = "tableTask3";
             tableTask3.RowCount = 1;
             tableTask3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask3.Size = new Size(250, 150);
+            tableTask3.Size = new Size(200, 100);
             tableTask3.TabIndex = 11;
             // 
             // tableTask2
@@ -106,11 +76,11 @@
             tableTask2.ColumnCount = 2;
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask2.Location = new Point(320, 118);
+            tableTask2.Location = new Point(345, 168);
             tableTask2.Name = "tableTask2";
             tableTask2.RowCount = 1;
             tableTask2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask2.Size = new Size(250, 150);
+            tableTask2.Size = new Size(200, 100);
             tableTask2.TabIndex = 12;
             // 
             // tableTask1
@@ -118,17 +88,17 @@
             tableTask1.ColumnCount = 2;
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask1.Location = new Point(38, 118);
+            tableTask1.Location = new Point(41, 168);
             tableTask1.Name = "tableTask1";
             tableTask1.RowCount = 1;
             tableTask1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask1.Size = new Size(250, 150);
+            tableTask1.Size = new Size(200, 100);
             tableTask1.TabIndex = 13;
             // 
             // sendButton
             // 
             sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sendButton.Location = new Point(627, 12);
+            sendButton.Location = new Point(629, 39);
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(100, 100);
             sendButton.TabIndex = 14;
@@ -138,7 +108,7 @@
             // button8
             // 
             button8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button8.Location = new Point(745, 12);
+            button8.Location = new Point(745, 39);
             button8.Name = "button8";
             button8.Size = new Size(100, 100);
             button8.TabIndex = 15;
@@ -149,7 +119,7 @@
             // 
             testLabel.AutoSize = true;
             testLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            testLabel.Location = new Point(411, 75);
+            testLabel.Location = new Point(38, 95);
             testLabel.Name = "testLabel";
             testLabel.Size = new Size(31, 17);
             testLabel.TabIndex = 16;
@@ -220,9 +190,10 @@
             // 
             // alertLabel
             // 
+            alertLabel.Anchor = AnchorStyles.None;
             alertLabel.AutoSize = true;
             alertLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            alertLabel.Location = new Point(396, 29);
+            alertLabel.Location = new Point(320, 6);
             alertLabel.Name = "alertLabel";
             alertLabel.Size = new Size(62, 30);
             alertLabel.TabIndex = 21;
@@ -232,7 +203,7 @@
             // 
             roundLabel.AutoSize = true;
             roundLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            roundLabel.Location = new Point(38, 29);
+            roundLabel.Location = new Point(38, 52);
             roundLabel.Name = "roundLabel";
             roundLabel.Size = new Size(57, 21);
             roundLabel.TabIndex = 22;
@@ -242,20 +213,59 @@
             // 
             moveLabel.AutoSize = true;
             moveLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            moveLabel.Location = new Point(38, 52);
+            moveLabel.Location = new Point(38, 74);
             moveLabel.Name = "moveLabel";
             moveLabel.Size = new Size(66, 21);
             moveLabel.TabIndex = 23;
             moveLabel.Text = "Move 0";
+            // 
+            // messageLayoutPanel
+            // 
+            messageLayoutPanel.ColumnCount = 1;
+            messageLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            messageLayoutPanel.Location = new Point(595, 323);
+            messageLayoutPanel.Name = "messageLayoutPanel";
+            messageLayoutPanel.RowCount = 1;
+            messageLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            messageLayoutPanel.Size = new Size(250, 360);
+            messageLayoutPanel.TabIndex = 24;
+            // 
+            // alertAndSymbols
+            // 
+            alertAndSymbols.ColumnCount = 1;
+            alertAndSymbols.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            alertAndSymbols.Controls.Add(symbolLayoutPanel, 0, 0);
+            alertAndSymbols.Location = new Point(113, 39);
+            alertAndSymbols.Margin = new Padding(0);
+            alertAndSymbols.Name = "alertAndSymbols";
+            alertAndSymbols.RowCount = 1;
+            alertAndSymbols.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            alertAndSymbols.Size = new Size(489, 100);
+            alertAndSymbols.TabIndex = 25;
+            // 
+            // symbolLayoutPanel
+            // 
+            symbolLayoutPanel.ColumnCount = 1;
+            symbolLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            symbolLayoutPanel.Dock = DockStyle.Fill;
+            symbolLayoutPanel.Location = new Point(0, 0);
+            symbolLayoutPanel.Margin = new Padding(0);
+            symbolLayoutPanel.Name = "symbolLayoutPanel";
+            symbolLayoutPanel.RowCount = 1;
+            symbolLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            symbolLayoutPanel.Size = new Size(489, 100);
+            symbolLayoutPanel.TabIndex = 22;
             // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(alertLabel);
+            Controls.Add(alertAndSymbols);
+            Controls.Add(messageLayoutPanel);
             Controls.Add(moveLabel);
             Controls.Add(roundLabel);
-            Controls.Add(alertLabel);
             Controls.Add(actionButtons);
             Controls.Add(tableLayoutPanelButtons);
             Controls.Add(tableLayoutPanel1);
@@ -266,23 +276,19 @@
             Controls.Add(tableTask2);
             Controls.Add(tableTask3);
             Controls.Add(listScores);
-            Controls.Add(dataGridViewMessages);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "GameView";
             StartPosition = FormStartPosition.CenterParent;
             Text = "RGB";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMessages).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            alertAndSymbols.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private DataGridView dataGridViewMessages;
-        private DataGridViewTextBoxColumn Robot;
-        private DataGridViewImageColumn Message;
         private ListBox listScores;
         private TableLayoutPanel tableTask3;
         private TableLayoutPanel tableTask2;
@@ -298,5 +304,8 @@
         private Label alertLabel;
         private Label roundLabel;
         private Label moveLabel;
+        private TableLayoutPanel messageLayoutPanel;
+        private TableLayoutPanel alertAndSymbols;
+        private TableLayoutPanel symbolLayoutPanel;
     }
 }

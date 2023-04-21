@@ -13,5 +13,7 @@ namespace RGB.modell.enums
         GivingBoxToYou, GivingCaravanToYou, ObligateItFromYou,
 
         Smiley, Gloomy, Delighted, Authorative,
+        Task1, Task2, Task3,
+        None
     }
 }
