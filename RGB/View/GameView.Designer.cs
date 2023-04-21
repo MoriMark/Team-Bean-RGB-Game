@@ -54,9 +54,9 @@
             // 
             listScores.FormattingEnabled = true;
             listScores.ItemHeight = 15;
-            listScores.Location = new Point(595, 689);
+            listScores.Location = new Point(595, 734);
             listScores.Name = "listScores";
-            listScores.Size = new Size(250, 154);
+            listScores.Size = new Size(250, 109);
             listScores.TabIndex = 7;
             // 
             // tableTask3
@@ -228,7 +228,7 @@
             teamMessagePanel.Name = "teamMessagePanel";
             teamMessagePanel.RowCount = 1;
             teamMessagePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            teamMessagePanel.Size = new Size(250, 360);
+            teamMessagePanel.Size = new Size(250, 400);
             teamMessagePanel.TabIndex = 24;
             // 
             // alertAndSymbols
