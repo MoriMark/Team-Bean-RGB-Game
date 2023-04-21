@@ -6,6 +6,7 @@ using RGB.modell.game_logic;
 using RGB.modell.gameobjects;
 using RGB.modell.structs;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -258,10 +259,22 @@ namespace RGB.modell
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
-            bool placeable = false;
+            bool robotplaceable = false;
+            bool boxesplaceable = true;
+            int diffi = i - robot.i;
+            int diffj = j - robot.j;
             try
             {
-                placeable = field.GetValue(i, j).IsEmpty();
+                robotplaceable = field.GetValue(i, j).IsEmpty();
+                if(robot.IsAttached())
+                {
+                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
+                    foreach (Box b in boxes)
+                    {
+                        boxesplaceable &= ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId()));
+                    }
+                }
+
             }
             catch (Exception e)
             { 
@@ -269,7 +282,7 @@ namespace RGB.modell
             }
 
             if (!((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j))
-                && placeable)
+                && robotplaceable && !robot.IsAttached())
             {
                 //set empty at robot old location
                 field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
@@ -280,6 +293,27 @@ namespace RGB.modell
                 robot.j = j;
 
 
+            }
+            else if(robot.IsAttached() && boxesplaceable)
+            {
+                List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
+                
+                foreach (Box b in boxes)
+                {
+                        field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                        //set robot to the new location
+                        field.SetValue(b.i + diffi, b.j + diffj, b);
+                        //tell the robot it's new location
+                        b.i = b.i + diffi;
+                        b.j = b.j + diffj;
+                    
+                }
+                field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                //set robot to the new location
+                field.SetValue(i, j, robot);
+                //tell the robot it's new location
+                robot.i = i;
+                robot.j = j;
             }
 
             NextRobot();
