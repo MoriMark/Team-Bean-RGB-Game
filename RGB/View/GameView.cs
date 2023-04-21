@@ -108,10 +108,17 @@ namespace RGB.View
             NextRobot(null, EventArgs.Empty);
         }
 
-        private void SendButton_Click(object? sender, EventArgs e)
+        private void disableMap()
         {
-            _gameHandler.messageHandler.CreateMessage
-                (_gameHandler.GetCurrentPlayer(), selectedSymbol);
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    _buttons[i, j].Enabled = false;
+                    _buttons[i, j].Text = string.Empty;
+                    _buttons[i, j].BackColor = Color.DarkGray;
+                }
+            }
         }
 
         private void setUpSymbolButtons()
@@ -193,6 +200,12 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
             symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
+        }
+
+        private void SendButton_Click(object? sender, EventArgs e)
+        {
+            _gameHandler.messageHandler.CreateMessage
+                (_gameHandler.GetCurrentPlayer(), selectedSymbol);
         }
 
         private void refreshViewTable(Int32 x, Int32 y)
@@ -372,9 +385,13 @@ namespace RGB.View
 
         private void NextRobot(object? sender, EventArgs e)
         {
+            disableMap();
+            _timer.Stop();
+            remainingTime = 300;
+            MessageBox.Show($"Next Player: {_gameHandler.GetCurrentPlayer().team}, {_gameHandler.GetCurrentPlayer().name}");
             currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
             currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
-            remainingTime = 300;
+            _timer.Start();
             refreshViewTable(currentRobotCoords.X, currentRobotCoords.Y);
         }
 
