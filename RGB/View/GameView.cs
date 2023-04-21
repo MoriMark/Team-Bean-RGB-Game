@@ -51,6 +51,7 @@ namespace RGB.View
 
             //Subscribe to gameHandler events
             _gameHandler.robotChanged += NextRobot;
+            sendButton.Click += SendButton_Click;
             setUpSymbolButtons();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
@@ -105,6 +106,12 @@ namespace RGB.View
             //Show Table for the first player
             _gameHandler.StartGame();
             NextRobot(null, EventArgs.Empty);
+        }
+
+        private void SendButton_Click(object? sender, EventArgs e)
+        {
+            _gameHandler.messageHandler.CreateMessage
+                (_gameHandler.GetCurrentPlayer(), selectedSymbol);
         }
 
         private void setUpSymbolButtons()
@@ -188,11 +195,6 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
         }
 
-        private void AskForBoxesButton_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void refreshViewTable(Int32 x, Int32 y)
         {
             for (int i = 0; i < 7; i++)
@@ -262,19 +264,19 @@ namespace RGB.View
                                 switch (d)
                                 {
                                     case Direction.Up:
-                                        _buttons[i, j].Text = "A\nI";
+                                        _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Down:
-                                        _buttons[i, j].Text = "I\nV";
+                                        _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Left:
-                                        _buttons[i, j].Text = "<-";
+                                        _buttons[i, j].Text = $"<-\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Right:
-                                        _buttons[i, j].Text = "->";
+                                        _buttons[i, j].Text = $"->\n{currentRobot.name}";
                                         break;
                                 }
                             }
@@ -287,19 +289,19 @@ namespace RGB.View
                                 switch (d)
                                 {
                                     case Direction.Up:
-                                        _buttons[i, j].Text = "A\nI";
+                                        _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Down:
-                                        _buttons[i, j].Text = "I\nV";
+                                        _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Left:
-                                        _buttons[i, j].Text = "<-";
+                                        _buttons[i, j].Text = $"<-\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Right:
-                                        _buttons[i, j].Text = "->";
+                                        _buttons[i, j].Text = $"->\n{currentRobot.name}";
                                         break;
                                 }
                             }
@@ -312,19 +314,19 @@ namespace RGB.View
                                 switch (d)
                                 {
                                     case Direction.Up:
-                                        _buttons[i, j].Text = "A\nI";
+                                        _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Down:
-                                        _buttons[i, j].Text = "I\nV";
+                                        _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Left:
-                                        _buttons[i, j].Text = "<-";
+                                        _buttons[i, j].Text = $"<-\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Right:
-                                        _buttons[i, j].Text = "->";
+                                        _buttons[i, j].Text = $"->\n{currentRobot.name}";
                                         break;
                                 }
                             }
@@ -337,19 +339,19 @@ namespace RGB.View
                                 switch (d)
                                 {
                                     case Direction.Up:
-                                        _buttons[i, j].Text = "A\nI";
+                                        _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Down:
-                                        _buttons[i, j].Text = "I\nV";
+                                        _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Left:
-                                        _buttons[i, j].Text = "<-";
+                                        _buttons[i, j].Text = $"<-\n{currentRobot.name}";
                                         break;
 
                                     case Direction.Right:
-                                        _buttons[i, j].Text = "->";
+                                        _buttons[i, j].Text = $"->\n{currentRobot.name}";
                                         break;
                                 }
                             }
@@ -479,7 +481,8 @@ namespace RGB.View
             if (sender is SymbolButton)
             {
                 SymbolButton symbolButton = (SymbolButton)sender;
-                testLabel.Text = symbolButton.symbol.ToString();
+                selectedSymbol = symbolButton.symbol;
+                testLabel.Text = selectedSymbol.ToString();
             }
         }
 

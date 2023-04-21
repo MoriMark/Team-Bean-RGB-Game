@@ -43,7 +43,7 @@
             alertLabel = new Label();
             roundLabel = new Label();
             moveLabel = new Label();
-            messageLayoutPanel = new TableLayoutPanel();
+            teamMessagePanel = new TableLayoutPanel();
             alertAndSymbols = new TableLayoutPanel();
             symbolLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
@@ -219,16 +219,17 @@
             moveLabel.TabIndex = 23;
             moveLabel.Text = "Move 0";
             // 
-            // messageLayoutPanel
+            // teamMessagePanel
             // 
-            messageLayoutPanel.ColumnCount = 1;
-            messageLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            messageLayoutPanel.Location = new Point(595, 323);
-            messageLayoutPanel.Name = "messageLayoutPanel";
-            messageLayoutPanel.RowCount = 1;
-            messageLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            messageLayoutPanel.Size = new Size(250, 360);
-            messageLayoutPanel.TabIndex = 24;
+            teamMessagePanel.ColumnCount = 1;
+            teamMessagePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            teamMessagePanel.Location = new Point(595, 323);
+            teamMessagePanel.Margin = new Padding(0);
+            teamMessagePanel.Name = "teamMessagePanel";
+            teamMessagePanel.RowCount = 1;
+            teamMessagePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            teamMessagePanel.Size = new Size(250, 360);
+            teamMessagePanel.TabIndex = 24;
             // 
             // alertAndSymbols
             // 
@@ -263,7 +264,7 @@
             ClientSize = new Size(884, 961);
             Controls.Add(alertLabel);
             Controls.Add(alertAndSymbols);
-            Controls.Add(messageLayoutPanel);
+            Controls.Add(teamMessagePanel);
             Controls.Add(moveLabel);
             Controls.Add(roundLabel);
             Controls.Add(actionButtons);
@@ -304,7 +305,7 @@
         private Label alertLabel;
         private Label roundLabel;
         private Label moveLabel;
-        private TableLayoutPanel messageLayoutPanel;
+        private TableLayoutPanel teamMessagePanel;
         private TableLayoutPanel alertAndSymbols;
         private TableLayoutPanel symbolLayoutPanel;
     }
