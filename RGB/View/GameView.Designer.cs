@@ -33,7 +33,7 @@
             tableTask2 = new TableLayoutPanel();
             tableTask1 = new TableLayoutPanel();
             sendButton = new Button();
-            button8 = new Button();
+            mapButton = new Button();
             testLabel = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             remaningTimeLabel = new Label();
@@ -105,15 +105,15 @@
             sendButton.Text = "Send";
             sendButton.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // mapButton
             // 
-            button8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button8.Location = new Point(745, 39);
-            button8.Name = "button8";
-            button8.Size = new Size(100, 100);
-            button8.TabIndex = 15;
-            button8.Text = "Térkép";
-            button8.UseVisualStyleBackColor = true;
+            mapButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            mapButton.Location = new Point(745, 39);
+            mapButton.Name = "mapButton";
+            mapButton.Size = new Size(100, 100);
+            mapButton.TabIndex = 15;
+            mapButton.Text = "Map";
+            mapButton.UseVisualStyleBackColor = true;
             // 
             // testLabel
             // 
@@ -271,7 +271,7 @@
             Controls.Add(tableLayoutPanelButtons);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(testLabel);
-            Controls.Add(button8);
+            Controls.Add(mapButton);
             Controls.Add(sendButton);
             Controls.Add(tableTask1);
             Controls.Add(tableTask2);
@@ -295,7 +295,7 @@
         private TableLayoutPanel tableTask2;
         private TableLayoutPanel tableTask1;
         private Button sendButton;
-        private Button button8;
+        private Button mapButton;
         private Label testLabel;
         private TableLayoutPanel tableLayoutPanel1;
         private Label remaningTimeLabel;

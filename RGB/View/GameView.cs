@@ -33,6 +33,7 @@ namespace RGB.View
         private ButtonLayouts currentLayout;
         private Actions selectedAction;
         private GameHandler _gameHandler;
+        private MapForm map = null!;
 
         public GameView(int players, int teams)
         {
@@ -52,6 +53,7 @@ namespace RGB.View
             //Subscribe to gameHandler events
             _gameHandler.robotChanged += NextRobot;
             sendButton.Click += SendButton_Click;
+            mapButton.Click += MapButton_Click;
             SetUpSymbolButtons();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = 7;
@@ -108,7 +110,14 @@ namespace RGB.View
             NextRobot(null, EventArgs.Empty);
         }
 
-        private void DisableMap()
+        private void MapButton_Click(object? sender, EventArgs e)
+        {
+            map = new MapForm(_gameHandler.GetCurrentPlayer());
+            map.Show();
+            map.FormClosing += Map_Closed;
+        }
+
+        private void DisableRobotFov()
         {
             for (int i = 0; i < 7; i++)
             {
@@ -200,12 +209,6 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
             symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
-        }
-
-        private void SendButton_Click(object? sender, EventArgs e)
-        {
-            _gameHandler.messageHandler.CreateMessage
-                (_gameHandler.GetCurrentPlayer(), selectedSymbol);
         }
 
         private void RefreshViewTable(Int32 x, Int32 y)
@@ -387,7 +390,7 @@ namespace RGB.View
         {
             teamMessagePanel.Controls.Clear();
 
-            List<modell.structs.Message> msgs = 
+            List<modell.structs.Message> msgs =
                 _gameHandler.messageHandler.GetTeamMessages
                 (_gameHandler.GetCurrentPlayer().team);
 
@@ -419,11 +422,11 @@ namespace RGB.View
             msgSenderHeader.Dock = DockStyle.Fill;
             msgContentHeader.Dock = DockStyle.Fill;
 
-            teamMessagePanel.Controls.Add(msgSenderHeader, 0,0);
-            teamMessagePanel.Controls.Add(msgContentHeader, 1,0);
+            teamMessagePanel.Controls.Add(msgSenderHeader, 0, 0);
+            teamMessagePanel.Controls.Add(msgContentHeader, 1, 0);
 
             int msgNum = 1;
-            
+
             for (int i = msgs.Count - 1; i > -1; i--)
             {
                 Label msgSender = new Label();
@@ -445,9 +448,25 @@ namespace RGB.View
             }
         }
 
+        private void Map_Closed(object? sender, EventArgs e)
+        {
+            map = null!;
+        }
+
+        private void SendButton_Click(object? sender, EventArgs e)
+        {
+            _gameHandler.messageHandler.CreateMessage
+                (_gameHandler.GetCurrentPlayer(), selectedSymbol);
+        }
+
         private void NextRobot(object? sender, EventArgs e)
         {
-            DisableMap();
+            if (map != null)
+            {
+                map.Close();
+            }
+
+            DisableRobotFov();
             _timer.Stop();
             remainingTime = 300;
             MessageBox.Show($"Next Player: {_gameHandler.GetCurrentPlayer().team}, {_gameHandler.GetCurrentPlayer().name}");
