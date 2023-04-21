@@ -49,6 +49,7 @@ namespace RGB.modell
         {
             return gameRule.GetFieldValue(x, y);
         }
+
         public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
@@ -134,12 +135,22 @@ namespace RGB.modell
                     case Actions.Wait:
                         gameRule.Pass();
                         break;
+
                     case Actions.Unweld:
                         if (action.coordinates.Count == 2)
                         {
                             gameRule.UnWeld(action.coordinates[0].X, action.coordinates[0].Y,
                                 action.coordinates[1].X, action.coordinates[1].Y);
                         }
+                        break;
+
+                    case Actions.Weld:
+                        break;
+
+                    case Actions.Connect: 
+                        break;
+
+                    case Actions.Disconnect: 
                         break;
                 }
             }

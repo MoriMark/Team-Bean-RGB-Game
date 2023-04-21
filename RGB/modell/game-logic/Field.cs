@@ -219,7 +219,7 @@ namespace RGB.modell.game_logic
                         switch (teamCol)
                         {
                             case Team.Red:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot);
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot, playersNeeded[current].ToString());
                                 SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
@@ -227,7 +227,7 @@ namespace RGB.modell.game_logic
                                 break;
 
                             case Team.Green:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot);
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot, playersNeeded[current].ToString());
                                 SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
@@ -235,7 +235,7 @@ namespace RGB.modell.game_logic
                                 break;
 
                             case Team.Yellow:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot);
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot, playersNeeded[current].ToString());
                                 SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;
@@ -243,7 +243,7 @@ namespace RGB.modell.game_logic
                                 break;
 
                             case Team.Blue:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot);
+                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot, playersNeeded[current].ToString());
                                 SetValue(x, y, robotAdd);
                                 robots.Add(robotAdd);
                                 playersNeeded[current]--;

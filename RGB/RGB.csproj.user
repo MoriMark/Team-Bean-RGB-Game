@@ -16,5 +16,11 @@
     <Compile Update="View\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\MapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="View\SymbolButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -141,7 +141,7 @@ namespace RGB.modell
         }
 
         /// <summary>
-        /// Checks where the welding is succesfull
+        /// Checks where the welding is successful
         /// </summary>
         private void WeldCheck()
         {
