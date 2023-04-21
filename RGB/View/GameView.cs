@@ -186,8 +186,6 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
             symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
-
-
         }
 
         private void AskForBoxesButton_Click(object? sender, EventArgs e)
@@ -703,7 +701,7 @@ namespace RGB.View
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";
             moveLabel.Text = $"Move {moves}";
-            testLabel.Text = string.Empty;
+            //testLabel.Text = string.Empty;
             foreach (RobotAction ra in _gameHandler.actionsThisTurn)
             {
                 //testLabel.Text += $"{ra.action.ToString()} ";

@@ -12,10 +12,5 @@ namespace RGB.View
         public Symbol symbol { get; set; }
 
         public SymbolButton(Symbol symbol) { this.symbol = symbol; }
-
-        public void squareify()
-        {
-
-        }
     }
 }

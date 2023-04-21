@@ -235,12 +235,12 @@
             alertAndSymbols.ColumnCount = 1;
             alertAndSymbols.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             alertAndSymbols.Controls.Add(symbolLayoutPanel, 0, 0);
-            alertAndSymbols.Location = new Point(113, 39);
+            alertAndSymbols.Location = new Point(211, 39);
             alertAndSymbols.Margin = new Padding(0);
             alertAndSymbols.Name = "alertAndSymbols";
             alertAndSymbols.RowCount = 1;
             alertAndSymbols.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            alertAndSymbols.Size = new Size(489, 100);
+            alertAndSymbols.Size = new Size(350, 100);
             alertAndSymbols.TabIndex = 25;
             // 
             // symbolLayoutPanel
@@ -253,7 +253,7 @@
             symbolLayoutPanel.Name = "symbolLayoutPanel";
             symbolLayoutPanel.RowCount = 1;
             symbolLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            symbolLayoutPanel.Size = new Size(489, 100);
+            symbolLayoutPanel.Size = new Size(350, 100);
             symbolLayoutPanel.TabIndex = 22;
             // 
             // GameView
