@@ -9,6 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -240,7 +241,85 @@ namespace RGB.modell
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            currentRobot.facing = direction;
+            if (!currentRobot.IsAttached())
+            {
+                currentRobot.facing = direction;
+            }
+            else
+            {
+                List<Box> boxes = boxgroups[currentRobot.GetAttachedGroupId()].boxes;
+                if (currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Right 
+                    || currentRobot.facing == Direction.Down && direction == Direction.Left || currentRobot.facing == Direction.Left && direction == Direction.Up)
+                {
+                    //right rotation
+                    bool boxesplaceable = true;
+                    foreach (Box b in boxes)
+                    {
+                        int diffi = currentRobot.i - b.i;
+                        int diffj = -1*(currentRobot.j - b.j);
+                        int diffi2 = -1*diffj;
+                        int diffj2 = diffi;
+                        int newi = diffi2 + currentRobot.i;
+                        int newj = diffj2 + currentRobot.j;
+                        boxesplaceable&= field.GetValue(newi,newj).IsEmpty();
+                    }
+                    if (boxesplaceable)
+                    {
+                        currentRobot.facing = direction;
+                        foreach (Box b in boxes)
+                        {
+                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            int diffi = currentRobot.i - b.i;
+                            int diffj = -1 * (currentRobot.j - b.j);
+                            int diffi2 = -1 * diffj;
+                            int diffj2 = diffi;
+                            int newi = diffi2 + currentRobot.i;
+                            int newj = diffj2 + currentRobot.j;
+                            field.SetValue(newi, newj, b);
+                            b.i = newi;
+                            b.j= newj;
+                        }
+                    }
+
+                } else if (currentRobot.facing == Direction.Down && direction == Direction.Right || currentRobot.facing == Direction.Right && direction == Direction.Up
+                    || currentRobot.facing == Direction.Left && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Left)
+                {
+                    //left rotation
+                    bool boxesplaceable = true;
+                    foreach (Box b in boxes)
+                    {
+                        int diffi = currentRobot.i - b.i;
+                        int diffj = -1 * (currentRobot.j - b.j);
+                        int diffi2 = diffj;
+                        int diffj2 = -1 * diffi;
+                        int newi = diffi2 + currentRobot.i;
+                        int newj = diffj2 + currentRobot.j;
+                        boxesplaceable &= field.GetValue(newi, newj).IsEmpty();
+                    }
+                    if (boxesplaceable)
+                    {
+                        currentRobot.facing = direction;
+                        foreach (Box b in boxes)
+                        {
+                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            int diffi = currentRobot.i - b.i;
+                            int diffj = -1 * (currentRobot.j - b.j);
+                            int diffi2 = -1 * diffj;
+                            int diffj2 = diffi;
+                            int newi = diffi2 + currentRobot.i;
+                            int newj = diffj2 + currentRobot.j;
+                            field.SetValue(newi, newj, b);
+                            b.i = newi;
+                            b.j = newj;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Wrong direction was added relative to player position!");
+                }
+            }
+            
 
             NextRobot();
         }
