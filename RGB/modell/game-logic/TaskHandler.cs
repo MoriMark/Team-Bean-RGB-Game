@@ -4,7 +4,7 @@ using Task = RGB.modell.structs.Task;
 
 namespace RGB.modell.game_logic
 {
-    public partial class TaskHandler
+    public class TaskHandler
     {
         Dictionary<Team, List<Task>> tasks;
 
