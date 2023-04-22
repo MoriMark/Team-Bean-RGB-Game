@@ -7,10 +7,12 @@ namespace RGB.modell.game_logic
 {
     public class TaskHandler
     {
-        Dictionary<Team, List<Task>> tasks;
+        private Dictionary<Team, List<Task>> tasks;
+        private Dictionary<Team, Int32> teamPoints;
+
         //Means the number of rounds a given task can be fulfilled
         private const Int32 taskTimeLimit = 25;
-        Random rnd;
+        private Random rnd;
 
         private static readonly Byte[][,] availableShapes = new Byte[][,]
         {
@@ -68,6 +70,22 @@ namespace RGB.modell.game_logic
             rnd = new Random();
         }
 
+        public List<Task> GetTeamTasks(Team team)
+        {
+            if(!tasks.ContainsKey(team))
+                tasks.Add(team, new List<Task>());
+
+            return tasks[team];
+        }
+
+        public Int32 GetTeamPoints(Team team)
+        {
+            if (!teamPoints.ContainsKey(team))
+                teamPoints.Add(team, 0);
+                
+            return teamPoints[team];
+        }
+
         public void GenerateRandomTaskForTeam(Team team)
         {
             if (!tasks.ContainsKey(team))
@@ -110,6 +128,24 @@ namespace RGB.modell.game_logic
             }
 
             return retVal;
+        }
+
+        public void FinishTask(Task task)
+        {
+            ICollection<Team> teams = tasks.Keys;
+
+            foreach (Team team in teams)
+            {
+                if (tasks[team].Contains(task))
+                {
+                    tasks[team].Remove(task);
+                    
+                    if (!teamPoints.ContainsKey(team))
+                        teamPoints.Add(team, 0);
+
+                    teamPoints[team] = ++teamPoints[team];
+                }
+            }
         }
 
         public void OnTasksUpdate(Team team)
