@@ -124,8 +124,6 @@ namespace RGB.modell
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
         public void NextRobot()
         {
-            MessageBox.Show("Test Next Robot");
-
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
