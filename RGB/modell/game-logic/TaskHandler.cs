@@ -152,6 +152,8 @@ namespace RGB.modell.game_logic
         {
             if (!tasks.ContainsKey(team))
                 throw new TeamHasZeroTasksException();
+            if (!teamPoints.ContainsKey(team))
+                teamPoints.Add(team, 0);
 
             if (UpdateFields != null)
                 UpdateFields(this, new UpdateTasksEventArgs(new List<Task>(tasks[team])));
