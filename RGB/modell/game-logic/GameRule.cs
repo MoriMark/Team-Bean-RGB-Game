@@ -494,6 +494,19 @@ namespace RGB.modell
             NextRobot();
         }
 
+        public Boolean RobotStandsOnExit()
+        {
+            foreach(Exit exit in field.GetExits)
+            {
+                if (currentRobot.i == exit.Coordinate.X &&
+                    currentRobot.j == exit.Coordinate.Y &&
+                    currentRobot.facing == exit.Direction)
+                        return true;
+            }
+
+            return false;
+        }
+
         private void OnFieldsUpdate()
         {
             if (UpdateFields != null)
