@@ -294,7 +294,7 @@ namespace RGB.modell
                         int diffj2 = -1 * diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable &= field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable &= (field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId());
                     }
                     if (boxesplaceable)
                     {
