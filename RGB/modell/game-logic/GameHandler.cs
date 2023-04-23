@@ -53,7 +53,6 @@ namespace RGB.modell
         public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
-            gameRule.NextRobot();
             move++;
             if (move > (numOfTeams*numOfPlayers))
             {
