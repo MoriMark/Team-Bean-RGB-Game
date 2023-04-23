@@ -148,6 +148,13 @@ namespace RGB.modell.game_logic
             }
         }
 
+        public void ReduceTeamTasksTime(Team team)
+        {
+            List<Task> teamTasks = GetTeamTasks(team);
+
+            teamTasks.ForEach(task => --task.expiration);
+        }
+
         public void OnTasksUpdate(Team team)
         {
             if (!tasks.ContainsKey(team))
