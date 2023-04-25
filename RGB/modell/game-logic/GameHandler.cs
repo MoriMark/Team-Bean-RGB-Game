@@ -54,6 +54,7 @@ namespace RGB.modell
         {
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
             move++;
+            gameRule.NextRobot();
             if (move > (numOfTeams*numOfPlayers))
             {
                 move = 1;
@@ -144,12 +145,15 @@ namespace RGB.modell
                         break;
 
                     case Actions.Weld:
+                        gameRule.Weld();
                         break;
 
-                    case Actions.Connect: 
+                    case Actions.Connect:
+                        gameRule.Lift();
                         break;
 
-                    case Actions.Disconnect: 
+                    case Actions.Disconnect:
+                        gameRule.Lift();
                         break;
                 }
             }

@@ -31,7 +31,7 @@ namespace RGB.modell.gameobjects
         {
             if(Attached != null)
             {
-                return Attached.id;
+                return Attached.ingroup;
             }
             else
             {

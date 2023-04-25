@@ -35,6 +35,11 @@ namespace RGB.View
         private GameHandler _gameHandler;
         private MapForm map = null!;
 
+        public GameView(int i)
+        {
+
+        }
+
         public GameView(int players, int teams)
         {
             InitializeComponent();
@@ -570,6 +575,7 @@ namespace RGB.View
                             currentLayout = ButtonLayouts.Default;
                         }
                         selectedAction = Actions.None;
+                        
                         break;
                 }
             }

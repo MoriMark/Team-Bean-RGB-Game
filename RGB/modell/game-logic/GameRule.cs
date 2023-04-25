@@ -45,6 +45,7 @@ namespace RGB.modell
             int tableSize = totalRobots*4;
             field = new Field(tableSize);
             robots = field.GenerateField(numOfRobots, numOfTeams);
+            boxgroups = new Dictionary<int, BoxGroup>();
         }
 
         public GameObject GetFieldValue(Int32 x, Int32 y)
@@ -140,6 +141,7 @@ namespace RGB.modell
             {
                 currentRobot = robots[i + 1];
             }
+            OnFieldsUpdate();
         }
 
         /// <summary>
@@ -345,13 +347,18 @@ namespace RGB.modell
             try
             {
                 robotplaceable = field.GetValue(i, j).IsEmpty();
-                if(robot.IsAttached())
+                if(robot.IsAttached() && robot.GetAttachedGroupId() != 0)
                 {
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
                         boxesplaceable &= ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId()));
                     }
+                }
+                if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
+                {
+                    Box box = robot.Attached;
+                    boxesplaceable = field.GetValue(box.i + diffi, box.j + diffj).IsEmpty();
                 }
 
             }
@@ -375,24 +382,41 @@ namespace RGB.modell
             }
             else if(robot.IsAttached() && boxesplaceable)
             {
-                List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
-                
-                foreach (Box b in boxes)
+                if(robot.GetAttachedGroupId() != 0)
                 {
+                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
+
+                    foreach (Box b in boxes)
+                    {
                         field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
                         //tell the robot it's new location
                         b.i = b.i + diffi;
                         b.j = b.j + diffj;
-                    
+
+                    }
+                    field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    //set robot to the new location
+                    field.SetValue(i, j, robot);
+                    //tell the robot it's new location
+                    robot.i = i;
+                    robot.j = j;
+                } else if(robot.GetAttachedGroupId() == 0)
+                {
+                    Box box = robot.Attached;
+                    field.SetValue(box.i, box.j, new Empty(box.i, box.j));
+                    field.SetValue(box.i + diffi, box.j + diffj, box);
+                    box.i= box.i + diffi;
+                    box.j = box.j + diffj;
+                    field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    //set robot to the new location
+                    field.SetValue(i, j, robot);
+                    //tell the robot it's new location
+                    robot.i = i;
+                    robot.j = j;
                 }
-                field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
-                //set robot to the new location
-                field.SetValue(i, j, robot);
-                //tell the robot it's new location
-                robot.i = i;
-                robot.j = j;
+                
             }
 
             NextRobot();
