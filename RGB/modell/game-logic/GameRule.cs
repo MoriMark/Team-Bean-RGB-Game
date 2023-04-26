@@ -156,7 +156,7 @@ namespace RGB.modell
                 {
                     if(field.GetValue(i,j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
                     {
-                        if(field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
+                        if(i + 1 < field.TableSize && field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
                         {
                             if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
                             {
@@ -184,7 +184,7 @@ namespace RGB.modell
                                 boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j));
                             }
                         }
-                        if (field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
+                        if (j + 1 < field.TableSize && field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
                         {
                             if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
@@ -457,6 +457,10 @@ namespace RGB.modell
 
                     foreach (Box b in boxes)
                     {
+                        if(field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
+                        {
+
+                        }
                         field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
