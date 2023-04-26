@@ -9,6 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -352,13 +353,16 @@ namespace RGB.modell
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
-                        boxesplaceable &= ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId()));
+                        boxesplaceable &= ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
+                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId())
+                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name));
                     }
                 }
                 if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
                 {
-                    Box box = robot.Attached;
-                    boxesplaceable = field.GetValue(box.i + diffi, box.j + diffj).IsEmpty();
+                    Box b = robot.Attached;
+                    boxesplaceable = (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
+                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name));
                 }
 
             }
