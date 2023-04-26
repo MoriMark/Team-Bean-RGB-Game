@@ -267,7 +267,7 @@ namespace RGB.modell
                             int diffj2 = diffi;
                             int newi = diffi2 + currentRobot.i;
                             int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= field.GetValue(newi, newj).IsEmpty();
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
@@ -302,7 +302,7 @@ namespace RGB.modell
                             int diffj2 = -1 * diffi;
                             int newi = diffi2 + currentRobot.i;
                             int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= (field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId());
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
@@ -342,7 +342,7 @@ namespace RGB.modell
                         int diffj2 = diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable = field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable = !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;
@@ -367,7 +367,7 @@ namespace RGB.modell
                         int diffj2 = -1 * diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable = field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable = !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;                       
@@ -413,16 +413,21 @@ namespace RGB.modell
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
-                        boxesplaceable &= ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
+                        boxesplaceable &= ( !((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj)) 
+                            && 
+                            ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
                             || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId())
-                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name));
+                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                            ));
                     }
                 }
                 if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
                 {
                     Box b = robot.Attached;
-                    boxesplaceable = (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
-                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name));
+                    boxesplaceable = (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj))
+                            && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
+                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                       ));
                 }
 
             }
@@ -444,7 +449,7 @@ namespace RGB.modell
 
 
             }
-            else if(robot.IsAttached() && boxesplaceable)
+            else if(robot.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j)))
             {
                 if(robot.GetAttachedGroupId() != 0)
                 {
@@ -469,7 +474,7 @@ namespace RGB.modell
                     //tell the robot it's new location
                     robot.i = i;
                     robot.j = j;
-                } else if(robot.GetAttachedGroupId() == 0)
+                } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j)))
                 {
                     Box box = robot.Attached;
                     field.SetValue(box.i, box.j , new Empty(box.i, box.j));
