@@ -274,7 +274,10 @@ namespace RGB.modell
                             currentRobot.facing = direction;
                             foreach (Box b in boxes)
                             {
-                                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
+                                {
+                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                                }
                                 int diffi = currentRobot.i - b.i;
                                 int diffj = -1 * (currentRobot.j - b.j);
                                 int diffi2 = -1 * diffj;
@@ -309,11 +312,14 @@ namespace RGB.modell
                             currentRobot.facing = direction;
                             foreach (Box b in boxes)
                             {
-                                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
+                                {
+                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                                }
                                 int diffi = currentRobot.i - b.i;
                                 int diffj = -1 * (currentRobot.j - b.j);
-                                int diffi2 = -1 * diffj;
-                                int diffj2 = diffi;
+                                int diffi2 = diffj;
+                                int diffj2 = -1 * diffi;
                                 int newi = diffi2 + currentRobot.i;
                                 int newj = diffj2 + currentRobot.j;
                                 field.SetValue(newi, newj, b);
@@ -459,9 +465,8 @@ namespace RGB.modell
                     {
                         if(field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
                         {
-
+                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         }
-                        field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
                         //tell the robot it's new location
