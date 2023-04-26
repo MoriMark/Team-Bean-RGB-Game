@@ -454,7 +454,10 @@ namespace RGB.modell
                         b.j = b.j + diffj;
 
                     }
-                    field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    if(field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
+                    {
+                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    }
                     //set robot to the new location
                     field.SetValue(i, j, robot);
                     //tell the robot it's new location
@@ -463,11 +466,16 @@ namespace RGB.modell
                 } else if(robot.GetAttachedGroupId() == 0)
                 {
                     Box box = robot.Attached;
-                    field.SetValue(box.i, box.j, new Empty(box.i, box.j));
+                    field.SetValue(box.i, box.j , new Empty(box.i, box.j));
                     field.SetValue(box.i + diffi, box.j + diffj, box);
-                    box.i= box.i + diffi;
+                    box.i = box.i + diffi;
                     box.j = box.j + diffj;
-                    field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    
+                    if (field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
+                    {
+                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                    }
+                    
                     //set robot to the new location
                     field.SetValue(i, j, robot);
                     //tell the robot it's new location
