@@ -23,15 +23,16 @@ namespace RGB
         private void buttonGameStart_Click(object sender, EventArgs e)
         {
             gameView = new GameView(Convert.ToInt32(numOfRobots.Value), Convert.ToInt32(numOfTeams.Value));
-            gameView.FormClosing += killGame;
             this.Hide();
-            gameView.ShowDialog();
-            this.Show();
+            gameView.Show();
+            gameView.FormClosing += QuitGame;
         }
-        private void killGame(object? sender, EventArgs e)
+        private void QuitGame(object? sender, EventArgs e)
         {
-            gameView = new GameView(0);
+            gameView.Hibernate();
+            gameView?.Dispose();
             gameView = null!;
+            this.Show();
         }
     }
 }

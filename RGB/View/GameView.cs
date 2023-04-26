@@ -18,6 +18,7 @@ namespace RGB.View
 {
     public partial class GameView : Form
     {
+        private int viewDist = 4;
         private GridButton[,] _buttons = null!;
         private int selectionsNeeded;
         private int numOfPlayers;
@@ -61,19 +62,19 @@ namespace RGB.View
             mapButton.Click += MapButton_Click;
             SetUpSymbolButtons();
             //Setting up the grid buttons
-            tableLayoutPanelButtons.RowCount = 7;
-            tableLayoutPanelButtons.ColumnCount = 7;
+            tableLayoutPanelButtons.RowCount = viewDist*2+1;
+            tableLayoutPanelButtons.ColumnCount = viewDist * 2 + 1;
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Padding = new Padding(0);
             tableLayoutPanelButtons.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
 
-            _buttons = new GridButton[7, 7];
+            _buttons = new GridButton[viewDist * 2 + 1, viewDist * 2 + 1];
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < viewDist * 2 + 1; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
-                    _buttons[i, j] = new GridButton(i - 3, j - 3); //-3, so that the middle is 0,0
+                    _buttons[i, j] = new GridButton(i - viewDist, j - viewDist); //-3, so that the middle is 0,0
                     if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
                     {
                         _buttons[i, j].BackColor = Color.DarkGray;
@@ -124,9 +125,9 @@ namespace RGB.View
 
         private void DisableRobotFov()
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < viewDist * 2 + 1; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
                     _buttons[i, j].Enabled = false;
                     _buttons[i, j].Text = string.Empty;
@@ -218,18 +219,18 @@ namespace RGB.View
 
         private void RefreshViewTable(Int32 x, Int32 y)
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < viewDist * 2 + 1; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
                     GameObject currentField = null!;
                     Robot currentRobot = null!;
                     Box currentBox = null!;
                     TileType type;
-                    if ((x + (i - 3) > -1 && y + (j - 3) > -1) &&
-                        (x + (i - 3) < tableSize && y + (j - 3) < tableSize))
+                    if ((x + (i - viewDist) > -1 && y + (j - viewDist) > -1) &&
+                        (x + (i - viewDist) < tableSize && y + (j - viewDist) < tableSize))
                     {
-                        currentField = _gameHandler.GetFieldValue(x + (i - 3), y + (j - 3));
+                        currentField = _gameHandler.GetFieldValue(x + (i - viewDist), y + (j - viewDist));
                         type = currentField.TileType();
                     }
                     else
@@ -381,7 +382,7 @@ namespace RGB.View
                     }
 
                     //Disabling unseen tiles
-                    if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > 3)
+                    if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > viewDist)
                     {
                         _buttons[i, j].Text = "";
                         _buttons[i, j].BackColor = Color.DarkGray;
@@ -815,6 +816,12 @@ namespace RGB.View
                 //testLabel.Text += $"{ra.action.ToString()} ";
             }
             //testLabel.Text += $"\nCurrent position\nX:{_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
+        }
+        //Used to stop random popups after game is closed
+        //Could not delete instances of gameView from Form1
+        public void Hibernate()
+        {
+            _timer.Tick -= RoundTimerTick;
         }
     }
 }
