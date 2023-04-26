@@ -253,8 +253,9 @@ namespace RGB.modell
                 if(currentRobot.GetAttachedGroupId() != 0)
                 {
                     List<Box> boxes = boxgroups[currentRobot.GetAttachedGroupId()].boxes;
-                    if (currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Right
-                        || currentRobot.facing == Direction.Down && direction == Direction.Left || currentRobot.facing == Direction.Left && direction == Direction.Up)
+                    if (currentRobot.facing == Direction.Up && direction == Direction.Right
+                        || currentRobot.facing == Direction.Down && direction == Direction.Left
+                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
                     {
                         //right rotation
                         bool boxesplaceable = true;
@@ -287,8 +288,9 @@ namespace RGB.modell
                         }
 
                     }
-                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right || currentRobot.facing == Direction.Right && direction == Direction.Up
-                        || currentRobot.facing == Direction.Left && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Left)
+                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right
+                         || currentRobot.facing == Direction.Up && direction == Direction.Left
+                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up)
                     {
                         //left rotation
                         bool boxesplaceable = true;
@@ -327,9 +329,11 @@ namespace RGB.modell
                 }
                 else
                 {
-                    if (currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Right
-                        || currentRobot.facing == Direction.Down && direction == Direction.Left || currentRobot.facing == Direction.Left && direction == Direction.Up)
+                    if ( currentRobot.facing == Direction.Up && direction == Direction.Right
+                        || currentRobot.facing == Direction.Down && direction == Direction.Left 
+                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
                     {
+                        //Right Rotation
                         Box b = currentRobot.Attached;
                         bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
@@ -350,9 +354,11 @@ namespace RGB.modell
                             
                         }
                     }
-                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right || currentRobot.facing == Direction.Right && direction == Direction.Up
-                        || currentRobot.facing == Direction.Left && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Left)
+                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right
+                         || currentRobot.facing == Direction.Up && direction == Direction.Left
+                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up)
                     {
+                        //Left Rotation
                         Box b = currentRobot.Attached;
                         bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
