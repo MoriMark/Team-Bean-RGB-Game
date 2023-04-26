@@ -339,6 +339,16 @@ namespace RGB.modell
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
                         boxesplaceable = field.GetValue(newi, newj).IsEmpty();
+                        if (boxesplaceable)
+                        {
+                            currentRobot.facing = direction;
+                           
+                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            field.SetValue(newi, newj, b);
+                            b.i = newi;
+                            b.j = newj;
+                            
+                        }
                     }
                     else if (currentRobot.facing == Direction.Down && direction == Direction.Right || currentRobot.facing == Direction.Right && direction == Direction.Up
                         || currentRobot.facing == Direction.Left && direction == Direction.Down || currentRobot.facing == Direction.Up && direction == Direction.Left)
@@ -352,7 +362,17 @@ namespace RGB.modell
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
                         boxesplaceable = field.GetValue(newi, newj).IsEmpty();
+                        if (boxesplaceable)
+                        {
+                            currentRobot.facing = direction;                       
+                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            field.SetValue(newi, newj, b);
+                            b.i = newi;
+                            b.j = newj;
+                           
+                        }
                     }
+
                 }
                 
             }
