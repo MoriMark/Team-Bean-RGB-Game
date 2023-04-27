@@ -250,6 +250,28 @@ namespace RGB.modell
             }
             else
             {
+                bool boxesplaceable = true;
+                foreach(Robot robot in robots)
+                {
+                    if(robot.IsAttached() && currentRobot.GetAttachedGroupId() == 0)
+                    {
+                        if ( robot.Attached.id == currentRobot.Attached.id  && ((robot.team == currentRobot.team && robot.name != currentRobot.name) || (robot.team != currentRobot.team)))
+                        {
+
+                            boxesplaceable = false;
+                            break;
+                        }
+                    }
+                    else if(robot.IsAttached())
+                    {
+                       if(robot.GetAttachedGroupId() == currentRobot.GetAttachedGroupId() && ((robot.team == currentRobot.team && robot.name != currentRobot.name) || (robot.team != currentRobot.team)))
+                        {
+                            boxesplaceable = false;
+                            break;
+                        }
+                    }
+                    
+                }
                 if(currentRobot.GetAttachedGroupId() != 0)
                 {
                     List<Box> boxes = boxgroups[currentRobot.GetAttachedGroupId()].boxes;
@@ -259,7 +281,7 @@ namespace RGB.modell
                         )
                     {
                         //right rotation
-                        bool boxesplaceable = true;
+                        //bool boxesplaceable = true;
                         foreach (Box b in boxes)
                         {
                             int diffi = currentRobot.i - b.i;
@@ -297,7 +319,7 @@ namespace RGB.modell
                         || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
                     {
                         //left rotation
-                        bool boxesplaceable = true;
+                        //bool boxesplaceable = true;
                         foreach (Box b in boxes)
                         {
                             int diffi = currentRobot.i - b.i;
@@ -342,14 +364,14 @@ namespace RGB.modell
                     {
                         //Right Rotation
                         Box b = currentRobot.Attached;
-                        bool boxesplaceable = true;
+                        //bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
                         int diffj =  (currentRobot.j - b.j);
                         int diffi2 = -1 * diffj;
                         int diffj2 = diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable = !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;
@@ -367,14 +389,14 @@ namespace RGB.modell
                     {
                         //Left Rotation
                         Box b = currentRobot.Attached;
-                        bool boxesplaceable = true;
+                        //bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
                         int diffj = (currentRobot.j - b.j);
                         int diffi2 = diffj;
                         int diffj2 = -1 * diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable = !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;                       
@@ -431,7 +453,7 @@ namespace RGB.modell
                 if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
                 {
                     Box b = robot.Attached;
-                    boxesplaceable = (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj))
+                    boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj))
                             && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
                         || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
                        ));
