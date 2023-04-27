@@ -439,6 +439,14 @@ namespace RGB.modell
                 robotplaceable = field.GetValue(i, j).IsEmpty();
                 if(robot.IsAttached() && robot.GetAttachedGroupId() != 0)
                 {
+                    foreach(Robot r in robots)
+                    {
+                        if (r.GetAttachedGroupId() == robot.GetAttachedGroupId() && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        {
+                            boxesplaceable= false;
+                            break;
+                        }
+                    }
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
@@ -452,6 +460,14 @@ namespace RGB.modell
                 }
                 if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
                 {
+                    foreach (Robot r in robots)
+                    {
+                        if (r.Attached.id == robot.Attached.id && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        {
+                            boxesplaceable = false;
+                            break;
+                        }
+                    }
                     Box b = robot.Attached;
                     boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj))
                             && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
