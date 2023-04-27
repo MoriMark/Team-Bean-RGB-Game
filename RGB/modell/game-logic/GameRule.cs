@@ -338,13 +338,13 @@ namespace RGB.modell
                 {
                     if ( currentRobot.facing == Direction.Up && direction == Direction.Right
                         || currentRobot.facing == Direction.Down && direction == Direction.Left 
-                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
+                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up)
                     {
                         //Right Rotation
                         Box b = currentRobot.Attached;
                         bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
-                        int diffj = -1 * (currentRobot.j - b.j);
+                        int diffj =  (currentRobot.j - b.j);
                         int diffi2 = -1 * diffj;
                         int diffj2 = diffi;
                         int newi = diffi2 + currentRobot.i;
@@ -363,13 +363,13 @@ namespace RGB.modell
                     }
                     else if (currentRobot.facing == Direction.Down && direction == Direction.Right
                          || currentRobot.facing == Direction.Up && direction == Direction.Left
-                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up)
+                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
                     {
                         //Left Rotation
                         Box b = currentRobot.Attached;
                         bool boxesplaceable = true;
                         int diffi = currentRobot.i - b.i;
-                        int diffj = -1 * (currentRobot.j - b.j);
+                        int diffj = (currentRobot.j - b.j);
                         int diffi2 = diffj;
                         int diffj2 = -1 * diffi;
                         int newi = diffi2 + currentRobot.i;
