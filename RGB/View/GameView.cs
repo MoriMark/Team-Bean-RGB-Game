@@ -35,6 +35,7 @@ namespace RGB.View
         private Actions selectedAction;
         private GameHandler _gameHandler;
         private MapForm map = null!;
+        private List<Exit> exits;
 
         public GameView(int i)
         {
@@ -111,6 +112,14 @@ namespace RGB.View
             _timer.Interval = 100;
             _timer.Tick += RoundTimerTick;
             _timer.Enabled = true;
+
+            exits = _gameHandler.gameRule.exits;
+            testLabel.Text = string.Empty;
+            foreach (Exit e in exits)
+            {
+                testLabel.Text += $"{e.Coordinate.X} ";
+                testLabel.Text += $"{e.Coordinate.Y}\n";
+            }
             //Show Table for the first player
             _gameHandler.StartGame();
             NextRobot(null, EventArgs.Empty);
@@ -217,7 +226,7 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
         }
 
-        private void RefreshViewTable(Int32 x, Int32 y)
+        private void RefreshViewTable(Int32 x, Int32 y) //X and Y are the current robot coords 
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
             {
@@ -248,6 +257,29 @@ namespace RGB.View
                     _buttons[i, j].Enabled = true;
                     _buttons[i, j].Text = "";
                     _buttons[i, j].ForeColor = Color.White;
+                    foreach (Exit e in exits)
+                    {
+                        if (e.Coordinate.X == (x + (i - viewDist)) && e.Coordinate.Y == (y + (j - viewDist)))
+                        {
+                            _buttons[i, j].Text = "Exit";
+                            _buttons[i, j].ForeColor = Color.Black;
+                            switch (e.Direction)
+                            {
+                                case Direction.Up:
+                                    _buttons[i, j].Text += "\nA";
+                                    break;
+                                case Direction.Down:
+                                    _buttons[i, j].Text += "\nV";
+                                    break;
+                                case Direction.Left:
+                                    _buttons[i, j].Text += "\n<";
+                                    break;
+                                case Direction.Right:
+                                    _buttons[i, j].Text += "\n>";
+                                    break;
+                            }
+                        }
+                    }
                     switch (type)
                     {
                         //draw non Robot and Box types
@@ -264,10 +296,12 @@ namespace RGB.View
                         case TileType.RedBox:
                             _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Red;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         case TileType.BlueBox:
                             _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Blue;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         case TileType.YellowBox:
                             _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
@@ -277,6 +311,7 @@ namespace RGB.View
                         case TileType.GreenBox:
                             _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Green;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         //draw Robots
                         case TileType.RedRobot:
@@ -310,6 +345,7 @@ namespace RGB.View
                                 }
                             }
                             _buttons[i, j].BackColor = Color.Red;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         case TileType.BlueRobot:
                             if (currentRobot != null)
@@ -335,6 +371,7 @@ namespace RGB.View
                                 }
                             }
                             _buttons[i, j].BackColor = Color.Blue;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         case TileType.GreenRobot:
                             if (currentRobot != null)
@@ -360,6 +397,7 @@ namespace RGB.View
                                 }
                             }
                             _buttons[i, j].BackColor = Color.Green;
+                            _buttons[i, j].ForeColor = Color.White;
                             break;
                         case TileType.YellowRobot:
                             if (currentRobot != null)
@@ -385,6 +423,7 @@ namespace RGB.View
                                 }
                             }
                             _buttons[i, j].BackColor = Color.Yellow;
+                            _buttons[i, j].ForeColor = Color.Black;
                             break;
                     }
 
@@ -817,12 +856,6 @@ namespace RGB.View
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";
             moveLabel.Text = $"Move {moves}";
-            //testLabel.Text = string.Empty;
-            foreach (RobotAction ra in _gameHandler.actionsThisTurn)
-            {
-                //testLabel.Text += $"{ra.action.ToString()} ";
-            }
-            //testLabel.Text += $"\nCurrent position\nX:{_gameHandler.GetCurrentPlayer().i} Y: {_gameHandler.GetCurrentPlayer().j}";
         }
         //Used to stop random popups after game is closed
         //Could not delete instances of gameView from Form1

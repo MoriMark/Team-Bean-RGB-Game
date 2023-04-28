@@ -15,7 +15,7 @@ namespace RGBModell.modell.game_logic
         private const Int32 border = 5;
         private GameObject[,] field;
         public Int32 TableSize { get; private set; }
-        private List<Exit> exits;
+        public List<Exit> exits { get; private set; }
         private const Int32 numberOfExists = 5;
 
         public Field(Int32 tableSize)
