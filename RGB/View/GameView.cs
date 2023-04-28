@@ -62,7 +62,7 @@ namespace RGB.View
             mapButton.Click += MapButton_Click;
             SetUpSymbolButtons();
             //Setting up the grid buttons
-            tableLayoutPanelButtons.RowCount = viewDist*2+1;
+            tableLayoutPanelButtons.RowCount = viewDist * 2 + 1;
             tableLayoutPanelButtons.ColumnCount = viewDist * 2 + 1;
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Padding = new Padding(0);
@@ -85,7 +85,7 @@ namespace RGB.View
                         _buttons[i, j].BackColor = Color.White;
                     }
                     _buttons[i, j].Dock = DockStyle.Fill;
-                    _buttons[i, j].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                    _buttons[i, j].Font = new Font("Segoe UI", 9);
                     _buttons[i, j].ForeColor = Color.White;
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].Padding = new Padding(0);
@@ -100,11 +100,11 @@ namespace RGB.View
 
             for (int i = 0; i < tableLayoutPanelButtons.RowCount; i++)
             {
-                tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / 7));
+                tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / (viewDist * 2 + 1)));
             }
             for (int i = 0; i < tableLayoutPanelButtons.ColumnCount; i++)
             {
-                tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / 7));
+                tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / (viewDist * 2 + 1)));
             }
             //Round timer setup
             _timer = new System.Windows.Forms.Timer();
@@ -262,20 +262,20 @@ namespace RGB.View
                             break;
                         //draw Boxes
                         case TileType.RedBox:
-                            _buttons[i, j].Text = $"{currentBox.health}";
+                            _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Red;
                             break;
                         case TileType.BlueBox:
-                            _buttons[i, j].Text = $"{currentBox.health}";
+                            _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Blue;
                             break;
                         case TileType.YellowBox:
-                            _buttons[i, j].Text = $"{currentBox.health}";
+                            _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Yellow;
                             _buttons[i, j].ForeColor = Color.Black;
                             break;
                         case TileType.GreenBox:
-                            _buttons[i, j].Text = $"{currentBox.health}";
+                            _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
                             _buttons[i, j].BackColor = Color.Green;
                             break;
                         //draw Robots
@@ -286,20 +286,27 @@ namespace RGB.View
                                 switch (d)
                                 {
                                     case Direction.Up:
-                                        _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
+                                        _buttons[i, j].Text = $"{currentRobot.name}\nA";
                                         break;
 
                                     case Direction.Down:
-                                        _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
+                                        _buttons[i, j].Text = $"{currentRobot.name}\nV";
+                                        
                                         break;
 
                                     case Direction.Left:
-                                        _buttons[i, j].Text = $"<-\n{currentRobot.name}";
+                                        _buttons[i, j].Text = $"{currentRobot.name}\n<";
+                                        
                                         break;
 
                                     case Direction.Right:
-                                        _buttons[i, j].Text = $"->\n{currentRobot.name}";
+                                        _buttons[i, j].Text = $"{currentRobot.name}\n>";
+                                        
                                         break;
+                                }
+                                if (null != currentRobot.Attached)
+                                {
+                                    _buttons[i, j].Text += "\nCon";
                                 }
                             }
                             _buttons[i, j].BackColor = Color.Red;
@@ -576,7 +583,7 @@ namespace RGB.View
                             currentLayout = ButtonLayouts.Default;
                         }
                         selectedAction = Actions.None;
-                        
+
                         break;
                 }
             }
