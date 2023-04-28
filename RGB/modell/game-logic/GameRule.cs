@@ -28,6 +28,7 @@ namespace RGB.modell
         Int32 numberOfCurrentRound;
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
+        public List<Exit> exits { get; private set; }
 
 
         public event EventHandler<UpdateFieldsEventArgs> UpdateFields;
@@ -47,6 +48,7 @@ namespace RGB.modell
             field = new Field(tableSize);
             robots = field.GenerateField(numOfRobots, numOfTeams);
             boxgroups = new Dictionary<int, BoxGroup>();
+            exits = field.exits;
         }
 
         public GameObject GetFieldValue(Int32 x, Int32 y)
