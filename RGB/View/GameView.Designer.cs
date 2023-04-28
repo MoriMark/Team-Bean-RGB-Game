@@ -64,7 +64,7 @@
             tableTask3.ColumnCount = 2;
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask3.Location = new Point(642, 168);
+            tableTask3.Location = new Point(642, 145);
             tableTask3.Name = "tableTask3";
             tableTask3.RowCount = 1;
             tableTask3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -76,7 +76,7 @@
             tableTask2.ColumnCount = 2;
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask2.Location = new Point(345, 168);
+            tableTask2.Location = new Point(345, 142);
             tableTask2.Name = "tableTask2";
             tableTask2.RowCount = 1;
             tableTask2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -88,7 +88,7 @@
             tableTask1.ColumnCount = 2;
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask1.Location = new Point(41, 168);
+            tableTask1.Location = new Point(38, 142);
             tableTask1.Name = "tableTask1";
             tableTask1.RowCount = 1;
             tableTask1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -132,7 +132,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.41791F));
             tableLayoutPanel1.Controls.Add(remaningTimeLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(remaningTimeBar, 1, 0);
-            tableLayoutPanel1.Location = new Point(41, 274);
+            tableLayoutPanel1.Location = new Point(41, 251);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -166,12 +166,12 @@
             // 
             tableLayoutPanelButtons.ColumnCount = 1;
             tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Location = new Point(41, 323);
+            tableLayoutPanelButtons.Location = new Point(41, 291);
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             tableLayoutPanelButtons.RowCount = 1;
             tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Size = new Size(520, 520);
+            tableLayoutPanelButtons.Size = new Size(551, 552);
             tableLayoutPanelButtons.TabIndex = 19;
             // 
             // actionButtons
@@ -223,12 +223,12 @@
             // 
             teamMessagePanel.ColumnCount = 1;
             teamMessagePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            teamMessagePanel.Location = new Point(595, 323);
+            teamMessagePanel.Location = new Point(595, 291);
             teamMessagePanel.Margin = new Padding(0);
             teamMessagePanel.Name = "teamMessagePanel";
             teamMessagePanel.RowCount = 1;
             teamMessagePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            teamMessagePanel.Size = new Size(250, 400);
+            teamMessagePanel.Size = new Size(250, 432);
             teamMessagePanel.TabIndex = 24;
             // 
             // alertAndSymbols
