@@ -259,7 +259,6 @@ namespace RGB.modell
                         {
 
                             boxesplaceable = false;
-                            break;
                         }
                     }
                     else if(robot.IsAttached())
@@ -267,7 +266,6 @@ namespace RGB.modell
                        if(robot.GetAttachedGroupId() == currentRobot.GetAttachedGroupId() && ((robot.team == currentRobot.team && robot.name != currentRobot.name) || (robot.team != currentRobot.team)))
                         {
                             boxesplaceable = false;
-                            break;
                         }
                     }
                     
@@ -441,10 +439,9 @@ namespace RGB.modell
                 {
                     foreach(Robot r in robots)
                     {
-                        if (r.GetAttachedGroupId() == robot.GetAttachedGroupId() && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (r.IsAttached() && r.GetAttachedGroupId() == robot.GetAttachedGroupId() && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
                         {
                             boxesplaceable= false;
-                            break;
                         }
                     }
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
@@ -462,10 +459,9 @@ namespace RGB.modell
                 {
                     foreach (Robot r in robots)
                     {
-                        if (r.Attached.id == robot.Attached.id && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (r.IsAttached() && r.Attached.id == robot.Attached.id && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
                         {
-                            boxesplaceable = false;
-                            break;
+                            boxesplaceable = false;                   
                         }
                     }
                     Box b = robot.Attached;
