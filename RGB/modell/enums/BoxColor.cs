@@ -8,6 +8,6 @@ namespace RGB.modell.enums
 {
     public enum BoxColor
     {
-        NoColor, Red, Blue, Green, Yellow
+        NoColor = 0, Red = 1, Blue, Green, Yellow
     }
 }
