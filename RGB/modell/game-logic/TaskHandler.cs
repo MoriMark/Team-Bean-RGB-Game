@@ -177,12 +177,49 @@ namespace RGB.modell.game_logic
 
             List<Task> teamTasks = GetTeamTasks(robot.team);
 
+            BoxColor[,] boxesMatrix = GenerateMatrixFromAttachedBoxes(boxes);
+
             for (Int32 i = 0;i < teamTasks.Count;i++)
             {
                 if (BoxesInTask(teamTasks[i]) != boxes.Count)
                     continue;
 
                 // TODO check pattern
+            }
+
+            return retVal;
+        }
+
+        private BoxColor[,] GenerateMatrixFromAttachedBoxes(List<Box> boxes)
+        {
+            if (!boxes.Any())
+                throw new ArgumentException("boxes must contain atleast one element!");
+
+            Int32 minI = boxes[0].i, minJ = boxes[0].j, maxI = boxes[0].i, maxJ = boxes[0].j;
+
+            for (Int32 i = 1;i < boxes.Count;i++)
+            {
+                if (boxes[i].i < minI)
+                    minI = boxes[i].i;
+                if (boxes[i].j < minJ)
+                    minJ = boxes[i].j;
+                if (boxes[i].i > maxI)
+                    maxI = boxes[i].i;
+                if (boxes[i].j > maxJ)
+                    maxJ = boxes[i].j;
+            }
+
+            Int32 sizeI = maxI - minI + 1;
+            Int32 sizeJ = maxI - minJ + 1;
+
+            BoxColor[,] retVal = new BoxColor[sizeI, sizeJ];
+
+            for(int i = 0; i < boxes.Count; i++)
+            {
+                Int32 setI = boxes[i].i;
+                Int32 setJ = boxes[i].j;
+
+                retVal[setI - minI, setJ - minJ] = boxes[i].color;
             }
 
             return retVal;
