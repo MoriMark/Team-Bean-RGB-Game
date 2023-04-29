@@ -238,9 +238,11 @@ namespace RGB.View
             {
                 tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / tableTask1.ColumnCount));
             }
+            tableTask1.RowStyles.Add(new RowStyle(SizeType.Absolute,100));
             tableTask1.Controls.Add(new TaskView(3)._view, 0, 0);
             Label task1Label = new Label();
             task1Label.Text = "Time Remaining:\nPoints:";
+            task1Label.Dock = DockStyle.Fill;
             tableTask1.Controls.Add(task1Label, 1, 0);
         }
 
