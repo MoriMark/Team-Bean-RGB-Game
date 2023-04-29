@@ -49,6 +49,8 @@ namespace RGB.modell.game_logic
             field[i + border, j + border] = value;
         }
 
+        public List<Exit> GetExits { get { return exits; } }
+
         public Field CalculateVisionOfRobot(Robot robot)
         {
             Field calculatedField = (Field)field.Clone();
