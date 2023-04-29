@@ -195,7 +195,7 @@ namespace RGB.modell
                             }
                             else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
-                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i, j));
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i, j + 1));
                             }
                             else if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j +1 )).ingroup != 0)
                             {
