@@ -59,7 +59,6 @@ namespace RGB.modell
             OnFieldsUpdate();
 
             return true;
-            //throw new NotImplementedException();
         }
 
         // TODO doc comment
@@ -122,7 +121,16 @@ namespace RGB.modell
 
             if (RobotStandsOnExit() && currentRobot.IsAttached())
             {
-                Task? task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
+                MessageBox.Show("Stands on exit");
+                Task? task;
+                if (currentRobot.GetAttachedGroupId() == 0)
+                {
+                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, new List<Box>() { currentRobot.Attached });
+                } 
+                else
+                {
+                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
+                }
                 if (task.HasValue)
                 {
                     if (task.Value.direction.Equals(currentRobot.facing))

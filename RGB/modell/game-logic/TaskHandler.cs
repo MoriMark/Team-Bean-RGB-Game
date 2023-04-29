@@ -2,7 +2,6 @@
 using RGB.modell.events;
 using RGB.modell.exceptions;
 using RGB.modell.gameobjects;
-using System.Collections.Generic;
 using Task = RGB.modell.structs.Task;
 
 namespace RGB.modell.game_logic
@@ -211,11 +210,11 @@ namespace RGB.modell.game_logic
             }
 
             Int32 sizeI = maxI - minI + 1;
-            Int32 sizeJ = maxI - minJ + 1;
+            Int32 sizeJ = maxJ - minJ + 1;
 
             BoxColor[,] retVal = new BoxColor[sizeI, sizeJ];
 
-            for(int i = 0; i < boxes.Count; i++)
+            for(Int32 i = 0; i < boxes.Count; i++)
             {
                 Int32 setI = boxes[i].i;
                 Int32 setJ = boxes[i].j;
