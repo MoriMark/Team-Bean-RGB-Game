@@ -17,6 +17,8 @@ namespace RGB.View
             this.size = size;
             _view = new TableLayoutPanel();
             _view.Dock = DockStyle.Fill;
+            _view.Padding = new Padding(0);
+            _view.Margin = new Padding(0);
             _view.RowCount = size;
             _view.ColumnCount = size;
             for (int i = 0; i < size; i++) 
@@ -30,7 +32,9 @@ namespace RGB.View
                 {
                     PictureBox tile = new PictureBox();
                     tile.Dock = DockStyle.Fill;
-                    tile.BackColor = Color.Blue;        //placeholder value
+                    tile.BackColor = Color.Blue;          //placeholder value
+                    tile.Padding = new Padding(0);
+                    tile.Margin = new Padding(0);
                     _view.Controls.Add(tile, i, j);
                 }
             }
