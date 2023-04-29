@@ -74,9 +74,15 @@ namespace RGB.modell.game_logic
         public TaskHandler()
         {
             tasks = new Dictionary<Team, List<Task>>();
+            teamPoints = new Dictionary<Team, int>();
             rnd = new Random();
         }
 
+        /// <summary>
+        /// Returns the number of boxes of a given task.
+        /// </summary>
+        /// <param name="task">The task to count the boxes in.</param>
+        /// <returns>The number of boxes of a given task.</returns>
         private Int32 BoxesInTask(Task task)
         {
             return task.task.Cast<BoxColor>().Count(x => x != BoxColor.NoColor);
@@ -113,6 +119,10 @@ namespace RGB.modell.game_logic
             tasks[team].Add(task);
         }
 
+        /// <summary>
+        /// Returns a two-dimensional array of random box colors based on the available shapes.
+        /// </summary>
+        /// <returns>A two-dimensional array of randomly assigned box colors.</returns>
         private BoxColor[,] GetRandomBoxColorMatrix()
         {
             Int32 ind = rnd.Next(0,availableShapes.GetLength(0));
@@ -160,13 +170,22 @@ namespace RGB.modell.game_logic
             }
         }
 
-        public void ReduceTeamTasksTime(Team team)
+        public void ReduceTasksTime()
         {
-            List<Task> teamTasks = GetTeamTasks(team);
+            foreach (Team team in tasks.Keys)
+            {
+                List<Task> teamTasks = GetTeamTasks(team);
 
-            teamTasks.ForEach(task => --task.expiration);
+                teamTasks.ForEach(task => --task.expiration);
+            }
         }
 
+        /// <summary>
+        /// Checks if the given list of boxes represents a task for the specified team and returns the corresponding task if found.
+        /// </summary>
+        /// <param name="team">The team for which to check if the boxes represent a task.</param>
+        /// <param name="boxes">The list of boxes to check if they represent a task.</param>
+        /// <returns>The task that matches the given list of boxes first in timeline, if found; otherwise, returns null.</returns>
         public Task? GivenPatternIsATaskOfGivenTeam(Team team, List<Box> boxes)
         {
             Task? retVal = null;
@@ -190,6 +209,12 @@ namespace RGB.modell.game_logic
             return retVal;
         }
 
+        /// <summary>
+        /// Generates a matrix of BoxColors from the given list of boxes.
+        /// </summary>
+        /// <param name="boxes">The list of boxes to generate the matrix from.</param>
+        /// <returns>A matrix of BoxColors with the same size and shape as the area covered by the boxes.</returns>
+        /// <exception cref="ArgumentException">Thrown when the input list is empty.</exception>
         private BoxColor[,] GenerateMatrixFromAttachedBoxes(List<Box> boxes)
         {
             if (!boxes.Any())

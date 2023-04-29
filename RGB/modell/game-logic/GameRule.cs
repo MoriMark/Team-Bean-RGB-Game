@@ -22,9 +22,18 @@ namespace RGB.modell
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
 
-        TaskHandler taskHandler;
+        private TaskHandler taskHandler;
+        private const Int32 TASK_MAX_TASKS_COUNT = 5;
+        private const Int32 TASK_MIN_TASKS_COUNT = 2;
+        private const Int32 TASK_CHANCE_OF_NEW_TASK = 10;
 
         public event EventHandler<UpdateFieldsEventArgs> UpdateFields;
+
+        public event EventHandler<UpdateTasksEventArgs> UpdateTasks
+        {
+            add { taskHandler.UpdateFields += value; }
+            remove { taskHandler.UpdateFields -= value; }
+        }
 
         public GameRule(Int32 numOfRobots, Int32 numOfTeams)
         {
@@ -119,25 +128,7 @@ namespace RGB.modell
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            if (RobotStandsOnExit() && currentRobot.IsAttached())
-            {
-                MessageBox.Show("Stands on exit");
-                Task? task;
-                if (currentRobot.GetAttachedGroupId() == 0)
-                {
-                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, new List<Box>() { currentRobot.Attached });
-                } 
-                else
-                {
-                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
-                }
-                if (task.HasValue)
-                {
-                    if (task.Value.direction.Equals(currentRobot.facing))
-                        // finish task
-                        MessageBox.Show("Task is done!");
-                }
-            }
+            CheckIfAnyTasksIsDone();
 
             Int32 i = robots.IndexOf(currentRobot);
             if (i == robots.Count - 1)
@@ -145,11 +136,16 @@ namespace RGB.modell
                 WeldCheck();
                 currentRobot = robots[0];
                 numberOfCurrentRound++;
+                taskHandler.ReduceTasksTime();
             }
             else
             {
                 currentRobot = robots[i + 1];
             }
+
+            GenerateTasks();
+
+            taskHandler.OnTasksUpdate(currentRobot.team);
             OnFieldsUpdate();
         }
 
@@ -771,6 +767,39 @@ namespace RGB.modell
             }
 
             return false;
+        }
+
+        private void CheckIfAnyTasksIsDone()
+        {
+            if (RobotStandsOnExit() && currentRobot.IsAttached())
+            {
+                Task? task;
+                if (currentRobot.GetAttachedGroupId() == 0)
+                {
+                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, new List<Box>() { currentRobot.Attached });
+                }
+                else
+                {
+                    task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
+                }
+                if (task.HasValue)
+                {
+                    taskHandler.FinishTask(task.Value);
+                }
+            }
+        }
+
+        private void GenerateTasks()
+        {
+            while (taskHandler.GetTeamTasks(currentRobot.team).Count < TASK_MIN_TASKS_COUNT)
+                taskHandler.GenerateRandomTaskForTeam(currentRobot.team);
+
+            if (taskHandler.GetTeamTasks(currentRobot.team).Count >= TASK_MAX_TASKS_COUNT)
+                return;
+
+            Random rnd = new Random();
+            if (rnd.Next(1, 100) <= TASK_CHANCE_OF_NEW_TASK)
+                taskHandler.GenerateRandomTaskForTeam(currentRobot.team);
         }
 
         private void OnFieldsUpdate()
