@@ -91,6 +91,8 @@ namespace RGB.View
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].Padding = new Padding(0);
                     _buttons[i, j].Margin = new Padding(0);
+                    _buttons[i, j].FlatStyle = FlatStyle.Flat;
+                    _buttons[i, j].FlatAppearance.BorderSize = 0;
 
                     tableLayoutPanelButtons.Controls.Add(_buttons[i, j], j, i);
                 }
@@ -113,6 +115,7 @@ namespace RGB.View
             _timer.Tick += RoundTimerTick;
             _timer.Enabled = true;
 
+            SetTaskDisplays();
             exits = _gameHandler.gameRule.exits;
             testLabel.Text = string.Empty;
             foreach (Exit e in exits)
@@ -224,6 +227,21 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
             symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
+        }
+
+        private void SetTaskDisplays()
+        {
+            tableTask1.Margin = new Padding(0);
+            tableTask1.Padding = new Padding(0);
+            tableTask1.ColumnStyles.Clear();
+            for (int i = 0; i < tableTask1.ColumnCount; i++) 
+            {
+                tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / tableTask1.ColumnCount));
+            }
+            tableTask1.Controls.Add(new TaskView(3)._view, 0, 0);
+            Label task1Label = new Label();
+            task1Label.Text = "Time Remaining:\nPoints:";
+            tableTask1.Controls.Add(task1Label, 1, 0);
         }
 
         private void RefreshViewTable(Int32 x, Int32 y) //X and Y are the current robot coords 
