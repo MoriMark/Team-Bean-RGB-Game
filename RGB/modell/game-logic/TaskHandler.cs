@@ -168,7 +168,7 @@ namespace RGB.modell.game_logic
             teamTasks.ForEach(task => --task.expiration);
         }
 
-        public Task? IsGivenPatternIsATaskOfGivenTeam(Team team, List<Box> boxes)
+        public Task? GivenPatternIsATaskOfGivenTeam(Team team, List<Box> boxes)
         {
             Task? retVal = null;
 

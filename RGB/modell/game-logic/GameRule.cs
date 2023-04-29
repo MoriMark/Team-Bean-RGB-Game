@@ -122,12 +122,12 @@ namespace RGB.modell
 
             if (RobotStandsOnExit() && currentRobot.IsAttached())
             {
-                Task? task = taskHandler.IsGivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
+                Task? task = taskHandler.GivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
                 if (task.HasValue)
                 {
                     if (task.Value.direction.Equals(currentRobot.facing))
-                    // finish task
-                    MessageBox.Show("Task is done!");
+                        // finish task
+                        MessageBox.Show("Task is done!");
                 }
             }
 
