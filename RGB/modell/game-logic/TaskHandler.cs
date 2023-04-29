@@ -168,14 +168,11 @@ namespace RGB.modell.game_logic
             teamTasks.ForEach(task => --task.expiration);
         }
 
-        public Task? CheckIfTeamTaskIsDone(Robot robot, List<Box> boxes)
+        public Task? IsGivenPatternIsATaskOfGivenTeam(Team team, List<Box> boxes)
         {
-            if (!robot.IsAttached())
-                return null;
-
             Task? retVal = null;
 
-            List<Task> teamTasks = GetTeamTasks(robot.team);
+            List<Task> teamTasks = GetTeamTasks(team);
 
             BoxColor[,] boxesMatrix = GenerateMatrixFromAttachedBoxes(boxes);
 
@@ -184,7 +181,11 @@ namespace RGB.modell.game_logic
                 if (BoxesInTask(teamTasks[i]) != boxes.Count)
                     continue;
 
-                // TODO check pattern
+                if (AreBoxColorMatrixesEqual(boxesMatrix, teamTasks[i].task))
+                {
+                    retVal = teamTasks[i];
+                    break;
+                }
             }
 
             return retVal;
@@ -223,6 +224,24 @@ namespace RGB.modell.game_logic
             }
 
             return retVal;
+        }
+
+        private bool AreBoxColorMatrixesEqual(BoxColor[,] array1, BoxColor[,] array2)
+        {
+            if (array1 == null || array2 == null ||
+                array1.GetLength(0) != array2.GetLength(0) ||
+                array1.GetLength(1) != array2.GetLength(1))
+            {
+                return false;
+            }
+
+            // return array1.Cast<BoxColor>().SequenceEqual(array2.Cast<BoxColor>());
+            for (int i = 0; i < array1.GetLength(0); i++)
+                for (int j = 0; j < array1.GetLength(1); j++)
+                    if (array1[i, j] != array2[i, j])
+                        return false;
+
+            return true;
         }
 
         public void OnTasksUpdate(Team team)

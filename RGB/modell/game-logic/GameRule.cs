@@ -5,14 +5,7 @@ using RGB.modell.exceptions;
 using RGB.modell.game_logic;
 using RGB.modell.gameobjects;
 using RGB.modell.structs;
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using Task = RGB.modell.structs.Task;
 
 namespace RGB.modell
 {
@@ -129,9 +122,12 @@ namespace RGB.modell
 
             if (RobotStandsOnExit() && currentRobot.IsAttached())
             {
-                if (taskHandler.CheckIfTeamTaskIsDone(currentRobot, boxgroups[currentRobot.GetAttachedGroupId()].boxes).HasValue)
+                Task? task = taskHandler.IsGivenPatternIsATaskOfGivenTeam(currentRobot.team, boxgroups[currentRobot.GetAttachedGroupId()].boxes);
+                if (task.HasValue)
                 {
-                    // TODO end task
+                    if (task.Value.direction.Equals(currentRobot.facing))
+                    // finish task
+                    MessageBox.Show("Task is done!");
                 }
             }
 
