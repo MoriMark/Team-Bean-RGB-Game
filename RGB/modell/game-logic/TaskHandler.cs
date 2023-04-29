@@ -1,6 +1,8 @@
 ﻿using RGB.modell.enums;
 using RGB.modell.events;
 using RGB.modell.exceptions;
+using RGB.modell.gameobjects;
+using System.Collections.Generic;
 using Task = RGB.modell.structs.Task;
 
 namespace RGB.modell.game_logic
@@ -14,8 +16,14 @@ namespace RGB.modell.game_logic
         private const Int32 taskTimeLimit = 25;
         private Random rnd;
 
-        private static readonly Byte[][,] availableShapes = new Byte[][,]
+        public static readonly Byte[][,] availableShapes = new Byte[][,]
         {
+            // 1x1
+            new Byte[,]
+            {
+                { 1 }
+            },
+
             // 1x2 & 2x1
             new Byte[,]
             {
@@ -68,6 +76,11 @@ namespace RGB.modell.game_logic
         {
             tasks = new Dictionary<Team, List<Task>>();
             rnd = new Random();
+        }
+
+        private Int32 BoxesInTask(Task task)
+        {
+            return task.task.Cast<BoxColor>().Count(x => x != BoxColor.NoColor);
         }
 
         public List<Task> GetTeamTasks(Team team)
@@ -153,6 +166,26 @@ namespace RGB.modell.game_logic
             List<Task> teamTasks = GetTeamTasks(team);
 
             teamTasks.ForEach(task => --task.expiration);
+        }
+
+        public Task? CheckIfTeamTaskIsDone(Robot robot, List<Box> boxes)
+        {
+            if (!robot.IsAttached())
+                return null;
+
+            Task? retVal = null;
+
+            List<Task> teamTasks = GetTeamTasks(robot.team);
+
+            for (Int32 i = 0;i < teamTasks.Count;i++)
+            {
+                if (BoxesInTask(teamTasks[i]) != boxes.Count)
+                    continue;
+
+                // TODO check pattern
+            }
+
+            return retVal;
         }
 
         public void OnTasksUpdate(Team team)

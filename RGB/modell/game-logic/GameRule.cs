@@ -29,14 +29,9 @@ namespace RGB.modell
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
 
+        TaskHandler taskHandler;
 
         public event EventHandler<UpdateFieldsEventArgs> UpdateFields;
-
-        public GameRule()
-        {
-            GameIsActive = false;
-            GameIsPaused = false;
-        }
 
         public GameRule(Int32 numOfRobots, Int32 numOfTeams)
         {
@@ -47,6 +42,7 @@ namespace RGB.modell
             field = new Field(tableSize);
             robots = field.GenerateField(numOfRobots, numOfTeams);
             boxgroups = new Dictionary<int, BoxGroup>();
+            taskHandler = new TaskHandler();
         }
 
         public GameObject GetFieldValue(Int32 x, Int32 y)
@@ -130,6 +126,14 @@ namespace RGB.modell
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+
+            if (RobotStandsOnExit() && currentRobot.IsAttached())
+            {
+                if (taskHandler.CheckIfTeamTaskIsDone(currentRobot, boxgroups[currentRobot.GetAttachedGroupId()].boxes).HasValue)
+                {
+                    // TODO end task
+                }
+            }
 
             Int32 i = robots.IndexOf(currentRobot);
             if (i == robots.Count - 1)
