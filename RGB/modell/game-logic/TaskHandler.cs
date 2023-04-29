@@ -16,7 +16,7 @@ namespace RGB.modell.game_logic
         private const Int32 taskTimeLimit = 25;
         private Random rnd;
 
-        public static readonly Byte[][,] availableShapes = new Byte[][,]
+        private static readonly Byte[][,] availableShapes = new Byte[][,]
         {
             // 1x1
             new Byte[,]
