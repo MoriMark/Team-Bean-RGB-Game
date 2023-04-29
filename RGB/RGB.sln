@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGB", "RGB.csproj", "{C4FCA09C-3816-482D-822F-574951B206D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RGB", "RGB.csproj", "{C4FCA09C-3816-482D-822F-574951B206D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGBModellTest", "..\RGBModellTest\RGBModellTest.csproj", "{C4D57D65-2515-404C-BF24-3E35D0515A34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C4FCA09C-3816-482D-822F-574951B206D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4FCA09C-3816-482D-822F-574951B206D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4FCA09C-3816-482D-822F-574951B206D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D57D65-2515-404C-BF24-3E35D0515A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D57D65-2515-404C-BF24-3E35D0515A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D57D65-2515-404C-BF24-3E35D0515A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D57D65-2515-404C-BF24-3E35D0515A34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
