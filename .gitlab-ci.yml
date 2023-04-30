@@ -13,7 +13,7 @@ before_script:
 build_model:
   stage: build
   script:
-    - dotnet build RGB/modell
+    - dotnet build RGB/modell/gameobjects
 
 # Build complete solution
 # (Uses Windows-based runner, because windows tag IS specified.)
