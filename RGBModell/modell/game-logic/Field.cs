@@ -90,6 +90,7 @@ namespace RGBModell.modell.game_logic
         public GameObject[,] CalculateVisionOfRobot(Robot robot)
         {
             GameObject[,] calculateMatrix = new GameObject[MatrixSize,MatrixSize];
+            const Int32 viewDistance = 4;
 
             //TODO calcualate
 
@@ -97,10 +98,16 @@ namespace RGBModell.modell.game_logic
             {
                 for (Int32 j = 0; j < MatrixSize; ++j)
                 {
+                    if (Math.Abs(i - robot.i) + Math.Abs(j - robot.j) <= viewDistance)
+                        calculateMatrix[i, j] = field[i, j];
+                    else
+                        calculateMatrix[i, j] = new Wall(i, j);
+                    /*
                     if (BetweenBorders(i, j))
                         calculateMatrix[i, j] = field[i, j];
                     else
                         calculateMatrix[i, j] = new Wall(i, j);
+                    */
                 }
             }
 

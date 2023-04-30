@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using RGBModell.modell;
 using RGBModell.modell.structs;
 using RGBModell.modell.game_logic;
+using RGBModell.modell.events;
 
 namespace RGB.View
 {
@@ -60,6 +61,7 @@ namespace RGB.View
             _gameHandler.robotChanged += NextRobot;
             sendButton.Click += SendButton_Click;
             mapButton.Click += MapButton_Click;
+            _gameHandler.gameRule.UpdateFields += RefreshTable;
             SetUpSymbolButtons();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = viewDist * 2 + 1;
@@ -215,6 +217,35 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
             symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
+        }
+
+        private void RefreshTable(object? o, UpdateFieldsEventArgs e)
+        {
+            String outT = String.Empty;
+            for (int i = 0; i < e.gameObjects.GetLength(0); i++)
+            {
+                for (int j = 0; j < e.gameObjects.GetLength(1); j++)
+                {
+                    if (e.gameObjects[i, j] is Empty)
+                    {
+                        outT += "O";
+                    } 
+                    else if (e.gameObjects[i, j] is Wall)
+                    {
+                        outT += "X";
+                    }
+                    else if (e.gameObjects[i, j] is Robot)
+                    {
+                        outT += "R";
+                    }
+                    else if (e.gameObjects[i, j] is Box)
+                    {
+                        outT += "B";
+                    }
+                }
+                outT += "\n";
+            }
+            MessageBox.Show(outT);
         }
 
         private void RefreshViewTable(Int32 x, Int32 y)
