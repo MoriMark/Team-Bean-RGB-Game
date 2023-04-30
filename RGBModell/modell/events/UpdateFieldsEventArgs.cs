@@ -1,4 +1,5 @@
 ﻿using RGBModell.modell.game_logic;
+using RGBModell.modell.gameobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace RGBModell.modell.events
 {
     public class UpdateFieldsEventArgs : EventArgs
     {
-        public Field field;
+        public GameObject[,] gameObjects;
 
-        public UpdateFieldsEventArgs(Field field)
+        public UpdateFieldsEventArgs(GameObject[,] gameObjects)
         {
-        this.field = field;
+            this.gameObjects = gameObjects;
         }
     }
 }

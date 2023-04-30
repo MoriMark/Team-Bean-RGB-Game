@@ -87,13 +87,24 @@ namespace RGBModell.modell.game_logic
 
         public List<Exit> GetExits { get { return exits; } }
 
-        public Field CalculateVisionOfRobot(Robot robot)
+        public GameObject[,] CalculateVisionOfRobot(Robot robot)
         {
-            Field calculatedField = (Field)field.Clone();
+            GameObject[,] calculateMatrix = new GameObject[MatrixSize,MatrixSize];
 
             //TODO calcualate
 
-            return calculatedField;
+            for (Int32 i = 0; i < MatrixSize; ++i)
+            {
+                for (Int32 j = 0; j < MatrixSize; ++j)
+                {
+                    if (BetweenBorders(i, j))
+                        calculateMatrix[i, j] = field[i, j];
+                    else
+                        calculateMatrix[i, j] = new Wall(i, j);
+                }
+            }
+
+            return calculateMatrix;
         }
 
         /// <summary>
