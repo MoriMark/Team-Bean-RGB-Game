@@ -176,32 +176,22 @@ namespace RGBModell.modell.game_logic
         {
             List<Robot> robots = new List<Robot>();
             //Initializing the table with empty fields
-            // Setting borders
             for (int i = 0; i < MatrixSize; i++)
-            {
                 for (int j = 0; j < MatrixSize; j++)
-                {
-                    if (BetweenBorders(i, j))
-                    {
-                        field[i, j] = new Empty(i, j);
-                    }
-                    else
-                    {
-                        field[i, j] = new Wall(i, j);
-                    }
-                }
-            }
-            //Setting boxes
-            Int32 numOfBoxes = TableSize;
+                    field[i, j] = new Empty(i, j);
+
             Random RNG = new Random();
-            BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
             int x; int y;
+            #region Setting boxes
+            Int32 numOfBoxes = TableSize;
+            BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
 
             while (numOfBoxes > 0)
             {
                 x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
                 if (!BetweenBorders(x, y))
                     continue;
+
                 if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
@@ -229,7 +219,8 @@ namespace RGBModell.modell.game_logic
                     }
                 }
             }
-            //Setting robots
+            #endregion
+            #region Setting robots
             Int32 numOfPlayers = numOfRobots * numOfTeams;
             Team[] teamColors = { Team.Red, Team.Blue, Team.Green, Team.Yellow };
             //Each team to have equal amount of robots
@@ -289,6 +280,7 @@ namespace RGBModell.modell.game_logic
                     }
                 }
             }
+            #endregion
             GenerateExits();
 
             return robots;
