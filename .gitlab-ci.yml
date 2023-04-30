@@ -48,12 +48,6 @@ test_model:
 # (Uses Linux-based runner, because windows tag is NOT specified.)
 pages:
   stage: deploy
-  before_script:
-    - apt-get update -yqq
-    - apt-get install -yqq doxygen graphviz
-  script:
-    - doxygen
-    - cp -r doc/html/. public/
   artifacts:
     paths:
       - public
