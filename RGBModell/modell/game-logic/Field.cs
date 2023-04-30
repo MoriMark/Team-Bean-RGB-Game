@@ -108,20 +108,22 @@ namespace RGBModell.modell.game_logic
             //TableSize * edges - duplicateCorners - corners
             if (NUMBER_OF_EXITS < 4 || NUMBER_OF_EXITS > (MatrixSize * 4 - 4 - 4)) throw new ArgumentException($"NumberOfExists must be greater than 4 and less than or equal {MatrixSize * 4 - 4 - 4}");
 
+            Int32 bBorderMin = BORDER;
+            Int32 bBorderMax = MatrixSize - BORDER - 1;
+
             Random rnd = new Random();
 
             //Make sure to have one 1-1 exits in every edges
             {
                 Int32[] rndInd = new int[4];
                 for (int i = 0; i < rndInd.Length; ++i)
-                    //corners excluded with (0,TableSize-1)
-                    rndInd[i] = rnd.Next(1, MatrixSize-1);
+                    rndInd[i] = rnd.Next(bBorderMin + 1, bBorderMax);
 
                 exits = new List<Exit>(){
-                    new Exit(new Coordinate(0, rndInd[0]),Direction.Up),
-                    new Exit(new Coordinate(rndInd[1], MatrixSize - 1), Direction.Right),
-                    new Exit(new Coordinate(MatrixSize - 1, rndInd[2]), Direction.Down),
-                    new Exit(new Coordinate(rndInd[3], 0), Direction.Left)
+                    new Exit(new Coordinate(bBorderMin, rndInd[0]),Direction.Up),
+                    new Exit(new Coordinate(rndInd[1], bBorderMax), Direction.Right),
+                    new Exit(new Coordinate(bBorderMax, rndInd[2]), Direction.Down),
+                    new Exit(new Coordinate(rndInd[3], bBorderMin), Direction.Left)
                 };
             }
             int existLeft = NUMBER_OF_EXITS - 4;
@@ -130,29 +132,28 @@ namespace RGBModell.modell.game_logic
             {
                 Int32 x = 0,y = 0;
                 Direction dir = Direction.Down;
-                //corners excluded with (0,TableSize-1)
-                int rndInd = rnd.Next(1, MatrixSize-1);
+                int rndInd = rnd.Next(bBorderMin + 1, bBorderMax);
 
                 switch (rnd.Next(0, 4))
                 {
                     case 0:
-                        x = 0;
+                        x = bBorderMin;
                         y = rndInd;
                         dir = Direction.Up;
                         break;
                     case 1:
                         x = rndInd;
-                        y = MatrixSize - 1;
+                        y = bBorderMax;
                         dir = Direction.Right;
                         break;
                     case 2:
-                        x = MatrixSize - 1;
+                        x = bBorderMax;
                         y = rndInd;
                         dir = Direction.Down;
                         break;
                     case 3:
                         x = rndInd;
-                        y = 0;
+                        y = bBorderMin;
                         dir = Direction.Left;
                         break;
                 }
