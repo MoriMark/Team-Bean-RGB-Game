@@ -1,6 +1,7 @@
 ﻿using RGB.modell.enums;
 using RGB.modell.events;
 using RGB.modell.exceptions;
+using RGB.modell.gameobjects;
 using Task = RGB.modell.structs.Task;
 
 namespace RGB.modell.game_logic
@@ -16,6 +17,12 @@ namespace RGB.modell.game_logic
 
         private static readonly Byte[][,] availableShapes = new Byte[][,]
         {
+            // 1x1
+            new Byte[,]
+            {
+                { 1 }
+            },
+
             // 1x2 & 2x1
             new Byte[,]
             {
@@ -67,7 +74,18 @@ namespace RGB.modell.game_logic
         public TaskHandler()
         {
             tasks = new Dictionary<Team, List<Task>>();
+            teamPoints = new Dictionary<Team, int>();
             rnd = new Random();
+        }
+
+        /// <summary>
+        /// Returns the number of boxes of a given task.
+        /// </summary>
+        /// <param name="task">The task to count the boxes in.</param>
+        /// <returns>The number of boxes of a given task.</returns>
+        private Int32 BoxesInTask(Task task)
+        {
+            return task.task.Cast<BoxColor>().Count(x => x != BoxColor.NoColor);
         }
 
         public List<Task> GetTeamTasks(Team team)
@@ -101,6 +119,10 @@ namespace RGB.modell.game_logic
             tasks[team].Add(task);
         }
 
+        /// <summary>
+        /// Returns a two-dimensional array of random box colors based on the available shapes.
+        /// </summary>
+        /// <returns>A two-dimensional array of randomly assigned box colors.</returns>
         private BoxColor[,] GetRandomBoxColorMatrix()
         {
             Int32 ind = rnd.Next(0,availableShapes.GetLength(0));
@@ -148,11 +170,102 @@ namespace RGB.modell.game_logic
             }
         }
 
-        public void ReduceTeamTasksTime(Team team)
+        public void ReduceTasksTime()
         {
+            foreach (Team team in tasks.Keys)
+            {
+                List<Task> teamTasks = GetTeamTasks(team);
+
+                teamTasks.ForEach(task => --task.expiration);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the given list of boxes represents a task for the specified team and returns the corresponding task if found.
+        /// </summary>
+        /// <param name="team">The team for which to check if the boxes represent a task.</param>
+        /// <param name="boxes">The list of boxes to check if they represent a task.</param>
+        /// <returns>The task that matches the given list of boxes first in timeline, if found; otherwise, returns null.</returns>
+        public Task? GivenPatternIsATaskOfGivenTeam(Team team, List<Box> boxes)
+        {
+            Task? retVal = null;
+
             List<Task> teamTasks = GetTeamTasks(team);
 
-            teamTasks.ForEach(task => --task.expiration);
+            BoxColor[,] boxesMatrix = GenerateMatrixFromAttachedBoxes(boxes);
+
+            for (Int32 i = 0;i < teamTasks.Count;i++)
+            {
+                if (BoxesInTask(teamTasks[i]) != boxes.Count)
+                    continue;
+
+                if (AreBoxColorMatrixesEqual(boxesMatrix, teamTasks[i].task))
+                {
+                    retVal = teamTasks[i];
+                    break;
+                }
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Generates a matrix of BoxColors from the given list of boxes.
+        /// </summary>
+        /// <param name="boxes">The list of boxes to generate the matrix from.</param>
+        /// <returns>A matrix of BoxColors with the same size and shape as the area covered by the boxes.</returns>
+        /// <exception cref="ArgumentException">Thrown when the input list is empty.</exception>
+        private BoxColor[,] GenerateMatrixFromAttachedBoxes(List<Box> boxes)
+        {
+            if (!boxes.Any())
+                throw new ArgumentException("boxes must contain atleast one element!");
+
+            Int32 minI = boxes[0].i, minJ = boxes[0].j, maxI = boxes[0].i, maxJ = boxes[0].j;
+
+            for (Int32 i = 1;i < boxes.Count;i++)
+            {
+                if (boxes[i].i < minI)
+                    minI = boxes[i].i;
+                if (boxes[i].j < minJ)
+                    minJ = boxes[i].j;
+                if (boxes[i].i > maxI)
+                    maxI = boxes[i].i;
+                if (boxes[i].j > maxJ)
+                    maxJ = boxes[i].j;
+            }
+
+            Int32 sizeI = maxI - minI + 1;
+            Int32 sizeJ = maxJ - minJ + 1;
+
+            BoxColor[,] retVal = new BoxColor[sizeI, sizeJ];
+
+            for(Int32 i = 0; i < boxes.Count; i++)
+            {
+                Int32 setI = boxes[i].i;
+                Int32 setJ = boxes[i].j;
+
+                retVal[setI - minI, setJ - minJ] = boxes[i].color;
+            }
+
+            return retVal;
+        }
+
+        private bool AreBoxColorMatrixesEqual(BoxColor[,] array1, BoxColor[,] array2)
+        {
+            if (array1 == null || array2 == null ||
+                array1.GetLength(0) != array2.GetLength(0) ||
+                array1.GetLength(1) != array2.GetLength(1))
+            {
+                return false;
+            }
+
+            // return array1.Cast<BoxColor>().SequenceEqual(array2.Cast<BoxColor>());
+            for (int i = 0; i < array1.GetLength(0); i++)
+                for (int j = 0; j < array1.GetLength(1); j++)
+                    if (array1[i, j] != array2[i, j])
+                        return false;
+
+            return true;
         }
 
         public void OnTasksUpdate(Team team)
