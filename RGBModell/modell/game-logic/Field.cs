@@ -41,16 +41,27 @@ namespace RGBModell.modell.game_logic
             if (gameObject is null)
                 throw new ArgumentNullException("given paramter is null!");
 
-            if (gameObject.i < BORDER)
+            return BetweenBorders(gameObject.i,gameObject.j);
+        }
+
+        /// <summary>
+        /// Check if a given i and j coordinates mapping to the predefined borders.
+        /// </summary>
+        /// <param name="i">The first dimension index.</param>
+        /// <param name="j">The second dimension index.</param>
+        /// <returns>Returns true if the given coordinates are included between the borders.</returns>
+        public Boolean BetweenBorders(Int32 i, Int32 j)
+        {
+            if (i < BORDER)
                 return false;
 
-            if (gameObject.i >= MatrixSize - BORDER)
+            if (i >= MatrixSize - BORDER)
                 return false;
 
-            if (gameObject.j < BORDER)
+            if (j < BORDER)
                 return false;
 
-            if (gameObject.j >= MatrixSize - BORDER)
+            if (j >= MatrixSize - BORDER)
                 return false;
 
             return true;
@@ -165,37 +176,32 @@ namespace RGBModell.modell.game_logic
         {
             List<Robot> robots = new List<Robot>();
             //Initializing the table with empty fields
-            for (int i = 0; i < MatrixSize + (BORDER * 2); i++)
+            // Setting borders
+            for (int i = 0; i < MatrixSize; i++)
             {
-                for (int j = 0; j < MatrixSize + (BORDER * 2); j++)
+                for (int j = 0; j < MatrixSize; j++)
                 {
-                    field[i, j] = new Empty(i, j);
-                }
-            }
-            //Setting borders
-            for (int i = 0; i < MatrixSize+(BORDER*2); i++)
-            {
-                for (int j = 0; j < MatrixSize + (BORDER * 2); j++)
-                {
-                    if (i < 5 || j < 5)
+                    if (BetweenBorders(i, j))
                     {
-                        field[i, j] = new Wall(i, j);
+                        field[i, j] = new Empty(i, j);
                     }
-                    else if (i > MatrixSize + BORDER || j > MatrixSize + BORDER)
+                    else
                     {
                         field[i, j] = new Wall(i, j);
                     }
                 }
             }
             //Setting boxes
-            Int32 numOfBoxes = MatrixSize;
+            Int32 numOfBoxes = TableSize;
             Random RNG = new Random();
             BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
             int x; int y;
 
             while (numOfBoxes > 0)
             {
-                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);   
+                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
+                if (!BetweenBorders(x, y))
+                    continue;
                 if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
@@ -236,6 +242,9 @@ namespace RGBModell.modell.game_logic
             while (numOfPlayers > 0)
             {
                 x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
+                if (!BetweenBorders(x, y))
+                    continue;
+
                 if (RNG.Next(100) > 96 && GetValue(x, y).IsEmpty())
                 {
                     int current = RNG.Next(0, numOfTeams);
@@ -280,7 +289,6 @@ namespace RGBModell.modell.game_logic
                     }
                 }
             }
-
             GenerateExits();
 
             return robots;
