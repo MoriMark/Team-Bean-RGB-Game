@@ -8,12 +8,8 @@ stages:
 before_script:
   - dotnet --version
 
-# Build model
-# (Uses Linux-based runner, because windows tag is NOT specified.)
-build_model:
-  stage: build
-  script:
-    - dotnet build RGB
+
+
 
 # Build complete solution
 # (Uses Windows-based runner, because windows tag IS specified.)
