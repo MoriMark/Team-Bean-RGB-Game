@@ -1,4 +1,4 @@
-﻿using RGB.modell.enums;
+﻿using RGBModell.modell.enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

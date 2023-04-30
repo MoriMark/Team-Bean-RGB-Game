@@ -1,4 +1,4 @@
-﻿using RGB.modell.gameobjects;
+﻿using RGBModell.modell.gameobjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

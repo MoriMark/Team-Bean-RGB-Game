@@ -1,6 +1,6 @@
-﻿using RGB.modell.gameobjects;
-using RGB.modell.boxlogic;
-using RGB.modell.enums;
+﻿using RGBModell.modell.gameobjects;
+using RGBModell.modell.boxlogic;
+using RGBModell.modell.enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RGB.modell;
-using RGB.modell.structs;
-using RGB.modell.game_logic;
+using RGBModell.modell;
+using RGBModell.modell.structs;
+using RGBModell.modell.game_logic;
 
 namespace RGB.View
 {
@@ -403,7 +403,7 @@ namespace RGB.View
         {
             teamMessagePanel.Controls.Clear();
 
-            List<modell.structs.Message> msgs =
+            List<RGBModell.modell.structs.Message> msgs =
                 _gameHandler.messageHandler.GetTeamMessages
                 (_gameHandler.GetCurrentPlayer().team);
 

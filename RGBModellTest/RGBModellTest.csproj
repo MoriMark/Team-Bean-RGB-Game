@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RGB\RGB.csproj" />
+    <ProjectReference Include="..\RGBModell\RGBModell.csproj" />
   </ItemGroup>
 
 </Project>

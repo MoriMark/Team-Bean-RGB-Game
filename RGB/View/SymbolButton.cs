@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RGB.modell.enums;
+using RGBModell.modell.enums;
 
 namespace RGB.View
 {
