@@ -15,6 +15,7 @@ namespace RGBModell.modell.game_logic
         private const Int32 BORDER = 5;
         private GameObject[,] field;
         public Int32 TableSize { get; private set; }
+        public Int32 MatrixSize { get; private set; }
         private List<Exit> exits;
         private const Int32 NUMBER_OF_EXITS = 5;
 
@@ -23,9 +24,10 @@ namespace RGBModell.modell.game_logic
             if (tableSize <= 0)
                 throw new ArgumentException("table size can not be zero or negative!");
 
-            TableSize = tableSize + 2 * BORDER;
+            TableSize = tableSize;
+            MatrixSize = tableSize + 2 * BORDER;
 
-            field = new GameObject[TableSize, TableSize];
+            field = new GameObject[MatrixSize, MatrixSize];
         }
 
         /// <summary>
@@ -42,13 +44,13 @@ namespace RGBModell.modell.game_logic
             if (gameObject.i < BORDER)
                 return false;
 
-            if (gameObject.i >= TableSize - BORDER)
+            if (gameObject.i >= MatrixSize - BORDER)
                 return false;
 
             if (gameObject.j < BORDER)
                 return false;
 
-            if (gameObject.j >= TableSize - BORDER)
+            if (gameObject.j >= MatrixSize - BORDER)
                 return false;
 
             return true;
@@ -57,17 +59,17 @@ namespace RGBModell.modell.game_logic
         public GameObject GetValue(Int32 i, Int32 j)
         {
             if (i < 0 || j < 0) throw new IndexOutOfRangeException($"(i:{i}|j:{j})<0");
-            if (i >= TableSize || j >= TableSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{TableSize}");
+            if (i >= MatrixSize || j >= MatrixSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{MatrixSize}");
         
-            return field[i + BORDER, j + BORDER];
+            return field[i, j];
         }
 
         public void SetValue(Int32 i, Int32 j, GameObject value)
         {
             if (i < 0 || j < 0) throw new IndexOutOfRangeException($"(i:{i}|j:{j})<0");
-            if (i >= TableSize || j >= TableSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{TableSize}");
+            if (i >= MatrixSize || j >= MatrixSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{MatrixSize}");
 
-            field[i + BORDER, j + BORDER] = value;
+            field[i, j] = value;
         }
 
         public List<Exit> GetExits { get { return exits; } }
@@ -91,7 +93,7 @@ namespace RGBModell.modell.game_logic
         public void GenerateExits()
         {
             //TableSize * edges - duplicateCorners - corners
-            if (NUMBER_OF_EXITS < 4 || NUMBER_OF_EXITS > (TableSize * 4 - 4 - 4)) throw new ArgumentException($"NumberOfExists must be greater than 4 and less than or equal {TableSize * 4 - 4 - 4}");
+            if (NUMBER_OF_EXITS < 4 || NUMBER_OF_EXITS > (MatrixSize * 4 - 4 - 4)) throw new ArgumentException($"NumberOfExists must be greater than 4 and less than or equal {MatrixSize * 4 - 4 - 4}");
 
             Random rnd = new Random();
 
@@ -100,12 +102,12 @@ namespace RGBModell.modell.game_logic
                 Int32[] rndInd = new int[4];
                 for (int i = 0; i < rndInd.Length; ++i)
                     //corners excluded with (0,TableSize-1)
-                    rndInd[i] = rnd.Next(1, TableSize-1);
+                    rndInd[i] = rnd.Next(1, MatrixSize-1);
 
                 exits = new List<Exit>(){
                     new Exit(new Coordinate(0, rndInd[0]),Direction.Up),
-                    new Exit(new Coordinate(rndInd[1], TableSize - 1), Direction.Right),
-                    new Exit(new Coordinate(TableSize - 1, rndInd[2]), Direction.Down),
+                    new Exit(new Coordinate(rndInd[1], MatrixSize - 1), Direction.Right),
+                    new Exit(new Coordinate(MatrixSize - 1, rndInd[2]), Direction.Down),
                     new Exit(new Coordinate(rndInd[3], 0), Direction.Left)
                 };
             }
@@ -116,7 +118,7 @@ namespace RGBModell.modell.game_logic
                 Int32 x = 0,y = 0;
                 Direction dir = Direction.Down;
                 //corners excluded with (0,TableSize-1)
-                int rndInd = rnd.Next(1, TableSize-1);
+                int rndInd = rnd.Next(1, MatrixSize-1);
 
                 switch (rnd.Next(0, 4))
                 {
@@ -127,11 +129,11 @@ namespace RGBModell.modell.game_logic
                         break;
                     case 1:
                         x = rndInd;
-                        y = TableSize - 1;
+                        y = MatrixSize - 1;
                         dir = Direction.Right;
                         break;
                     case 2:
-                        x = TableSize - 1;
+                        x = MatrixSize - 1;
                         y = rndInd;
                         dir = Direction.Down;
                         break;
@@ -161,37 +163,37 @@ namespace RGBModell.modell.game_logic
         {
             List<Robot> robots = new List<Robot>();
             //Initializing the table with empty fields
-            for (int i = 0; i < TableSize + (BORDER * 2); i++)
+            for (int i = 0; i < MatrixSize + (BORDER * 2); i++)
             {
-                for (int j = 0; j < TableSize + (BORDER * 2); j++)
+                for (int j = 0; j < MatrixSize + (BORDER * 2); j++)
                 {
                     field[i, j] = new Empty(i, j);
                 }
             }
             //Setting borders
-            for (int i = 0; i < TableSize+(BORDER*2); i++)
+            for (int i = 0; i < MatrixSize+(BORDER*2); i++)
             {
-                for (int j = 0; j < TableSize + (BORDER * 2); j++)
+                for (int j = 0; j < MatrixSize + (BORDER * 2); j++)
                 {
                     if (i < 5 || j < 5)
                     {
                         field[i, j] = new Wall(i, j);
                     }
-                    else if (i > TableSize + BORDER || j > TableSize + BORDER)
+                    else if (i > MatrixSize + BORDER || j > MatrixSize + BORDER)
                     {
                         field[i, j] = new Wall(i, j);
                     }
                 }
             }
             //Setting boxes
-            Int32 numOfBoxes = TableSize;
+            Int32 numOfBoxes = MatrixSize;
             Random RNG = new Random();
             BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
             int x; int y;
 
             while (numOfBoxes > 0)
             {
-                x = RNG.Next(TableSize); y = RNG.Next(TableSize);   
+                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);   
                 if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
                     BoxColor boxCol = boxColors[RNG.Next(0,3)];
@@ -231,7 +233,7 @@ namespace RGBModell.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                x = RNG.Next(TableSize); y = RNG.Next(TableSize);
+                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
                 if (RNG.Next(100) > 96 && GetValue(x, y).IsEmpty())
                 {
                     int current = RNG.Next(0, numOfTeams);

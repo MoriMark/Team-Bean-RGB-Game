@@ -155,13 +155,13 @@ namespace RGBModell.modell
         /// </summary>
         private void WeldCheck()
         {
-            for(int i=0; i<field.TableSize; i++)
+            for(int i=0; i<field.MatrixSize; i++)
             {
-                for(int j = 0; j < field.TableSize; j++)
+                for(int j = 0; j < field.MatrixSize; j++)
                 {
                     if(field.GetValue(i,j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
                     {
-                        if(i + 1 < field.TableSize && field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
+                        if(i + 1 < field.MatrixSize && field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
                         {
                             if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
                             {
@@ -189,7 +189,7 @@ namespace RGBModell.modell
                                 boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j));
                             }
                         }
-                        if (j + 1 < field.TableSize && field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
+                        if (j + 1 < field.MatrixSize && field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
                         {
                             if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
@@ -224,9 +224,9 @@ namespace RGBModell.modell
                     }
                 }
             }
-            for (int i = 0; i < field.TableSize; i++)
+            for (int i = 0; i < field.MatrixSize; i++)
             {
-                for (int j = 0; j < field.TableSize; j++)
+                for (int j = 0; j < field.MatrixSize; j++)
                 {
                     if (field.GetValue(i, j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
                     {
@@ -293,7 +293,7 @@ namespace RGBModell.modell
                             int diffj2 = diffi;
                             int newi = diffi2 + currentRobot.i;
                             int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
@@ -331,7 +331,7 @@ namespace RGBModell.modell
                             int diffj2 = -1 * diffi;
                             int newi = diffi2 + currentRobot.i;
                             int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
@@ -374,7 +374,7 @@ namespace RGBModell.modell
                         int diffj2 = diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;
@@ -399,7 +399,7 @@ namespace RGBModell.modell
                         int diffj2 = -1 * diffi;
                         int newi = diffi2 + currentRobot.i;
                         int newj = diffj2 + currentRobot.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.TableSize <= newi || field.TableSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
                             currentRobot.facing = direction;                       
@@ -452,7 +452,7 @@ namespace RGBModell.modell
                     List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
-                        boxesplaceable &= ( !((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj)) 
+                        boxesplaceable &= ( !((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj)) 
                             && 
                             ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
                             || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId())
@@ -470,7 +470,7 @@ namespace RGBModell.modell
                         }
                     }
                     Box b = robot.Attached;
-                    boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.TableSize <= b.i + diffi || field.TableSize <= b.j + diffj))
+                    boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj))
                             && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
                         || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
                        ));
@@ -482,7 +482,7 @@ namespace RGBModell.modell
                 
             }
 
-            if (!((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j))
+            if (!((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j))
                 && robotplaceable && !robot.IsAttached())
             {
                 //set empty at robot old location
@@ -495,7 +495,7 @@ namespace RGBModell.modell
 
 
             }
-            else if(robot.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j)))
+            else if(robot.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
             {
                 if(robot.GetAttachedGroupId() != 0)
                 {
@@ -523,7 +523,7 @@ namespace RGBModell.modell
                     //tell the robot it's new location
                     robot.i = i;
                     robot.j = j;
-                } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.TableSize <= i || field.TableSize <= j)))
+                } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
                 {
                     Box box = robot.Attached;
                     field.SetValue(box.i, box.j , new Empty(box.i, box.j));
@@ -593,7 +593,7 @@ namespace RGBModell.modell
                     cleaning = new Coordinate(robot.i - 1, robot.j);
                     break;
                 case Direction.Down:
-                    if (robot.i + 1 >= field.TableSize)
+                    if (robot.i + 1 >= field.MatrixSize)
                     {
                         cleaning = new Coordinate(-1, -1);
                         break;
@@ -609,7 +609,7 @@ namespace RGBModell.modell
                     cleaning = new Coordinate(robot.i, robot.j - 1);
                     break;
                 case Direction.Right:
-                    if (robot.j + 1 >= field.TableSize)
+                    if (robot.j + 1 >= field.MatrixSize)
                     {
                         cleaning = new Coordinate(-1, -1);
                         break;
