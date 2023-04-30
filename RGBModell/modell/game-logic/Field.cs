@@ -70,6 +70,8 @@ namespace RGBModell.modell.game_logic
             if (i >= MatrixSize || j >= MatrixSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{MatrixSize}");
 
             field[i, j] = value;
+            field[i, j].i = i;
+            field[i, j].j = j;
         }
 
         public List<Exit> GetExits { get { return exits; } }
