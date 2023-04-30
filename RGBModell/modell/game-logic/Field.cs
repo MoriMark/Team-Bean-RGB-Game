@@ -23,14 +23,35 @@ namespace RGBModell.modell.game_logic
             if (tableSize <= 0)
                 throw new ArgumentException("table size can not be zero or negative!");
 
-            TableSize = tableSize;
+            TableSize = tableSize + 2 * BORDER;
 
-            field = new GameObject[TableSize + 2*BORDER, TableSize + 2*BORDER];
+            field = new GameObject[TableSize, TableSize];
         }
 
-        public GameObject[,] GetField()
+        /// <summary>
+        /// Check if a given object is on the table meaning that it is between predefined borders.
+        /// </summary>
+        /// <param name="gameObject">The object which position will be checked.</param>
+        /// <returns>Returns true if the given object is between the borders.</returns>
+        /// <exception cref="ArgumentNullException">If the given object is null.</exception>
+        public Boolean BetweenBorders(GameObject gameObject)
         {
-            return field;
+            if (gameObject is null)
+                throw new ArgumentNullException("given paramter is null!");
+
+            if (gameObject.i < BORDER)
+                return false;
+
+            if (gameObject.i >= TableSize - BORDER)
+                return false;
+
+            if (gameObject.j < BORDER)
+                return false;
+
+            if (gameObject.j >= TableSize - BORDER)
+                return false;
+
+            return true;
         }
 
         public GameObject GetValue(Int32 i, Int32 j)
