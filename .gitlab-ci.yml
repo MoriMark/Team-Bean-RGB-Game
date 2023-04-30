@@ -3,7 +3,6 @@ image: mcr.microsoft.com/dotnet/sdk:6.0
 stages:
   - build
   - test
-  - deploy
 
 before_script:
   - dotnet --version
@@ -44,13 +43,3 @@ test_model:
     paths:
       - .nuget
 
-# Documentation
-# (Uses Linux-based runner, because windows tag is NOT specified.)
-pages:
-  stage: deploy
-  artifacts:
-    paths:
-      - public
-    expire_in: 1 day
-  only:
-    - master
