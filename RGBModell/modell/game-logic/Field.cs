@@ -12,11 +12,11 @@ namespace RGBModell.modell.game_logic
 {
     public class Field 
     {
-        private const Int32 border = 5;
+        private const Int32 BORDER = 5;
         private GameObject[,] field;
         public Int32 TableSize { get; private set; }
         private List<Exit> exits;
-        private const Int32 numberOfExists = 5;
+        private const Int32 NUMBER_OF_EXITS = 5;
 
         public Field(Int32 tableSize)
         {
@@ -25,7 +25,7 @@ namespace RGBModell.modell.game_logic
 
             TableSize = tableSize;
 
-            field = new GameObject[TableSize + 2*border, TableSize + 2*border];
+            field = new GameObject[TableSize + 2*BORDER, TableSize + 2*BORDER];
         }
 
         public GameObject[,] GetField()
@@ -38,7 +38,7 @@ namespace RGBModell.modell.game_logic
             if (i < 0 || j < 0) throw new IndexOutOfRangeException($"(i:{i}|j:{j})<0");
             if (i >= TableSize || j >= TableSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{TableSize}");
         
-            return field[i + border, j + border];
+            return field[i + BORDER, j + BORDER];
         }
 
         public void SetValue(Int32 i, Int32 j, GameObject value)
@@ -46,7 +46,7 @@ namespace RGBModell.modell.game_logic
             if (i < 0 || j < 0) throw new IndexOutOfRangeException($"(i:{i}|j:{j})<0");
             if (i >= TableSize || j >= TableSize) throw new IndexOutOfRangeException($"(i:{i}|j:{j})>=TableSize{TableSize}");
 
-            field[i + border, j + border] = value;
+            field[i + BORDER, j + BORDER] = value;
         }
 
         public List<Exit> GetExits { get { return exits; } }
@@ -70,7 +70,7 @@ namespace RGBModell.modell.game_logic
         public void GenerateExits()
         {
             //TableSize * edges - duplicateCorners - corners
-            if (numberOfExists < 4 || numberOfExists > (TableSize * 4 - 4 - 4)) throw new ArgumentException($"NumberOfExists must be greater than 4 and less than or equal {TableSize * 4 - 4 - 4}");
+            if (NUMBER_OF_EXITS < 4 || NUMBER_OF_EXITS > (TableSize * 4 - 4 - 4)) throw new ArgumentException($"NumberOfExists must be greater than 4 and less than or equal {TableSize * 4 - 4 - 4}");
 
             Random rnd = new Random();
 
@@ -88,7 +88,7 @@ namespace RGBModell.modell.game_logic
                     new Exit(new Coordinate(rndInd[3], 0), Direction.Left)
                 };
             }
-            int existLeft = numberOfExists - 4;
+            int existLeft = NUMBER_OF_EXITS - 4;
             
             while (existLeft > 0)
             {
@@ -140,23 +140,23 @@ namespace RGBModell.modell.game_logic
         {
             List<Robot> robots = new List<Robot>();
             //Initializing the table with empty fields
-            for (int i = 0; i < TableSize + (border * 2); i++)
+            for (int i = 0; i < TableSize + (BORDER * 2); i++)
             {
-                for (int j = 0; j < TableSize + (border * 2); j++)
+                for (int j = 0; j < TableSize + (BORDER * 2); j++)
                 {
                     field[i, j] = new Empty(i, j);
                 }
             }
             //Setting borders
-            for (int i = 0; i < TableSize+(border*2); i++)
+            for (int i = 0; i < TableSize+(BORDER*2); i++)
             {
-                for (int j = 0; j < TableSize + (border * 2); j++)
+                for (int j = 0; j < TableSize + (BORDER * 2); j++)
                 {
                     if (i < 5 || j < 5)
                     {
                         field[i, j] = new Wall(i, j);
                     }
-                    else if (i > TableSize + border || j > TableSize + border)
+                    else if (i > TableSize + BORDER || j > TableSize + BORDER)
                     {
                         field[i, j] = new Wall(i, j);
                     }
