@@ -12,7 +12,8 @@ namespace RGBModell.modell.game_logic
         private Dictionary<Team, Int32> teamPoints;
 
         //Means the number of rounds a given task can be fulfilled
-        private const Int32 taskTimeLimit = 25;
+        private const Int32 MIN_TIME_LIMIT = 5;
+        private const Int32 MAX_TIME_LIMIT = 25;
         private Random rnd;
 
         private static readonly Byte[][,] availableShapes = new Byte[][,]
@@ -109,9 +110,11 @@ namespace RGBModell.modell.game_logic
             if (!tasks.ContainsKey(team))
                 tasks.Add(team, new List<Task>());
 
+            Random rnd = new Random();
+
             Task task = new Task()
             {
-                expiration = taskTimeLimit,
+                expiration = rnd.Next(MIN_TIME_LIMIT, MAX_TIME_LIMIT + 1),
                 direction = (Direction)rnd.Next(0, Enum.GetValues(typeof(Direction)).Length),
                 task = GetRandomBoxColorMatrix()
             };
@@ -176,7 +179,17 @@ namespace RGBModell.modell.game_logic
             {
                 List<Task> teamTasks = GetTeamTasks(team);
 
-                teamTasks.ForEach(task => --task.expiration);
+                for (int i = 0; i < teamTasks.Count; ++i)
+                {
+                    teamTasks[i] = new Task
+                    {
+                        expiration = teamTasks[i].expiration - 1,
+                        direction = teamTasks[i].direction,
+                        task = teamTasks[i].task
+                    };
+                }
+
+                tasks[team] = teamTasks.Where(t => t.expiration >= 0).ToList();
             }
         }
 
