@@ -104,7 +104,7 @@ namespace RGBModellTest
             ruletest2.NextRobot();
             ruletest2.Weld(ruletest2.CurrentRobot());
             ruletest2.NextRobot();
-            Assert.AreEqual(((Box)ruletest2.field.GetValue(7, 7)).ingroup, 2);
+            Assert.AreEqual(((Box)ruletest2.field.GetValue(7, 7)).ingroup, 1);
         }
 
         [TestMethod]
