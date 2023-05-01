@@ -246,6 +246,11 @@ namespace RGB.View
                 outT += "\n";
             }
             MessageBox.Show(outT);
+
+
+            //for (int i = 0; i < viewDist * 2 + 1; i++)
+            //    for (int j = 0; j < viewDist * 2 + 1; j++)
+            //      e.gameObjects[i, j]...
         }
 
         private void RefreshViewTable(Int32 x, Int32 y)

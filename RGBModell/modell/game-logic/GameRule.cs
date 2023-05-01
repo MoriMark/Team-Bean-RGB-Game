@@ -433,6 +433,10 @@ namespace RGBModell.modell
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+
+            if (!field.BetweenBorders(i, j))
+                return;
+
             bool robotplaceable = false;
             bool boxesplaceable = true;
             int diffi = i - robot.i;

@@ -3,6 +3,7 @@ using RGBModell.modell.gameobjects;
 using RGBModell.modell.structs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -89,27 +90,46 @@ namespace RGBModell.modell.game_logic
 
         public GameObject[,] CalculateVisionOfRobot(Robot robot)
         {
-            GameObject[,] calculateMatrix = new GameObject[MatrixSize,MatrixSize];
             const Int32 viewDistance = 4;
+            
+            GameObject[,] calculateMatrix = new GameObject[viewDistance * 2 + 1, viewDistance * 2 + 1];
 
-            //TODO calcualate
+            Int32 i = 0, j = 0;
+            for (Int32 ii = robot.i - viewDistance; ii <= robot.i + viewDistance; ++ii)
+            {
+                j = 0;
+                for (Int32 jj = robot.j - viewDistance; jj <= robot.j + viewDistance; ++jj)
+                {
+                    if (Math.Abs(ii - robot.i) + Math.Abs(jj - robot.j) <= viewDistance && BetweenBorders(ii, jj))
+                        calculateMatrix[i, j] = field[ii, jj];
+                    else
+                        calculateMatrix[i, j] = new Wall(ii, jj);
+                    j++;
+                }
+                i++;
+            }
 
+            /*
+            GameObject[,] calculateMatrix = new GameObject[MatrixSize, MatrixSize];
             for (Int32 i = 0; i < MatrixSize; ++i)
             {
                 for (Int32 j = 0; j < MatrixSize; ++j)
                 {
-                    if (Math.Abs(i - robot.i) + Math.Abs(j - robot.j) <= viewDistance)
-                        calculateMatrix[i, j] = field[i, j];
-                    else
-                        calculateMatrix[i, j] = new Wall(i, j);
-                    /*
+                    //Manhattan
+                    
+                    //if (Math.Abs(i - robot.i) + Math.Abs(j - robot.j) <= viewDistance && BetweenBorders(i,j))
+                    //    calculateMatrix[i, j] = field[i, j];
+                    //else
+                    //    calculateMatrix[i, j] = new Wall(i, j);
+                    
                     if (BetweenBorders(i, j))
                         calculateMatrix[i, j] = field[i, j];
                     else
                         calculateMatrix[i, j] = new Wall(i, j);
-                    */
+                    
                 }
             }
+            */
 
             return calculateMatrix;
         }
