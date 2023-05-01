@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             listScores = new ListBox();
-            tableTask3 = new TableLayoutPanel();
-            tableTask2 = new TableLayoutPanel();
-            tableTask1 = new TableLayoutPanel();
             sendButton = new Button();
             mapButton = new Button();
             testLabel = new Label();
@@ -46,6 +43,7 @@
             teamMessagePanel = new TableLayoutPanel();
             alertAndSymbols = new TableLayoutPanel();
             symbolLayoutPanel = new TableLayoutPanel();
+            tableTaskView = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
             SuspendLayout();
@@ -58,42 +56,6 @@
             listScores.Name = "listScores";
             listScores.Size = new Size(250, 109);
             listScores.TabIndex = 7;
-            // 
-            // tableTask3
-            // 
-            tableTask3.ColumnCount = 2;
-            tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableTask3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask3.Location = new Point(642, 145);
-            tableTask3.Name = "tableTask3";
-            tableTask3.RowCount = 1;
-            tableTask3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask3.Size = new Size(200, 100);
-            tableTask3.TabIndex = 11;
-            // 
-            // tableTask2
-            // 
-            tableTask2.ColumnCount = 2;
-            tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableTask2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask2.Location = new Point(345, 142);
-            tableTask2.Name = "tableTask2";
-            tableTask2.RowCount = 1;
-            tableTask2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask2.Size = new Size(200, 100);
-            tableTask2.TabIndex = 12;
-            // 
-            // tableTask1
-            // 
-            tableTask1.ColumnCount = 2;
-            tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableTask1.Location = new Point(38, 142);
-            tableTask1.Name = "tableTask1";
-            tableTask1.RowCount = 1;
-            tableTask1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableTask1.Size = new Size(200, 100);
-            tableTask1.TabIndex = 13;
             // 
             // sendButton
             // 
@@ -257,11 +219,23 @@
             symbolLayoutPanel.Size = new Size(350, 100);
             symbolLayoutPanel.TabIndex = 22;
             // 
+            // tableTaskView
+            // 
+            tableTaskView.ColumnCount = 1;
+            tableTaskView.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableTaskView.Location = new Point(41, 145);
+            tableTaskView.Name = "tableTaskView";
+            tableTaskView.RowCount = 1;
+            tableTaskView.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableTaskView.Size = new Size(800, 100);
+            tableTaskView.TabIndex = 26;
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(tableTaskView);
             Controls.Add(alertLabel);
             Controls.Add(alertAndSymbols);
             Controls.Add(teamMessagePanel);
@@ -273,9 +247,6 @@
             Controls.Add(testLabel);
             Controls.Add(mapButton);
             Controls.Add(sendButton);
-            Controls.Add(tableTask1);
-            Controls.Add(tableTask2);
-            Controls.Add(tableTask3);
             Controls.Add(listScores);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -291,9 +262,6 @@
 
         #endregion
         private ListBox listScores;
-        private TableLayoutPanel tableTask3;
-        private TableLayoutPanel tableTask2;
-        private TableLayoutPanel tableTask1;
         private Button sendButton;
         private Button mapButton;
         private Label testLabel;
@@ -308,5 +276,6 @@
         private TableLayoutPanel teamMessagePanel;
         private TableLayoutPanel alertAndSymbols;
         private TableLayoutPanel symbolLayoutPanel;
+        private TableLayoutPanel tableTaskView;
     }
 }

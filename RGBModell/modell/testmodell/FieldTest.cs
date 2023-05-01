@@ -9,9 +9,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RGBModell.modell.game_logic
+namespace RGBModell.modell.testmodell
 {
-    public class Field
+    public class FieldTest 
     {
         private const Int32 BORDER = 5;
         private GameObject[,] field;
@@ -20,7 +20,7 @@ namespace RGBModell.modell.game_logic
         public List<Exit> exits { get; private set; }
         private const Int32 NUMBER_OF_EXITS = 5;
 
-        public Field(Int32 tableSize)
+        public FieldTest(Int32 tableSize)
         {
             if (tableSize <= 0)
                 throw new ArgumentException("table size can not be zero or negative!");
@@ -220,47 +220,7 @@ namespace RGBModell.modell.game_logic
             for (int i = 0; i < MatrixSize; i++)
                 for (int j = 0; j < MatrixSize; j++)
                     field[i, j] = new Empty(i, j);
-
-            Random RNG = new Random();
-            int x; int y;
-            #region Setting boxes
-            Int32 numOfBoxes = TableSize;
-            BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
-
-            while (numOfBoxes > 0)
-            {
-                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
-                if (!BetweenBorders(x, y))
-                    continue;
-
-                if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
-                {
-                    BoxColor boxCol = boxColors[RNG.Next(0,4)];
-                    switch (boxCol)
-                    { 
-                        case BoxColor.Red:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.RedBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Green:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.GreenBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Yellow:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.YellowBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Blue:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.BlueBox));
-                            numOfBoxes--;
-                            break;
-                    }
-                }
-            }
-            #endregion
+            int x=6; int y=5;
             #region Setting robots
             Int32 numOfPlayers = numOfRobots * numOfTeams;
             Team[] teamColors = { Team.Red, Team.Blue, Team.Green, Team.Yellow };
@@ -273,13 +233,13 @@ namespace RGBModell.modell.game_logic
             //Place robots until each of the are placed
             while (numOfPlayers > 0)
             {
-                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
+                y = y + 1;
                 if (!BetweenBorders(x, y))
                     continue;
 
-                if (RNG.Next(100) > 96 && GetValue(x, y).IsEmpty())
+                if ( GetValue(x, y).IsEmpty())
                 {
-                    int current = RNG.Next(0, numOfTeams);
+                    int current = 0;
                     Team teamCol = teamColors[current];
                     if (playersNeeded[current] > 0)
                     {
