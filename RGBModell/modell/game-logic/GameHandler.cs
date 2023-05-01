@@ -15,6 +15,7 @@ namespace RGBModell.modell
         public List<RobotAction> actionsThisTurn;
         public int move { get; set; }
         public int round { get; set; }
+        public bool endOfRound { get; private set; }
         private int numOfPlayers;
         private int numOfTeams;
 
@@ -28,6 +29,7 @@ namespace RGBModell.modell
         {
             move = 1;
             round = 1;
+            endOfRound = false;
             this.numOfPlayers = numOfPlayers;
             this.numOfTeams = numOfTeams;
             gameRule = new GameRule(numOfPlayers, numOfTeams);
@@ -54,18 +56,19 @@ namespace RGBModell.modell
         {
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
             move++;
-            gameRule.NextRobot();
             if (move > (numOfTeams*numOfPlayers))
             {
                 move = 1;
                 round++;
                 resolveActions();
             }
+            gameRule.NextRobot();
             robotChanged(this, EventArgs.Empty);
         }
 
         private void resolveActions()
         {
+            endOfRound = true;
             foreach(RobotAction action in actionsThisTurn) 
             {
                 Coordinate destination;
@@ -96,16 +99,16 @@ namespace RGBModell.modell
                         switch (action.robot.facing)
                         {
                             case Direction.Up:
-                                gameRule.MakeTurn(Direction.Left);
+                                gameRule.MakeTurn(Direction.Left,action.robot);
                                 break;
                             case Direction.Down:
-                                gameRule.MakeTurn(Direction.Right);
+                                gameRule.MakeTurn(Direction.Right, action.robot);
                                 break;
                             case Direction.Left:
-                                gameRule.MakeTurn(Direction.Down);
+                                gameRule.MakeTurn(Direction.Down, action.robot);
                                 break;
                             case Direction.Right:
-                                gameRule.MakeTurn(Direction.Up);
+                                gameRule.MakeTurn(Direction.Up, action.robot);
                                 break;
                         }
                         break;
@@ -114,16 +117,16 @@ namespace RGBModell.modell
                         switch (action.robot.facing)
                         {
                             case Direction.Up:
-                                gameRule.MakeTurn(Direction.Right);
+                                gameRule.MakeTurn(Direction.Right, action.robot);
                                 break;
                             case Direction.Down:
-                                gameRule.MakeTurn(Direction.Left);
+                                gameRule.MakeTurn(Direction.Left, action.robot);
                                 break;
                             case Direction.Left:
-                                gameRule.MakeTurn(Direction.Up);
+                                gameRule.MakeTurn(Direction.Up, action.robot);
                                 break;
                             case Direction.Right:
-                                gameRule.MakeTurn(Direction.Down);
+                                gameRule.MakeTurn(Direction.Down, action.robot);
                                 break;
                         }
                     break;
@@ -145,19 +148,21 @@ namespace RGBModell.modell
                         break;
 
                     case Actions.Weld:
-                        gameRule.Weld();
+                        gameRule.Weld(action.robot);
                         break;
 
                     case Actions.Connect:
-                        gameRule.Lift();
+                        gameRule.Lift(action.robot);
                         break;
 
                     case Actions.Disconnect:
-                        gameRule.Lift();
+                        gameRule.Lift(action.robot);
                         break;
                 }
             }
             actionsThisTurn.Clear();
+            gameRule.NextRound();
+            endOfRound = false;
         }
     }
 }

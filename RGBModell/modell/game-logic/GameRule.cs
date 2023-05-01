@@ -149,6 +149,17 @@ namespace RGBModell.modell
             taskHandler.OnTasksUpdate(currentRobot.team);
             OnFieldsUpdate();
         }
+        //Currentrobot is scrambled and this is the duct tape
+        public void NextRound()
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+
+            currentRobot = robots[0];
+            WeldCheck();
+        }
 
         /// <summary>
         /// Checks where the welding is successful
@@ -242,12 +253,13 @@ namespace RGBModell.modell
         /// <param name="direction">The direction to turn to.</param>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void MakeTurn(Direction direction)
+        public void MakeTurn(Direction direction, Robot current)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+            currentRobot = current;
 
             if (!currentRobot.IsAttached())
             {
@@ -650,12 +662,13 @@ namespace RGBModell.modell
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void Lift()
+        public void Lift(Robot current)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+            currentRobot = current;
 
             if (!currentRobot.IsAttached())
             {
@@ -695,12 +708,13 @@ namespace RGBModell.modell
             NextRobot();
         }
 
-        public void Weld()
+        public void Weld(Robot current)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
+            currentRobot = current;
 
             switch (currentRobot.facing)
             {
