@@ -224,6 +224,7 @@ namespace RGB.View
             if (!_gameHandler.endOfRound)
             {
                 DisableRobotFov();
+                _timer.Stop();
                 MessageBox.Show($"Next Player: {_gameHandler.GetCurrentPlayer().team}, {_gameHandler.GetCurrentPlayer().name}");
             }
             else
@@ -486,7 +487,6 @@ namespace RGB.View
             {
                 map.Close();
             }
-            _timer.Stop();
             //MessageBox.Show($"Next Player: {_gameHandler.GetCurrentPlayer().team}, {_gameHandler.GetCurrentPlayer().name}");
             remainingTime = 300;
             _timer.Start();

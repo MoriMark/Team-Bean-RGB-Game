@@ -136,7 +136,7 @@ namespace RGBModell.modell
                         break;
 
                     case Actions.Wait:
-                        gameRule.Pass();
+                        gameRule.Pass(action.robot);
                         break;
 
                     case Actions.Unweld:

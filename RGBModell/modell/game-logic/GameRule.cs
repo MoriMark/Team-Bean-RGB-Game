@@ -569,13 +569,14 @@ namespace RGBModell.modell
         /// </summary>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void Pass()
+        public void Pass(Robot current)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
+            currentRobot = current;
             // Additional code here
 
             NextRobot();
