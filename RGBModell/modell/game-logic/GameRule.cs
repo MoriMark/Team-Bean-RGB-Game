@@ -242,25 +242,25 @@ namespace RGBModell.modell
         /// <param name="direction">The direction to turn to.</param>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void MakeTurn(Direction direction)
+        public void MakeTurn(Direction direction, Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            if (!currentRobot.IsAttached())
+            if (!r.IsAttached())
             {
-                currentRobot.facing = direction;
+                r.facing = direction;
             }
             else
             {
                 bool boxesplaceable = true;
                 foreach(Robot robot in robots)
                 {
-                    if(robot.IsAttached() && currentRobot.GetAttachedGroupId() == 0)
+                    if(robot.IsAttached() && r.GetAttachedGroupId() == 0)
                     {
-                        if ( robot.Attached.id == currentRobot.Attached.id  && ((robot.team == currentRobot.team && robot.name != currentRobot.name) || (robot.team != currentRobot.team)))
+                        if ( robot.Attached.id == r.Attached.id  && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
                         {
 
                             boxesplaceable = false;
@@ -268,48 +268,48 @@ namespace RGBModell.modell
                     }
                     else if(robot.IsAttached())
                     {
-                       if(robot.GetAttachedGroupId() == currentRobot.GetAttachedGroupId() && ((robot.team == currentRobot.team && robot.name != currentRobot.name) || (robot.team != currentRobot.team)))
+                       if(robot.GetAttachedGroupId() == r.GetAttachedGroupId() && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
                         {
                             boxesplaceable = false;
                         }
                     }
                     
                 }
-                if(currentRobot.GetAttachedGroupId() != 0)
+                if(r.GetAttachedGroupId() != 0)
                 {
-                    List<Box> boxes = boxgroups[currentRobot.GetAttachedGroupId()].boxes;
-                    if (currentRobot.facing == Direction.Up && direction == Direction.Right
-                        || currentRobot.facing == Direction.Down && direction == Direction.Left
-                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
+                    if (r.facing == Direction.Up && direction == Direction.Right
+                        || r.facing == Direction.Down && direction == Direction.Left
+                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up
                         )
                     {
                         //right rotation
                         //bool boxesplaceable = true;
                         foreach (Box b in boxes)
                         {
-                            int diffi = currentRobot.i - b.i;
-                            int diffj = (currentRobot.j - b.j);
+                            int diffi = r.i - b.i;
+                            int diffj = (r.j - b.j);
                             int diffi2 = -1 * diffj;
                             int diffj2 = diffi;
-                            int newi = diffi2 + currentRobot.i;
-                            int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
+                            int newi = diffi2 + r.i;
+                            int newj = diffj2 + r.j;
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
-                            currentRobot.facing = direction;
+                            r.facing = direction;
                             foreach (Box b in boxes)
                             {
                                 if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
                                 {
                                     field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                                 }
-                                int diffi = currentRobot.i - b.i;
-                                int diffj = (currentRobot.j - b.j);
+                                int diffi = r.i - b.i;
+                                int diffj = (r.j - b.j);
                                 int diffi2 = -1 * diffj;
                                 int diffj2 = diffi;
-                                int newi = diffi2 + currentRobot.i;
-                                int newj = diffj2 + currentRobot.j;
+                                int newi = diffi2 + r.i;
+                                int newj = diffj2 + r.j;
                                 field.SetValue(newi, newj, b);
                                 b.i = newi;
                                 b.j = newj;
@@ -317,37 +317,37 @@ namespace RGBModell.modell
                         }
 
                     }
-                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right
-                         || currentRobot.facing == Direction.Up && direction == Direction.Left
-                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
+                    else if (r.facing == Direction.Down && direction == Direction.Right
+                         || r.facing == Direction.Up && direction == Direction.Left
+                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
                     {
                         //left rotation
                         //bool boxesplaceable = true;
                         foreach (Box b in boxes)
                         {
-                            int diffi = currentRobot.i - b.i;
-                            int diffj = (currentRobot.j - b.j);
+                            int diffi = r.i - b.i;
+                            int diffj = (r.j - b.j);
                             int diffi2 = diffj;
                             int diffj2 = -1 * diffi;
-                            int newi = diffi2 + currentRobot.i;
-                            int newj = diffj2 + currentRobot.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == currentRobot.GetAttachedGroupId()));
+                            int newi = diffi2 + r.i;
+                            int newj = diffj2 + r.j;
+                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
                         }
                         if (boxesplaceable)
                         {
-                            currentRobot.facing = direction;
+                            r.facing = direction;
                             foreach (Box b in boxes)
                             {
                                 if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
                                 {
                                     field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                                 }
-                                int diffi = currentRobot.i - b.i;
-                                int diffj = (currentRobot.j - b.j);
+                                int diffi = r.i - b.i;
+                                int diffj = (r.j - b.j);
                                 int diffi2 = diffj;
                                 int diffj2 =  -1 * diffi;
-                                int newi = diffi2 + currentRobot.i;
-                                int newj = diffj2 + currentRobot.j;
+                                int newi = diffi2 + r.i;
+                                int newj = diffj2 + r.j;
                                 field.SetValue(newi, newj, b);
                                 b.i = newi;
                                 b.j = newj;
@@ -361,23 +361,23 @@ namespace RGBModell.modell
                 }
                 else
                 {
-                    if ( currentRobot.facing == Direction.Up && direction == Direction.Right
-                        || currentRobot.facing == Direction.Down && direction == Direction.Left 
-                        || currentRobot.facing == Direction.Right && direction == Direction.Down || currentRobot.facing == Direction.Left && direction == Direction.Up)
+                    if ( r.facing == Direction.Up && direction == Direction.Right
+                        || r.facing == Direction.Down && direction == Direction.Left 
+                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up)
                     {
                         //Right Rotation
-                        Box b = currentRobot.Attached;
+                        Box b = r.Attached;
                         //bool boxesplaceable = true;
-                        int diffi = currentRobot.i - b.i;
-                        int diffj =  (currentRobot.j - b.j);
+                        int diffi = r.i - b.i;
+                        int diffj =  (r.j - b.j);
                         int diffi2 = -1 * diffj;
                         int diffj2 = diffi;
-                        int newi = diffi2 + currentRobot.i;
-                        int newj = diffj2 + currentRobot.j;
+                        int newi = diffi2 + r.i;
+                        int newj = diffj2 + r.j;
                         boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
-                            currentRobot.facing = direction;
+                            r.facing = direction;
                            
                             field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                             field.SetValue(newi, newj, b);
@@ -386,23 +386,23 @@ namespace RGBModell.modell
                             
                         }
                     }
-                    else if (currentRobot.facing == Direction.Down && direction == Direction.Right
-                         || currentRobot.facing == Direction.Up && direction == Direction.Left
-                        || currentRobot.facing == Direction.Right && direction == Direction.Up || currentRobot.facing == Direction.Left && direction == Direction.Down)
+                    else if (r.facing == Direction.Down && direction == Direction.Right
+                         || r.facing == Direction.Up && direction == Direction.Left
+                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
                     {
                         //Left Rotation
-                        Box b = currentRobot.Attached;
+                        Box b = r.Attached;
                         //bool boxesplaceable = true;
-                        int diffi = currentRobot.i - b.i;
-                        int diffj = (currentRobot.j - b.j);
+                        int diffi = r.i - b.i;
+                        int diffj = (r.j - b.j);
                         int diffi2 = diffj;
                         int diffj2 = -1 * diffi;
-                        int newi = diffi2 + currentRobot.i;
-                        int newj = diffj2 + currentRobot.j;
+                        int newi = diffi2 + r.i;
+                        int newj = diffj2 + r.j;
                         boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                         if (boxesplaceable)
                         {
-                            currentRobot.facing = direction;                       
+                            r.facing = direction;                       
                             field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                             field.SetValue(newi, newj, b);
                             b.i = newi;
@@ -410,13 +410,9 @@ namespace RGBModell.modell
                            
                         }
                     }
-
                 }
-                
             }
-            
-
-            NextRobot();
+            OnFieldsUpdate();
         }
 
         /// <summary>
@@ -549,7 +545,8 @@ namespace RGBModell.modell
                 
             }
 
-            NextRobot();
+            OnFieldsUpdate();
+            //NextRobot();
         }
 
         /// <summary>
@@ -566,7 +563,8 @@ namespace RGBModell.modell
 
             // Additional code here
 
-            NextRobot();
+            OnFieldsUpdate();
+            //NextRobot();
         }
 
         /// <summary>
@@ -641,7 +639,8 @@ namespace RGBModell.modell
                     field.SetValue(cleaning.X, cleaning.Y, cleaningBox);
                 }
             }
-            NextRobot();
+            OnFieldsUpdate();
+            //NextRobot();
         }
 
         /// <summary>
@@ -650,87 +649,87 @@ namespace RGBModell.modell
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void Lift()
+        public void Lift(Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            if (!currentRobot.IsAttached())
+            if (!r.IsAttached())
             {
-                switch (currentRobot.facing)
+                switch (r.facing)
                 {
                     case Direction.Up:
-                        if (field.GetValue(currentRobot.i-1, currentRobot.j).GetType() == typeof(Box))
+                        if (field.GetValue(r.i-1, r.j).GetType() == typeof(Box))
                         {
-                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i - 1, currentRobot.j);
+                            r.Attached = (Box)field.GetValue(r.i - 1, r.j);
                         }
                         break;
                     case Direction.Down:
-                        if (field.GetValue(currentRobot.i+1, currentRobot.j).GetType() == typeof(Box))
+                        if (field.GetValue(r.i+1, r.j).GetType() == typeof(Box))
                         {
-                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i+1, currentRobot.j);
+                            r.Attached = (Box)field.GetValue(r.i+1, r.j);
                         }
                         break;
                     case Direction.Left:
-                        if (field.GetValue(currentRobot.i, currentRobot.j -1).GetType() == typeof(Box))
+                        if (field.GetValue(r.i, r.j -1).GetType() == typeof(Box))
                         {
-                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i, currentRobot.j-1);
+                            r.Attached = (Box)field.GetValue(r.i, r.j-1);
                         }
                         break;
                     case Direction.Right:
-                        if (field.GetValue(currentRobot.i , currentRobot.j+1).GetType() == typeof(Box))
+                        if (field.GetValue(r.i , r.j+1).GetType() == typeof(Box))
                         {
-                            currentRobot.Attached = (Box)field.GetValue(currentRobot.i, currentRobot.j+1);
+                            r.Attached = (Box)field.GetValue(r.i, r.j+1);
                         }
                         break;
                 }
             }
             else
             {
-                currentRobot.Attached = null;
+                r.Attached = null;
             }
-
-            NextRobot();
+            OnFieldsUpdate();
         }
 
-        public void Weld()
+        public void Weld(Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            switch (currentRobot.facing)
+            switch (r.facing)
             {
                 case Direction.Up:
-                    if (field.GetValue(currentRobot.i - 1, currentRobot.j).GetType() == typeof(Box))
+                    if (field.GetValue(r.i - 1, r.j).GetType() == typeof(Box))
                     {
-                        ((Box)field.GetValue(currentRobot.i - 1, currentRobot.j)).attaching = currentRobot.team;
+                        ((Box)field.GetValue(r.i - 1, r.j)).attaching = r.team;
                     }
                     break;
                 case Direction.Down:
-                    if (field.GetValue(currentRobot.i + 1, currentRobot.j).GetType() == typeof(Box))
+                    if (field.GetValue(r.i + 1, r.j).GetType() == typeof(Box))
                     {
-                        ((Box)field.GetValue(currentRobot.i + 1, currentRobot.j)).attaching = currentRobot.team;
+                        ((Box)field.GetValue(r.i + 1, r.j)).attaching = r.team;
                     }
                     break;
                 case Direction.Left:
-                    if (field.GetValue(currentRobot.i, currentRobot.j - 1).GetType() == typeof(Box))
+                    if (field.GetValue(r.i, r.j - 1).GetType() == typeof(Box))
                     {
-                        ((Box)field.GetValue(currentRobot.i, currentRobot.j - 1)).attaching = currentRobot.team;
+                        ((Box)field.GetValue(r.i, r.j - 1)).attaching = r.team;
                     }
                     break;
                 case Direction.Right:
-                    if (field.GetValue(currentRobot.i, currentRobot.j + 1).GetType() == typeof(Box))
+                    if (field.GetValue(r.i, r.j + 1).GetType() == typeof(Box))
                     {
-                        ((Box)field.GetValue(currentRobot.i, currentRobot.j + 1)).attaching = currentRobot.team;
+                        ((Box)field.GetValue(r.i, r.j + 1)).attaching = r.team;
                     }
                     break;
             }
+            OnFieldsUpdate();
 
-            NextRobot();
+            //NextRobot();
         }
 
         public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
@@ -757,8 +756,8 @@ namespace RGBModell.modell
                     }
                 }
             }
-
-            NextRobot();
+            OnFieldsUpdate();
+            //NextRobot();
         }
 
         public List<Exit> GetExits() { return field.GetExits; }

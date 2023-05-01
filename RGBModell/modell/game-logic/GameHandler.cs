@@ -96,16 +96,16 @@ namespace RGBModell.modell
                         switch (action.robot.facing)
                         {
                             case Direction.Up:
-                                gameRule.MakeTurn(Direction.Left);
+                                gameRule.MakeTurn(Direction.Left, action.robot);
                                 break;
                             case Direction.Down:
-                                gameRule.MakeTurn(Direction.Right);
+                                gameRule.MakeTurn(Direction.Right, action.robot);
                                 break;
                             case Direction.Left:
-                                gameRule.MakeTurn(Direction.Down);
+                                gameRule.MakeTurn(Direction.Down, action.robot);
                                 break;
                             case Direction.Right:
-                                gameRule.MakeTurn(Direction.Up);
+                                gameRule.MakeTurn(Direction.Up, action.robot);
                                 break;
                         }
                         break;
@@ -114,16 +114,16 @@ namespace RGBModell.modell
                         switch (action.robot.facing)
                         {
                             case Direction.Up:
-                                gameRule.MakeTurn(Direction.Right);
+                                gameRule.MakeTurn(Direction.Right, action.robot);
                                 break;
                             case Direction.Down:
-                                gameRule.MakeTurn(Direction.Left);
+                                gameRule.MakeTurn(Direction.Left, action.robot);
                                 break;
                             case Direction.Left:
-                                gameRule.MakeTurn(Direction.Up);
+                                gameRule.MakeTurn(Direction.Up, action.robot);
                                 break;
                             case Direction.Right:
-                                gameRule.MakeTurn(Direction.Down);
+                                gameRule.MakeTurn(Direction.Down, action.robot);
                                 break;
                         }
                     break;
@@ -145,15 +145,15 @@ namespace RGBModell.modell
                         break;
 
                     case Actions.Weld:
-                        gameRule.Weld();
+                        gameRule.Weld(action.robot);
                         break;
 
                     case Actions.Connect:
-                        gameRule.Lift();
+                        gameRule.Lift(action.robot);
                         break;
 
                     case Actions.Disconnect:
-                        gameRule.Lift();
+                        gameRule.Lift(action.robot);
                         break;
                 }
             }
