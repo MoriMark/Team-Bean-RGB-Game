@@ -155,21 +155,19 @@ namespace RGBModell.modell.game_logic
             return retVal;
         }
 
-        public void FinishTask(Task task)
+        public void FinishTask(Team team, Task task)
         {
-            ICollection<Team> teams = tasks.Keys;
+            if (!tasks.ContainsKey(team))
+                return;
 
-            foreach (Team team in teams)
+            if (tasks[team].Contains(task))
             {
-                if (tasks[team].Contains(task))
-                {
-                    tasks[team].Remove(task);
-                    
-                    if (!teamPoints.ContainsKey(team))
-                        teamPoints.Add(team, 0);
+                if (!teamPoints.ContainsKey(team))
+                    teamPoints.Add(team, 0);
 
-                    teamPoints[team] = ++teamPoints[team];
-                }
+                teamPoints[team] = ++teamPoints[team];
+
+                tasks[team].Remove(task);
             }
         }
 
@@ -289,7 +287,7 @@ namespace RGBModell.modell.game_logic
                 teamPoints.Add(team, 0);
 
             if (UpdateFields != null)
-                UpdateFields(this, new UpdateTasksEventArgs(new List<Task>(tasks[team])));
+                UpdateFields(this, new UpdateTasksEventArgs(new List<Task>(tasks[team]), teamPoints[team]));
         }
     }
 }

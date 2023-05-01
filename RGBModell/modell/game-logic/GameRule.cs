@@ -781,7 +781,7 @@ namespace RGBModell.modell.game_logic
                 }
                 if (task.HasValue)
                 {
-                    taskHandler.FinishTask(task.Value);
+                    taskHandler.FinishTask(currentRobot.team, task.Value);
                     currentRobot.Attached = null;
                     DeleteBoxGroup(currentRobot.GetAttachedGroupId());
                 }
