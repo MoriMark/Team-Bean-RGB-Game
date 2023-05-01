@@ -141,7 +141,7 @@ namespace RGBModell.modell
                         if (action.coordinates.Count == 2)
                         {
                             gameRule.UnWeld(action.coordinates[0].X, action.coordinates[0].Y,
-                                action.coordinates[1].X, action.coordinates[1].Y);
+                                action.coordinates[1].X, action.coordinates[1].Y, action.robot);
                         }
                         break;
 
