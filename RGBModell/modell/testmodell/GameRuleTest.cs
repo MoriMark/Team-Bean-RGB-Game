@@ -8,11 +8,11 @@ using RGBModell.modell.gameobjects;
 using RGBModell.modell.structs;
 using Task = RGBModell.modell.structs.Task;
 
-namespace RGBModell.modell.game_logic
+namespace RGBModell.modell.testmodell
 {
-    public class GameRule
+    public class GameRuleTest
     {
-        private Field field;
+        public FieldTest field;
 
         private List<Robot> robots;
         private Robot currentRobot;
@@ -37,13 +37,13 @@ namespace RGBModell.modell.game_logic
             remove { taskHandler.UpdateFields -= value; }
         }
 
-        public GameRule(Int32 numOfRobots, Int32 numOfTeams)
+        public GameRuleTest(Int32 numOfRobots, Int32 numOfTeams)
         {
             GameIsActive = false;
             GameIsPaused = false;
             int totalRobots = numOfRobots * numOfTeams;
-            int tableSize = totalRobots*4;
-            field = new Field(tableSize);
+            int tableSize = totalRobots*8;
+            field = new FieldTest(tableSize);
             robots = field.GenerateField(numOfRobots, numOfTeams);
             boxgroups = new Dictionary<int, BoxGroup>();
             exits = field.exits;
@@ -74,7 +74,7 @@ namespace RGBModell.modell.game_logic
         }
 
         // TODO doc comment
-        public void SetTable(Field field)
+        public void SetTable(FieldTest field)
         {
             if (GameIsActive) throw new ActiveGameException();
 
