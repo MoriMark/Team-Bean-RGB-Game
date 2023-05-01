@@ -235,7 +235,7 @@ namespace RGBModell.modell.game_logic
 
                 if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
                 {
-                    BoxColor boxCol = boxColors[RNG.Next(0,3)];
+                    BoxColor boxCol = boxColors[RNG.Next(0,4)];
                     switch (boxCol)
                     { 
                         case BoxColor.Red:
