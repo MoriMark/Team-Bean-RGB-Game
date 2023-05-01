@@ -236,3 +236,4 @@ AppPackages/
 /RGB/obj/project.nuget.cache
 /RGB/obj/RGB.csproj.nuget.dgspec.json
 /RGB/obj/RGB.csproj.nuget.g.props
+/RGB/obj/Debug/net6.0-windows/RGB.csproj.AssemblyReference.cache
