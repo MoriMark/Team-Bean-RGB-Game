@@ -60,6 +60,7 @@ namespace RGBModell.modell
                 move = 1;
                 round++;
                 resolveActions();
+                gameRule.WeldCheck();
             }
             robotChanged(this, EventArgs.Empty);
         }

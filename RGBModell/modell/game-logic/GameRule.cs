@@ -153,7 +153,7 @@ namespace RGBModell.modell
         /// <summary>
         /// Checks where the welding is successful
         /// </summary>
-        private void WeldCheck()
+        public void WeldCheck()
         {
             for(int i=0; i<field.MatrixSize; i++)
             {
@@ -311,11 +311,8 @@ namespace RGBModell.modell
                                 int newi = diffi2 + r.i;
                                 int newj = diffj2 + r.j;
                                 field.SetValue(newi, newj, b);
-                                b.i = newi;
-                                b.j = newj;
                             }
                         }
-
                     }
                     else if (r.facing == Direction.Down && direction == Direction.Right
                          || r.facing == Direction.Up && direction == Direction.Left
@@ -349,8 +346,6 @@ namespace RGBModell.modell
                                 int newi = diffi2 + r.i;
                                 int newj = diffj2 + r.j;
                                 field.SetValue(newi, newj, b);
-                                b.i = newi;
-                                b.j = newj;
                             }
                         }
                     }
@@ -381,9 +376,6 @@ namespace RGBModell.modell
                            
                             field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                             field.SetValue(newi, newj, b);
-                            b.i = newi;
-                            b.j = newj;
-                            
                         }
                     }
                     else if (r.facing == Direction.Down && direction == Direction.Right
@@ -405,8 +397,6 @@ namespace RGBModell.modell
                             r.facing = direction;                       
                             field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                             field.SetValue(newi, newj, b);
-                            b.i = newi;
-                            b.j = newj;
                            
                         }
                     }
@@ -490,8 +480,6 @@ namespace RGBModell.modell
                 //set robot to the new location
                 field.SetValue(i, j, robot);
                 //tell the robot it's new location
-                robot.i = i;
-                robot.j = j;
 
 
             }
@@ -510,8 +498,6 @@ namespace RGBModell.modell
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
                         //tell the robot it's new location
-                        b.i = b.i + diffi;
-                        b.j = b.j + diffj;
 
                     }
                     if(field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
@@ -521,15 +507,11 @@ namespace RGBModell.modell
                     //set robot to the new location
                     field.SetValue(i, j, robot);
                     //tell the robot it's new location
-                    robot.i = i;
-                    robot.j = j;
                 } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
                 {
                     Box box = robot.Attached;
                     field.SetValue(box.i, box.j , new Empty(box.i, box.j));
                     field.SetValue(box.i + diffi, box.j + diffj, box);
-                    box.i = box.i + diffi;
-                    box.j = box.j + diffj;
                     
                     if (field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
                     {
@@ -539,8 +521,6 @@ namespace RGBModell.modell
                     //set robot to the new location
                     field.SetValue(i, j, robot);
                     //tell the robot it's new location
-                    robot.i = i;
-                    robot.j = j;
                 }
                 
             }
@@ -728,7 +708,6 @@ namespace RGBModell.modell
                     break;
             }
             OnFieldsUpdate();
-
             //NextRobot();
         }
 
