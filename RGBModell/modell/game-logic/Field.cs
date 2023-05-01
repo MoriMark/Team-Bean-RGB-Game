@@ -102,6 +102,8 @@ namespace RGBModell.modell.game_logic
                 {
                     if (Math.Abs(ii - robot.i) + Math.Abs(jj - robot.j) <= viewDistance && BetweenBorders(ii, jj))
                         calculateMatrix[i, j] = field[ii, jj];
+                    else if (field[ii, jj] is Box)
+                        calculateMatrix[i, j] = field[ii, jj];
                     else
                         calculateMatrix[i, j] = new Wall(ii, jj);
                     j++;

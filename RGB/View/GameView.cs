@@ -237,6 +237,7 @@ namespace RGB.View
         {
             _viewField = e.gameObjects;
         }
+
         private void SetTaskDisplays()
         {
             tableTask1.Margin = new Padding(0);
@@ -254,13 +255,13 @@ namespace RGB.View
             tableTask1.Controls.Add(task1Label, 1, 0);
         }
 
-
         private void RefreshViewTable(GameObject[,] field) 
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
             {
                 for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
+                    bool isExit = false;
                     GameObject currentField = field[i,j];
                     Robot currentRobot = null!;
                     Box currentBox = null!;
@@ -283,6 +284,8 @@ namespace RGB.View
                     {
                         if (e.Coordinate.X == (x + (i - viewDist)) && e.Coordinate.Y == (y + (j - viewDist)))
                         {
+                            isExit = true;
+                            _buttons[i, j].BackColor = Color.LightGreen;
                             _buttons[i, j].Text = "Exit";
                             _buttons[i, j].ForeColor = Color.Black;
                             switch (e.Direction)
@@ -306,10 +309,11 @@ namespace RGB.View
                     {
                         //draw non Robot and Box types
                         case TileType.Empty:
-                            _buttons[i, j].BackColor = Color.White;
+                            if (!isExit)
+                                _buttons[i, j].BackColor = Color.White;
                             break;
                         case TileType.Wall:
-                            _buttons[i, j].BackColor = Color.Black;
+                            _buttons[i, j].BackColor = Color.Violet;
                             break;
                         case TileType.Obstacle:
                             _buttons[i, j].BackColor = Color.Gray;
