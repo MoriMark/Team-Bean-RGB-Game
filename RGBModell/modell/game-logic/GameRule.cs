@@ -775,8 +775,6 @@ namespace RGBModell.modell
             NextRobot();
         }
 
-        public List<Exit> GetExits() { return field.GetExits; }
-
         public Boolean RobotStandsOnExit()
         {
             foreach(Exit exit in field.GetExits)
