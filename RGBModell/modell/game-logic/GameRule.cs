@@ -782,6 +782,8 @@ namespace RGBModell.modell
                 if (task.HasValue)
                 {
                     taskHandler.FinishTask(task.Value);
+                    currentRobot.Attached = null;
+                    DeleteBoxGroup(currentRobot.GetAttachedGroupId());
                 }
             }
         }
@@ -797,6 +799,16 @@ namespace RGBModell.modell
             Random rnd = new Random();
             if (rnd.Next(1, 100) <= TASK_CHANCE_OF_NEW_TASK)
                 taskHandler.GenerateRandomTaskForTeam(currentRobot.team);
+        }
+
+        private void DeleteBoxGroup(int key)
+        {
+            BoxGroup dboxgroup = boxgroups[key];
+            boxgroups.Remove(key);
+            foreach(Box b in dboxgroup.boxes)
+            {
+                field.SetValue(b.i,b.j,new Empty(b.i,b.j));
+            }
         }
 
         private void OnFieldsUpdate()
