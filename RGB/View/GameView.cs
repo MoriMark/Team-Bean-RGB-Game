@@ -64,6 +64,7 @@ namespace RGB.View
             sendButton.Click += SendButton_Click;
             mapButton.Click += MapButton_Click;
             _gameHandler.gameRule.UpdateFields += RefreshTable;
+            _gameHandler.gameRule.UpdateTasks += RefreshTaskDisplays;
             SetUpSymbolButtons();
             //Setting up the grid buttons
             tableLayoutPanelButtons.RowCount = viewDist * 2 + 1;
@@ -118,7 +119,6 @@ namespace RGB.View
             _timer.Tick += RoundTimerTick;
             _timer.Enabled = true;
 
-            SetTaskDisplays();
             exits = _gameHandler.gameRule.exits;
             testLabel.Text = string.Empty;
             foreach (Exit e in exits)
@@ -232,41 +232,44 @@ namespace RGB.View
             symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
         }
 
+        private void RefreshTaskDisplays(object? sender, UpdateTasksEventArgs e)
+        {
+            tableTaskView.Controls.Clear();
+
+            tableTaskView.RowStyles.Clear();
+            tableTaskView.ColumnStyles.Clear();
+            tableTaskView.Padding = new Padding(0);
+            tableTaskView.Margin = new Padding(0);
+
+            tableTaskView.RowCount = 1;
+            tableTaskView.ColumnCount = e.tasks.Count;
+            
+            for (int i = 0; i < e.tasks.Count; i++) 
+            {
+                tableTaskView.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / e.tasks.Count));
+                tableTaskView.Controls.Add
+                    (new TaskView(e.tasks[i].task.GetLength(1), e.tasks[i].task.GetLength(0), e.tasks[i]).wrap, i, 0);
+            }
+        }
+
         private void RefreshTable(object? o, UpdateFieldsEventArgs e)
-        
+
         {
             _viewField = e.gameObjects;
         }
 
-        private void SetTaskDisplays()
-        {
-            tableTask1.Margin = new Padding(0);
-            tableTask1.Padding = new Padding(0);
-            tableTask1.ColumnStyles.Clear();
-            for (int i = 0; i < tableTask1.ColumnCount; i++) 
-            {
-                tableTask1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / tableTask1.ColumnCount));
-            }
-            tableTask1.RowStyles.Add(new RowStyle(SizeType.Absolute,100));
-            tableTask1.Controls.Add(new TaskView(3)._view, 0, 0);
-            Label task1Label = new Label();
-            task1Label.Text = "Time Remaining:\nPoints:";
-            task1Label.Dock = DockStyle.Fill;
-            tableTask1.Controls.Add(task1Label, 1, 0);
-        }
-
-        private void RefreshViewTable(GameObject[,] field) 
+        private void RefreshViewTable(GameObject[,] field)
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
             {
                 for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
                     bool isExit = false;
-                    GameObject currentField = field[i,j];
+                    GameObject currentField = field[i, j];
                     Robot currentRobot = null!;
                     Box currentBox = null!;
                     TileType type = currentField.TileType();
-                    
+
                     if (currentField is Robot)
                     {
                         currentRobot = (Robot)currentField;
@@ -352,17 +355,17 @@ namespace RGB.View
 
                                     case Direction.Down:
                                         _buttons[i, j].Text = $"{currentRobot.name}\nV";
-                                        
+
                                         break;
 
                                     case Direction.Left:
                                         _buttons[i, j].Text = $"{currentRobot.name}\n<";
-                                        
+
                                         break;
 
                                     case Direction.Right:
                                         _buttons[i, j].Text = $"{currentRobot.name}\n>";
-                                        
+
                                         break;
                                 }
                                 if (null != currentRobot.Attached)
