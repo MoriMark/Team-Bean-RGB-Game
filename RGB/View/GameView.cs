@@ -36,6 +36,7 @@ namespace RGB.View
         private Actions selectedAction;
         private GameHandler _gameHandler;
         private MapForm map = null!;
+        private GameObject[,] _viewField = null!;
 
         public GameView(int i)
         {
@@ -221,58 +222,20 @@ namespace RGB.View
 
         private void RefreshTable(object? o, UpdateFieldsEventArgs e)
         {
-            String outT = String.Empty;
-            for (int i = 0; i < e.gameObjects.GetLength(0); i++)
-            {
-                for (int j = 0; j < e.gameObjects.GetLength(1); j++)
-                {
-                    if (e.gameObjects[i, j] is Empty)
-                    {
-                        outT += "O";
-                    } 
-                    else if (e.gameObjects[i, j] is Wall)
-                    {
-                        outT += "X";
-                    }
-                    else if (e.gameObjects[i, j] is Robot)
-                    {
-                        outT += "R";
-                    }
-                    else if (e.gameObjects[i, j] is Box)
-                    {
-                        outT += "B";
-                    }
-                }
-                outT += "\n";
-            }
-            MessageBox.Show(outT);
-
-
-            //for (int i = 0; i < viewDist * 2 + 1; i++)
-            //    for (int j = 0; j < viewDist * 2 + 1; j++)
-            //      e.gameObjects[i, j]...
+            _viewField = e.gameObjects;
         }
 
-        private void RefreshViewTable(Int32 x, Int32 y)
+        private void RefreshViewTable(GameObject[,] field)
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
             {
                 for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
-                    GameObject currentField = null!;
+                    GameObject currentField = field[i,j];
                     Robot currentRobot = null!;
                     Box currentBox = null!;
-                    TileType type;
-                    if ((x + (i - viewDist) > -1 && y + (j - viewDist) > -1) &&
-                        (x + (i - viewDist) < tableSize && y + (j - viewDist) < tableSize))
-                    {
-                        currentField = _gameHandler.GetFieldValue(x + (i - viewDist), y + (j - viewDist));
-                        type = currentField.TileType();
-                    }
-                    else
-                    {
-                        type = TileType.Wall;
-                    }
+                    TileType type = currentField.TileType();
+                    
                     if (currentField is Robot)
                     {
                         currentRobot = (Robot)currentField;
@@ -523,7 +486,7 @@ namespace RGB.View
             currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
             _timer.Start();
             RefreshMessages();
-            RefreshViewTable(currentRobotCoords.X, currentRobotCoords.Y);
+            RefreshViewTable(_viewField);
         }
 
         private void RoundTimerTick(object? sender, EventArgs e)
