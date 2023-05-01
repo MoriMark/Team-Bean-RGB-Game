@@ -713,14 +713,24 @@ namespace RGBModell.modell
             //NextRobot();
         }
 
-        public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2)
+        public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2, Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
-            if(field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
+            Int32 diffi1 = r.i - i1;
+            Int32 diffj1 = r.j - j1;
+            Int32 diffi2 = r.i - i2;
+            Int32 diffj2 = r.j - j2;
+            Int32 diffis = i1 - i2;
+            Int32 diffjs = j1 - j2;
+
+            bool nexttorobot = (diffi1 <= 1 && diffi1 >= -1 && diffj1 <= 1 && diffj1 >= -1) && (diffi2 <= 1 && diffi2 >= -1 && diffj2 <= 1 && diffj2 >= -1)
+                && (diffis <= 1 && diffis >= -1 && diffjs <= 1 && diffjs >= -1) && (i1!= i2 || j1 != j2) && ((Math.Abs(diffis) + (Math.Abs(diffjs))) < 2);
+
+            if ( nexttorobot && field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
             {
                 BoxGroup tempboxgroup = boxgroups[((Box)field.GetValue(i1, j1)).ingroup];
                 tempboxgroup.DetachAttachment((Box)field.GetValue(i1, j1), (Box)field.GetValue(i2, j2));
