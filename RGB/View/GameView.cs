@@ -255,7 +255,7 @@ namespace RGB.View
         }
 
 
-        private void RefreshViewTable(GameObject[,] field) //X and Y are the current robot coords 
+        private void RefreshViewTable(GameObject[,] field) 
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
             {
@@ -277,6 +277,8 @@ namespace RGB.View
                     _buttons[i, j].Enabled = true;
                     _buttons[i, j].Text = "";
                     _buttons[i, j].ForeColor = Color.White;
+                    int x = currentRobotCoords.X;
+                    int y = currentRobotCoords.Y;
                     foreach (Exit e in exits)
                     {
                         if (e.Coordinate.X == (x + (i - viewDist)) && e.Coordinate.Y == (y + (j - viewDist)))

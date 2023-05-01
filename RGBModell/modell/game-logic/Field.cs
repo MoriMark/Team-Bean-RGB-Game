@@ -17,7 +17,7 @@ namespace RGBModell.modell.game_logic
         private GameObject[,] field;
         public Int32 TableSize { get; private set; }
         public Int32 MatrixSize { get; private set; }
-        private List<Exit> exits;
+        public List<Exit> exits { get; private set; }
         private const Int32 NUMBER_OF_EXITS = 5;
 
         public Field(Int32 tableSize)
