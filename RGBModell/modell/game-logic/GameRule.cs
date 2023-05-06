@@ -782,8 +782,8 @@ namespace RGBModell.modell.game_logic
                 if (task.HasValue)
                 {
                     taskHandler.FinishTask(currentRobot.team, task.Value);
-                    currentRobot.Attached = null;
                     DeleteBoxGroup(currentRobot.GetAttachedGroupId());
+                    currentRobot.Attached = null;
                 }
             }
         }
@@ -803,11 +803,19 @@ namespace RGBModell.modell.game_logic
 
         private void DeleteBoxGroup(int key)
         {
-            BoxGroup dboxgroup = boxgroups[key];
-            boxgroups.Remove(key);
-            foreach(Box b in dboxgroup.boxes)
+            if(key != 0)
             {
-                field.SetValue(b.i,b.j,new Empty(b.i,b.j));
+                BoxGroup dboxgroup = boxgroups[key];
+                boxgroups.Remove(key);
+                foreach (Box b in dboxgroup.boxes)
+                {
+                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                }
+            }
+            else
+            {
+                Box b = currentRobot.Attached;
+                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
             }
         }
 

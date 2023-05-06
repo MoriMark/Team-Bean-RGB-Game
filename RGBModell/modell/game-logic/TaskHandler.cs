@@ -129,7 +129,6 @@ namespace RGBModell.modell.game_logic
         private BoxColor[,] GetRandomBoxColorMatrix()
         {
             Int32 ind = rnd.Next(0,availableShapes.GetLength(0));
-
             BoxColor[,] retVal = new BoxColor[availableShapes[ind].GetLength(0),availableShapes[ind].GetLength(1)];
 
             BoxColor[] values = Enum.GetValues(typeof(BoxColor))

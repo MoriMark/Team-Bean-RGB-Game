@@ -121,11 +121,13 @@ namespace RGB.View
 
             exits = _gameHandler.gameRule.exits;
             testLabel.Text = string.Empty;
+            /*
             foreach (Exit e in exits)
             {
                 testLabel.Text += $"{e.Coordinate.X} ";
                 testLabel.Text += $"{e.Coordinate.Y}\n";
             }
+            */
             //Show Table for the first player
             _gameHandler.StartGame();
             NextRobot(null, EventArgs.Empty);
