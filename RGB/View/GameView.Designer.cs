@@ -44,6 +44,8 @@
             alertAndSymbols = new TableLayoutPanel();
             symbolLayoutPanel = new TableLayoutPanel();
             tableTaskView = new TableLayoutPanel();
+            mapmodeNormalButton = new Button();
+            mapmodeGroupButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
             SuspendLayout();
@@ -60,7 +62,7 @@
             // sendButton
             // 
             sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sendButton.Location = new Point(629, 39);
+            sendButton.Location = new Point(639, 39);
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(100, 100);
             sendButton.TabIndex = 14;
@@ -198,7 +200,7 @@
             alertAndSymbols.ColumnCount = 1;
             alertAndSymbols.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             alertAndSymbols.Controls.Add(symbolLayoutPanel, 0, 0);
-            alertAndSymbols.Location = new Point(211, 39);
+            alertAndSymbols.Location = new Point(286, 39);
             alertAndSymbols.Margin = new Padding(0);
             alertAndSymbols.Name = "alertAndSymbols";
             alertAndSymbols.RowCount = 1;
@@ -230,11 +232,33 @@
             tableTaskView.Size = new Size(800, 100);
             tableTaskView.TabIndex = 26;
             // 
+            // mapmodeNormalButton
+            // 
+            mapmodeNormalButton.Location = new Point(174, 39);
+            mapmodeNormalButton.Name = "mapmodeNormalButton";
+            mapmodeNormalButton.Size = new Size(75, 23);
+            mapmodeNormalButton.TabIndex = 27;
+            mapmodeNormalButton.Text = "Normal";
+            mapmodeNormalButton.UseVisualStyleBackColor = true;
+            mapmodeNormalButton.Click += mapmodeNormalButton_Click;
+            // 
+            // mapmodeGroupButton
+            // 
+            mapmodeGroupButton.Location = new Point(174, 75);
+            mapmodeGroupButton.Name = "mapmodeGroupButton";
+            mapmodeGroupButton.Size = new Size(75, 23);
+            mapmodeGroupButton.TabIndex = 28;
+            mapmodeGroupButton.Text = "Groups";
+            mapmodeGroupButton.UseVisualStyleBackColor = true;
+            mapmodeGroupButton.Click += mapmodeGroupButton_Click;
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 961);
+            Controls.Add(mapmodeGroupButton);
+            Controls.Add(mapmodeNormalButton);
             Controls.Add(tableTaskView);
             Controls.Add(alertLabel);
             Controls.Add(alertAndSymbols);
@@ -277,5 +301,7 @@
         private TableLayoutPanel alertAndSymbols;
         private TableLayoutPanel symbolLayoutPanel;
         private TableLayoutPanel tableTaskView;
+        private Button mapmodeNormalButton;
+        private Button mapmodeGroupButton;
     }
 }
