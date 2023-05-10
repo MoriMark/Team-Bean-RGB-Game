@@ -65,7 +65,7 @@ namespace RGBModell.modell
                 eventround++;
                 resolveActions();
                 gameRule.WeldCheck();
-                int eventcheck = rnd.Next(10,21);
+                int eventcheck = rnd.Next(10,26);
                 if(eventcheck - eventround < 0)
                 {
                     eventround = 0;

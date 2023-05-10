@@ -767,6 +767,10 @@ namespace RGBModell.modell.game_logic
             }
         }
 
+        /// <summary>
+        /// Randomly chooses an event wich can place obstacles or boxes on the map.
+        /// </summary>
+        /// <returns></returns>
         public void SpecialEvent()
         {
             Random rnd = new Random();
