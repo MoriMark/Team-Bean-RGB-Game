@@ -550,7 +550,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// 
+        /// Lowers the health of the box or obstacle infront of the robot and deletes on the field it if it reaches zero
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
