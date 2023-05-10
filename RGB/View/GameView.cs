@@ -97,6 +97,7 @@ namespace RGB.View
                     _buttons[i, j].Margin = new Padding(0);
                     _buttons[i, j].FlatStyle = FlatStyle.Flat;
                     _buttons[i, j].FlatAppearance.BorderSize = 0;
+                    _buttons[i, j].BackgroundImageLayout = ImageLayout.Zoom;
 
                     tableLayoutPanelButtons.Controls.Add(_buttons[i, j], j, i);
                 }
@@ -328,22 +329,22 @@ namespace RGB.View
                                     break;
                                 //draw Boxes
                                 case TileType.RedBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
+                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
                                     _buttons[i, j].BackColor = Color.Red;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.BlueBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
+                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
                                     _buttons[i, j].BackColor = Color.Blue;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.YellowBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
+                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
                                     _buttons[i, j].BackColor = Color.Yellow;
                                     _buttons[i, j].ForeColor = Color.Black;
                                     break;
                                 case TileType.GreenBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n{currentBox.ingroup}";
+                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
                                     _buttons[i, j].BackColor = Color.Green;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
@@ -360,7 +361,7 @@ namespace RGB.View
 
                                             case Direction.Down:
                                                 _buttons[i, j].Text = $"{currentRobot.name}\nV";
-
+                                                _buttons[i,j].BackgroundImage = Properties.Resources.red_down;
                                                 break;
 
                                             case Direction.Left:
