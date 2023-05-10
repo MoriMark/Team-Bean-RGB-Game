@@ -154,7 +154,7 @@ namespace RGBModell.modell
                         break;
 
                     case Actions.Disconnect:
-                        gameRule.Lift(action.robot);
+                        gameRule.UnLift(action.robot);
                         break;
                 }
             }

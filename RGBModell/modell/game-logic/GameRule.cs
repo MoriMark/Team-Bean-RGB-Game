@@ -622,7 +622,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// 
+        /// Conects the robot to the box in front of it
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -663,12 +663,28 @@ namespace RGBModell.modell.game_logic
                         }
                         break;
                 }
+                OnFieldsUpdate();
             }
-            else
+           
+        }
+
+        /// <summary>
+        /// Disconects the robot if it is connected to a box
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
+        public void UnLift(Robot r)
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+            if (!r.IsAttached())
             {
                 r.Attached = null;
+                OnFieldsUpdate();
             }
-            OnFieldsUpdate();
         }
 
         public void Weld(Robot r)
