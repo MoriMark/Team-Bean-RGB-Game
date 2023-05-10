@@ -608,7 +608,7 @@ namespace RGBModell.modell.game_logic
             if (cleaning.X == -1 ||  cleaning.Y == -1)
                 { return;}
 
-            if (field.GetValue(cleaning.X, cleaning.Y) is Box)
+            if (field.GetValue(cleaning.X, cleaning.Y) is Box && ((Box)field.GetValue(cleaning.X, cleaning.Y)).ingroup == 0)
             {
                 Box cleaningBox = (Box)field.GetValue(cleaning.X, cleaning.Y);
                 cleaningBox.health--;
@@ -619,6 +619,18 @@ namespace RGBModell.modell.game_logic
                 else
                 {
                     field.SetValue(cleaning.X, cleaning.Y, cleaningBox);
+                }
+            } else if(field.GetValue(cleaning.X, cleaning.Y) is Obstacle)
+            {
+                Obstacle cleaningObstacle = (Obstacle)field.GetValue(cleaning.X, cleaning.Y);
+                cleaningObstacle.health--;
+                if (cleaningObstacle.health <= 0)
+                {
+                    field.SetValue(cleaning.X, cleaning.Y, new Empty(cleaning.X, cleaning.Y));
+                }
+                else
+                {
+                    field.SetValue(cleaning.X, cleaning.Y, cleaningObstacle);
                 }
             }
             OnFieldsUpdate();

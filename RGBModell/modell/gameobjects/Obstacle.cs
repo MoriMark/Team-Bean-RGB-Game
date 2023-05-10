@@ -8,16 +8,16 @@ namespace RGBModell.modell.gameobjects
 {
     public class Obstacle : GameObject
     {
-        private int obstaclelife;
-        public Obstacle(int i, int j, int obstaclelife) : base(i, j, enums.TileType.Obstacle)
+        public int health{ get; set; }
+        public Obstacle(int i, int j, int health) : base(i, j, enums.TileType.Obstacle)
         { 
-            this.obstaclelife = obstaclelife;
+            this.health = health;
         }
 
         public void lowerlife()
         {
-            obstaclelife--;
-            if(obstaclelife<= 0 )
+            health--;
+            if(health <= 0 )
             {
                 deletegroup();
             }
