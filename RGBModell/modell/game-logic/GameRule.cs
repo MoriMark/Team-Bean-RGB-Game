@@ -37,6 +37,7 @@ namespace RGBModell.modell.game_logic
             remove { taskHandler.UpdateFields -= value; }
         }
 
+        public event EventHandler<SpecialEventEventArgs> SpecialEvents;
         public GameRule(Int32 numOfRobots, Int32 numOfTeams)
         {
             GameIsActive = false;
@@ -764,6 +765,76 @@ namespace RGBModell.modell.game_logic
                 Box b = currentRobot.Attached;
                 field.SetValue(b.i, b.j, new Empty(b.i, b.j));
             }
+        }
+
+        public void SpecialEvent()
+        {
+            Random rnd = new Random();
+            int x, y;
+            x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
+            while (!field.BetweenBorders(x, y) && (field.GetValue(x,y).IsEmpty() || (field.GetValue(x, y) is Box && ((Box)field.GetValue(x, y)).ingroup == 0)))
+            {
+                x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
+            }
+            int gameobjectcount = 1;                   
+            switch (rnd.Next(3))
+            {
+                case 0:
+                    
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    if(field.BetweenBorders(x + 1, y) && (field.GetValue(x + 1, y).IsEmpty()))
+                    {
+                        field.SetValue(x + 1, y, new Obstacle(x + 1, y, 1));
+                        gameobjectcount++;
+                    }
+                    if(field.BetweenBorders(x + 1, y + 1) && (field.GetValue(x + 1, y + 1).IsEmpty()))
+                    {
+                        field.SetValue(x + 1, y + 1, new Obstacle(x + 1, y + 1, 1));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x, y + 1) && (field.GetValue(x, y + 1).IsEmpty()))
+                    {
+                        field.SetValue(x, y + 1, new Obstacle(x, y + 1, 1));
+                        gameobjectcount++;
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Meteor", gameobjectcount));
+                    break;
+                case 1:
+                    
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    if (field.BetweenBorders(x - 1, y) && (field.GetValue(x - 1, y).IsEmpty() ))
+                    {
+                        field.SetValue(x - 1, y, new Obstacle(x - 1, y, 1));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x - 2, y) && (field.GetValue(x - 2, y).IsEmpty() ))
+                    {
+                        field.SetValue(x - 2, y, new Obstacle(x - 2, y, 1));
+                        gameobjectcount++;
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Wall", gameobjectcount));
+                    break;
+                case 2:
+                    field.SetValue(x, y, new Box(x, y, BoxColor.Red, TileType.RedBox));
+                    if (field.BetweenBorders(x + 1, y) && (field.GetValue(x + 1, y).IsEmpty() ))
+                    {
+                        field.SetValue(x + 1, y, new Box(x + 1, y, BoxColor.Yellow, TileType.YellowBox));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x + 1, y + 1) && (field.GetValue(x + 1, y + 1).IsEmpty() ))
+                    {
+                        field.SetValue(x + 1, y + 1, new Box(x + 1, y + 1, BoxColor.Green, TileType.GreenBox));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x, y + 1) && (field.GetValue(x, y + 1).IsEmpty()))
+                    {
+                        field.SetValue(x, y + 1, new Box(x, y + 1, BoxColor.Blue, TileType.BlueBox));
+                        gameobjectcount++;
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Extra Boxes", gameobjectcount));
+                    break;
+            }
+            OnFieldsUpdate();
         }
 
         private void OnFieldsUpdate()
