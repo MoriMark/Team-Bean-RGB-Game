@@ -6,26 +6,13 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.gameobjects
 {
-    public class Obstacle : GameObject
+    public class Obstacle : DeletableObject
     {
-        public int health{ get; set; }
-        public Obstacle(int i, int j, int health) : base(i, j, enums.TileType.Obstacle)
+        public Obstacle(int i, int j, int health) : base(i, j , health, enums.TileType.Obstacle)
         { 
             this.health = health;
         }
 
-        public void lowerlife()
-        {
-            health--;
-            if(health <= 0 )
-            {
-                deletegroup();
-            }
-        }
-
-        private void deletegroup()
-        {
-            isempty = true;
-        }
+        
     }
 }

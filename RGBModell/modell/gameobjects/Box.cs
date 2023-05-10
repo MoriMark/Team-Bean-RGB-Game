@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.gameobjects
 {
-    public class Box : GameObject
+    public class Box : DeletableObject
     {
         public int id { get; }
-        public int health { get; set; }
+        
         private static int staticid = 0;
         public BoxColor color { get; }
         public int ingroup { get; set; }
