@@ -239,7 +239,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Makes a turn, changing the current direction of the player.
+        /// Makes a turn, changing the current direction of the player, along with any boxes that are connected.
         /// </summary>
         /// <param name="direction">The direction to turn to.</param>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -257,6 +257,19 @@ namespace RGBModell.modell.game_logic
             }
             else
             {
+                int rightmult = 1;
+                int leftmult = 1;
+                if (r.facing == Direction.Up && direction == Direction.Right
+                    || r.facing == Direction.Down && direction == Direction.Left
+                    || r.facing == Direction.Right && direction == Direction.Down 
+                    || r.facing == Direction.Left && direction == Direction.Up)
+                {
+                    rightmult= -1;
+                }
+                else
+                {
+                    leftmult= -1;
+                }
                 bool boxesplaceable = true;
                 foreach(Robot robot in robots)
                 {
@@ -264,7 +277,6 @@ namespace RGBModell.modell.game_logic
                     {
                         if ( robot.Attached.id == r.Attached.id  && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
                         {
-
                             boxesplaceable = false;
                         }
                     }
@@ -280,128 +292,39 @@ namespace RGBModell.modell.game_logic
                 if(r.GetAttachedGroupId() != 0)
                 {
                     List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
-                    if (r.facing == Direction.Up && direction == Direction.Right
-                        || r.facing == Direction.Down && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up
-                        )
+                    foreach (Box b in boxes)
                     {
-                        //right rotation
-                        //bool boxesplaceable = true;
+                    int newi = (rightmult * (r.j - b.j)) + r.i;
+                    int newj = (leftmult * (r.i - b.i)) + r.j;
+                    boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
+                    }
+                    if (boxesplaceable)
+                    {
+                        r.facing = direction;
                         foreach (Box b in boxes)
                         {
-                            int diffi = r.i - b.i;
-                            int diffj = (r.j - b.j);
-                            int diffi2 = -1 * diffj;
-                            int diffj2 = diffi;
-                            int newi = diffi2 + r.i;
-                            int newj = diffj2 + r.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
-                        }
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;
-                            foreach (Box b in boxes)
+                            if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
                             {
-                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
-                                {
-                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                                }
-                                int diffi = r.i - b.i;
-                                int diffj = (r.j - b.j);
-                                int diffi2 = -1 * diffj;
-                                int diffj2 = diffi;
-                                int newi = diffi2 + r.i;
-                                int newj = diffj2 + r.j;
-                                field.SetValue(newi, newj, b);
+                                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                             }
+                        int newi = (rightmult * (r.j - b.j)) + r.i;
+                        int newj = (leftmult * (r.i - b.i)) + r.j;
+                        field.SetValue(newi, newj, b);
                         }
                     }
-                    else if (r.facing == Direction.Down && direction == Direction.Right
-                         || r.facing == Direction.Up && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
-                    {
-                        //left rotation
-                        //bool boxesplaceable = true;
-                        foreach (Box b in boxes)
-                        {
-                            int diffi = r.i - b.i;
-                            int diffj = (r.j - b.j);
-                            int diffi2 = diffj;
-                            int diffj2 = -1 * diffi;
-                            int newi = diffi2 + r.i;
-                            int newj = diffj2 + r.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
-                        }
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;
-                            foreach (Box b in boxes)
-                            {
-                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
-                                {
-                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                                }
-                                int diffi = r.i - b.i;
-                                int diffj = (r.j - b.j);
-                                int diffi2 = diffj;
-                                int diffj2 =  -1 * diffi;
-                                int newi = diffi2 + r.i;
-                                int newj = diffj2 + r.j;
-                                field.SetValue(newi, newj, b);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Wrong direction was added relative to player position!");
-                    }
-                }
+                }                                                 
                 else
                 {
-                    if ( r.facing == Direction.Up && direction == Direction.Right
-                        || r.facing == Direction.Down && direction == Direction.Left 
-                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up)
+                    Box b = r.Attached;
+                    int newi = (rightmult * (r.j - b.j)) + r.i;
+                    int newj = (leftmult * (r.i - b.i)) + r.j;
+                    boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                    if (boxesplaceable)
                     {
-                        //Right Rotation
-                        Box b = r.Attached;
-                        //bool boxesplaceable = true;
-                        int diffi = r.i - b.i;
-                        int diffj =  (r.j - b.j);
-                        int diffi2 = -1 * diffj;
-                        int diffj2 = diffi;
-                        int newi = diffi2 + r.i;
-                        int newj = diffj2 + r.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;
-                           
-                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                            field.SetValue(newi, newj, b);
-                        }
-                    }
-                    else if (r.facing == Direction.Down && direction == Direction.Right
-                         || r.facing == Direction.Up && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
-                    {
-                        //Left Rotation
-                        Box b = r.Attached;
-                        //bool boxesplaceable = true;
-                        int diffi = r.i - b.i;
-                        int diffj = (r.j - b.j);
-                        int diffi2 = diffj;
-                        int diffj2 = -1 * diffi;
-                        int newi = diffi2 + r.i;
-                        int newj = diffj2 + r.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;                       
-                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                            field.SetValue(newi, newj, b);
-                           
-                        }
-                    }
+                        r.facing = direction;                         
+                        field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                        field.SetValue(newi, newj, b);
+                    }                   
                 }
             }
             OnFieldsUpdate();
