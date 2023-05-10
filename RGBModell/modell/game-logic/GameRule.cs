@@ -251,6 +251,7 @@ namespace RGBModell.modell.game_logic
             if (!r.IsAttached())
             {
                 r.facing = direction;
+                r.actionsucces = true;
             }
             else
             {
@@ -297,6 +298,7 @@ namespace RGBModell.modell.game_logic
                     }
                     if (boxesplaceable)
                     {
+                        r.actionsucces = true;
                         r.facing = direction;
                         foreach (Box b in boxes)
                         {
@@ -308,7 +310,7 @@ namespace RGBModell.modell.game_logic
                         int newj = (leftmult * (r.i - b.i)) + r.j;
                         field.SetValue(newi, newj, b);
                         }
-                    }
+                    } else r.actionsucces= false;
                 }                                                 
                 else
                 {
@@ -318,10 +320,11 @@ namespace RGBModell.modell.game_logic
                     boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
                     if (boxesplaceable)
                     {
+                        r.actionsucces = true;
                         r.facing = direction;                         
                         field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         field.SetValue(newi, newj, b);
-                    }                   
+                    } else r.actionsucces = false;
                 }
             }
             OnFieldsUpdate();
@@ -335,7 +338,7 @@ namespace RGBModell.modell.game_logic
         /// <exception cref="NoActiveGameException"></exception>
         /// <exception cref="GameIsPausedException"></exception>
         /// <exception cref="NotImplementedException"></exception>
-        public void MakeStep(Int32 i, Int32 j, Robot robot)
+        public void MakeStep(Int32 i, Int32 j, Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
@@ -347,47 +350,46 @@ namespace RGBModell.modell.game_logic
 
             bool robotplaceable = false;
             bool boxesplaceable = true;
-            int diffi = i - robot.i;
-            int diffj = j - robot.j;
+            int diffi = i - r.i;
+            int diffj = j - r.j;
             try
             {
                 robotplaceable = field.GetValue(i, j).IsEmpty();
-                if(robot.IsAttached() && robot.GetAttachedGroupId() != 0)
+                if(r.IsAttached() && r.GetAttachedGroupId() != 0)
                 {
-                    foreach(Robot r in robots)
+                    foreach(Robot allrob in robots)
                     {
-                        if (r.IsAttached() && r.GetAttachedGroupId() == robot.GetAttachedGroupId() && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (allrob.IsAttached() && allrob.GetAttachedGroupId() == r.GetAttachedGroupId() && ((allrob.team == r.team && allrob.name != r.name) || (allrob.team != r.team)))
                         {
                             boxesplaceable= false;
                         }
                     }
-                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
                         boxesplaceable &= ( !((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj)) 
                             && 
                             ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
-                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId())
-                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == r.GetAttachedGroupId())
+                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == r.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == r.name)
                             ));
                     }
                 }
-                if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
+                if(r.IsAttached() && r.GetAttachedGroupId() == 0)
                 {
-                    foreach (Robot r in robots)
+                    foreach (Robot allrob in robots)
                     {
-                        if (r.IsAttached() && r.Attached.id == robot.Attached.id && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (allrob.IsAttached() && allrob.Attached.id == r.Attached.id && ((allrob.team == r.team && allrob.name != r.name) || (allrob.team != r.team)))
                         {
                             boxesplaceable = false;                   
                         }
                     }
-                    Box b = robot.Attached;
+                    Box b = r.Attached;
                     boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj))
                             && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
-                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == r.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == r.name)
                        ));
                 }
-
             }
             catch (Exception e)
             { 
@@ -395,22 +397,21 @@ namespace RGBModell.modell.game_logic
             }
 
             if (!((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j))
-                && robotplaceable && !robot.IsAttached())
+                && robotplaceable && !r.IsAttached())
             {
                 //set empty at robot old location
-                field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                field.SetValue(r.i, r.j, new Empty(r.i, r.j));
                 //set robot to the new location
-                field.SetValue(i, j, robot);
+                field.SetValue(i, j, r);
                 //tell the robot it's new location
-
-
+                r.actionsucces = true;
             }
-            else if(robot.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
+            else if(r.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
             {
-                if(robot.GetAttachedGroupId() != 0)
+                if(r.GetAttachedGroupId() != 0)
                 {
-                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
-
+                    r.actionsucces = true;
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
                         if(field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
@@ -420,35 +421,35 @@ namespace RGBModell.modell.game_logic
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
                         //tell the robot it's new location
-
                     }
-                    if(field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
+                    if(field.GetValue(r.i, r.j).GetType() == typeof(Robot))
                     {
-                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                        field.SetValue(r.i, r.j, new Empty(r.i, r.j));
                     }
                     //set robot to the new location
-                    field.SetValue(i, j, robot);
+                    field.SetValue(i, j, r);
                     //tell the robot it's new location
-                } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
+                } else if(r.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
                 {
-                    Box box = robot.Attached;
+                    r.actionsucces = true;
+                    Box box = r.Attached;
                     field.SetValue(box.i, box.j , new Empty(box.i, box.j));
                     field.SetValue(box.i + diffi, box.j + diffj, box);
                     
-                    if (field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
+                    if (field.GetValue(r.i, r.j).GetType() == typeof(Robot))
                     {
-                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
-                    }
-                    
+                        field.SetValue(r.i, r.j, new Empty(r.i, r.j));
+                    }                   
                     //set robot to the new location
-                    field.SetValue(i, j, robot);
+                    field.SetValue(i, j, r);
                     //tell the robot it's new location
                 }
                 
             }
-
+            else{
+                r.actionsucces = false;
+            }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
@@ -466,7 +467,6 @@ namespace RGBModell.modell.game_logic
             // Additional code here
 
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
@@ -530,15 +530,20 @@ namespace RGBModell.modell.game_logic
 
             if (field.GetValue(cleaning.X, cleaning.Y) is Obstacle || field.GetValue(cleaning.X, cleaning.Y) is Box && ((Box)field.GetValue(cleaning.X, cleaning.Y)).ingroup == 0)
             {
+                robot.actionsucces = true;
                 DeletableObject cleingingobject = (DeletableObject)field.GetValue(cleaning.X, cleaning.Y);
                 cleingingobject.health--;
                 if (cleingingobject.health <= 0)
                 {
                     field.SetValue(cleaning.X, cleaning.Y, new Empty(cleaning.X, cleaning.Y));
                 }
-            } 
+            }
+            else
+            {
+                robot.actionsucces = false;
+            }
+
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
@@ -554,6 +559,7 @@ namespace RGBModell.modell.game_logic
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
+            r.actionsucces = false;
             if (!r.IsAttached())
             {
                 switch (r.facing)
@@ -562,28 +568,36 @@ namespace RGBModell.modell.game_logic
                         if (field.GetValue(r.i-1, r.j).GetType() == typeof(Box))
                         {
                             r.Attached = (Box)field.GetValue(r.i - 1, r.j);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Down:
                         if (field.GetValue(r.i+1, r.j).GetType() == typeof(Box))
                         {
                             r.Attached = (Box)field.GetValue(r.i+1, r.j);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Left:
                         if (field.GetValue(r.i, r.j -1).GetType() == typeof(Box))
                         {
                             r.Attached = (Box)field.GetValue(r.i, r.j-1);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Right:
                         if (field.GetValue(r.i , r.j+1).GetType() == typeof(Box))
                         {
                             r.Attached = (Box)field.GetValue(r.i, r.j+1);
+                            r.actionsucces = true;
                         }
                         break;
                 }
                 OnFieldsUpdate();
+            }
+            else
+            {
+                r.actionsucces = false;
             }
            
         }
@@ -602,8 +616,13 @@ namespace RGBModell.modell.game_logic
                 throw new GameIsPausedException();
             if (!r.IsAttached())
             {
+                r.actionsucces = true;
                 r.Attached = null;
                 OnFieldsUpdate();
+            }
+            else
+            {
+                r.actionsucces = false;
             }
         }
 
@@ -648,7 +667,6 @@ namespace RGBModell.modell.game_logic
                     break;
             }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
@@ -676,6 +694,7 @@ namespace RGBModell.modell.game_logic
 
             if ( nexttorobot && field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
             {
+                r.actionsucces = true;
                 BoxGroup tempboxgroup = boxgroups[((Box)field.GetValue(i1, j1)).ingroup];
                 tempboxgroup.DetachAttachment((Box)field.GetValue(i1, j1), (Box)field.GetValue(i2, j2));
                 if (tempboxgroup.CheckGroup() != 0 )
@@ -691,8 +710,11 @@ namespace RGBModell.modell.game_logic
                     }
                 }
             }
+            else
+            {
+                r.actionsucces = false;
+            }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         public List<Exit> GetExits() { return field.GetExits; }

@@ -13,6 +13,7 @@ namespace RGBModell.modell.gameobjects
         public Box? Attached { get; set; }
         public Team team { get; set; }
         public string name { get; set; }
+        public bool actionsucces { get; set; }
 
         public Robot(int i, int j, Direction facing, Team team, TileType type, string name) : base(i, j, type)
         { 
@@ -20,6 +21,7 @@ namespace RGBModell.modell.gameobjects
             Attached = null;
             this.team = team;
             this.name = name;
+            actionsucces= false;
         }
 
         public bool IsAttached()
