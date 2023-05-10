@@ -153,7 +153,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Checks where the welding is successful
+        /// Checks where the welding is successful and creates or expends the boxgroups.
         /// </summary>
         public void WeldCheck()
         {
@@ -169,8 +169,6 @@ namespace RGBModell.modell.game_logic
                             {
                                 BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i + 1, j)));
                                 boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
-                                //((Box)field.GetValue(i + 1, j)).attaching= Team.NoTeam;
                             } else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
                             {
                                 boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j),(Box)field.GetValue(i + 1, j));
@@ -197,8 +195,6 @@ namespace RGBModell.modell.game_logic
                             {
                                 BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i, j + 1)));
                                 boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
                             }
                             else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
@@ -331,7 +327,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// 
+        /// Moves the player to the given coordinates if it is possible, along with any boxes that it is connected to.
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -473,7 +469,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Lowers the health of the box or obstacle infront of the robot and deletes on the field it if it reaches zero
+        /// Lowers the health of the box or obstacle infront of the robot and deletes on the field it if it reaches zero.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -545,7 +541,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Conects the robot to the box in front of it
+        /// Conects the robot to the box in front of it.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -592,7 +588,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Disconects the robot if it is connected to a box
+        /// Disconects the robot if it is connected to a box.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -610,6 +606,12 @@ namespace RGBModell.modell.game_logic
             }
         }
 
+        /// <summary>
+        /// Marks a box in front of the robot for welding with the teams color.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
         public void Weld(Robot r)
         {
             if (!GameIsActive)
@@ -648,6 +650,12 @@ namespace RGBModell.modell.game_logic
             //NextRobot();
         }
 
+        /// <summary>
+        /// Disconnects an attachment between the two boxes coordinates after it checked wether they are close to the player and that they are boxes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
         public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2, Robot r)
         {
             if (!GameIsActive)
@@ -736,6 +744,10 @@ namespace RGBModell.modell.game_logic
                 taskHandler.GenerateRandomTaskForTeam(currentRobot.team);
         }
 
+        /// <summary>
+        /// Delets a boxgroup from the field and from the dictionary.
+        /// </summary>
+        /// <returns></returns>
         private void DeleteBoxGroup(int key)
         {
             if(key != 0)

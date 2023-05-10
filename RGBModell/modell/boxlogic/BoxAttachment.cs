@@ -46,7 +46,7 @@ namespace RGBModell.modell.boxlogic
                     return Direction.Left;
                 }
             }
-            throw new InvalidEnumArgumentException("The Boxes are not next to each other!");
+            throw new InvalidEnumArgumentException("The Boxes are the same!");
         }
 
         public Box GetFirstBox()
