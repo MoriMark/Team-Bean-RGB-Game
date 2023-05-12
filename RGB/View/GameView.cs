@@ -14,6 +14,7 @@ using RGBModell.modell;
 using RGBModell.modell.structs;
 using RGBModell.modell.game_logic;
 using RGBModell.modell.events;
+using System.Drawing.Drawing2D;
 
 namespace RGB.View
 {
@@ -147,6 +148,7 @@ namespace RGB.View
             {
                 for (int j = 0; j < viewDist * 2 + 1; j++)
                 {
+                    _buttons[i, j].BackgroundImage = null;
                     _buttons[i, j].Enabled = false;
                     _buttons[i, j].Text = string.Empty;
                     _buttons[i, j].BackColor = Color.DarkGray;
@@ -270,6 +272,7 @@ namespace RGB.View
                     {
                         for (int j = 0; j < viewDist * 2 + 1; j++)
                         {
+                            _buttons[i, j].BackgroundImage = null;
                             bool isExit = false;
                             GameObject currentField = field[i, j];
                             Robot currentRobot = null!;
@@ -329,23 +332,23 @@ namespace RGB.View
                                     break;
                                 //draw Boxes
                                 case TileType.RedBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
-                                    _buttons[i, j].BackColor = Color.Red;
+                                    _buttons[i, j].Text = $"{currentBox.health}";
+                                    _buttons[i, j].BackgroundImage = Properties.Resources.redbox;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.BlueBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
-                                    _buttons[i, j].BackColor = Color.Blue;
+                                    _buttons[i, j].Text = $"{currentBox.health}";
+                                    _buttons[i, j].BackgroundImage = Properties.Resources.bluebox;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.YellowBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
-                                    _buttons[i, j].BackColor = Color.Yellow;
-                                    _buttons[i, j].ForeColor = Color.Black;
+                                    _buttons[i, j].Text = $"{currentBox.health}";
+                                    _buttons[i, j].BackgroundImage = Properties.Resources.yellowbox;
+                                    _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.GreenBox:
-                                    _buttons[i, j].Text = $"{currentBox.health} HP\n";
-                                    _buttons[i, j].BackColor = Color.Green;
+                                    _buttons[i, j].Text = $"{currentBox.health}";
+                                    _buttons[i, j].BackgroundImage = Properties.Resources.greenbox;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 //draw Robots
@@ -356,22 +359,23 @@ namespace RGB.View
                                         switch (d)
                                         {
                                             case Direction.Up:
-                                                _buttons[i, j].Text = $"{currentRobot.name}\nA";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.red_up;
                                                 break;
 
                                             case Direction.Down:
-                                                _buttons[i, j].Text = $"{currentRobot.name}\nV";
-                                                _buttons[i,j].BackgroundImage = Properties.Resources.red_down;
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.red_down;
                                                 break;
 
                                             case Direction.Left:
-                                                _buttons[i, j].Text = $"{currentRobot.name}\n<";
-
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.red_left;
                                                 break;
 
                                             case Direction.Right:
-                                                _buttons[i, j].Text = $"{currentRobot.name}\n>";
-
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.red_right;
                                                 break;
                                         }
                                         if (null != currentRobot.Attached)
@@ -379,7 +383,7 @@ namespace RGB.View
                                             _buttons[i, j].Text += "\nCon";
                                         }
                                     }
-                                    _buttons[i, j].BackColor = Color.Red;
+                                    _buttons[i, j].BackColor = Color.White;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.BlueRobot:
@@ -389,23 +393,27 @@ namespace RGB.View
                                         switch (d)
                                         {
                                             case Direction.Up:
-                                                _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.blue_up;
                                                 break;
 
                                             case Direction.Down:
-                                                _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.blue_down;
                                                 break;
 
                                             case Direction.Left:
-                                                _buttons[i, j].Text = $"<-\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.blue_left;
                                                 break;
 
                                             case Direction.Right:
-                                                _buttons[i, j].Text = $"->\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.blue_right;
                                                 break;
                                         }
                                     }
-                                    _buttons[i, j].BackColor = Color.Blue;
+                                    _buttons[i, j].BackColor = Color.White;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.GreenRobot:
@@ -415,23 +423,27 @@ namespace RGB.View
                                         switch (d)
                                         {
                                             case Direction.Up:
-                                                _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.green_up;
                                                 break;
 
                                             case Direction.Down:
-                                                _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.green_down;
                                                 break;
 
                                             case Direction.Left:
-                                                _buttons[i, j].Text = $"<-\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.green_left;
                                                 break;
 
                                             case Direction.Right:
-                                                _buttons[i, j].Text = $"->\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.green_right;
                                                 break;
                                         }
                                     }
-                                    _buttons[i, j].BackColor = Color.Green;
+                                    _buttons[i, j].BackColor = Color.White;
                                     _buttons[i, j].ForeColor = Color.White;
                                     break;
                                 case TileType.YellowRobot:
@@ -441,23 +453,27 @@ namespace RGB.View
                                         switch (d)
                                         {
                                             case Direction.Up:
-                                                _buttons[i, j].Text = $"A\nI\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.yellow_up;
                                                 break;
 
                                             case Direction.Down:
-                                                _buttons[i, j].Text = $"I\nV\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.yellow_down;
                                                 break;
 
                                             case Direction.Left:
-                                                _buttons[i, j].Text = $"<-\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.yellow_left;
                                                 break;
 
                                             case Direction.Right:
-                                                _buttons[i, j].Text = $"->\n{currentRobot.name}";
+                                                _buttons[i, j].Text = $"{currentRobot.name}";
+                                                _buttons[i, j].BackgroundImage = Properties.Resources.yellow_right;
                                                 break;
                                         }
                                     }
-                                    _buttons[i, j].BackColor = Color.Yellow;
+                                    _buttons[i, j].BackColor = Color.White;
                                     _buttons[i, j].ForeColor = Color.Black;
                                     break;
                             }
@@ -467,6 +483,7 @@ namespace RGB.View
                                 _buttons[i, j].Text = "";
                                 _buttons[i, j].BackColor = Color.DarkGray;
                                 _buttons[i, j].Enabled = false;
+                                _buttons[i, j].BackgroundImage = null;
                             }
 
                         }
@@ -500,6 +517,7 @@ namespace RGB.View
                     {
                         for (int j = 0; j < viewDist * 2 + 1; j++)
                         {
+                            _buttons[i, j].BackgroundImage = null;
                             _buttons[i, j].Text = "";
                             _buttons[i, j].BackColor = Color.White;
 
@@ -513,11 +531,11 @@ namespace RGB.View
                                 Box currentBox = (Box)_viewField[i, j];
                                 if (currentBox.ingroup != 0)
                                 {
-                                    _buttons[i, j].BackColor = groupColors[currentBox.ingroup-1];
+                                    _buttons[i, j].BackColor = groupColors[currentBox.ingroup - 1];
                                 }
                             }
 
-                            
+
 
                             //Disabling unseen tiles
                             if (Math.Abs(_buttons[i, j].GridX) + Math.Abs(_buttons[i, j].GridY) > viewDist)
@@ -525,6 +543,7 @@ namespace RGB.View
                                 _buttons[i, j].Text = "";
                                 _buttons[i, j].BackColor = Color.DarkGray;
                                 _buttons[i, j].Enabled = false;
+                                _buttons[i, j].BackgroundImage = null;
                             }
                         }
                     }
@@ -948,6 +967,7 @@ namespace RGB.View
                     alertLabel.Text = string.Empty;
                 }
             }
+            testLabel.Text = $"{_buttons[0, 0].Width},{_buttons[0, 0].Height}";
             int rounds = _gameHandler.round;
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";
