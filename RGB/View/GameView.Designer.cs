@@ -130,12 +130,12 @@
             // 
             tableLayoutPanelButtons.ColumnCount = 1;
             tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Location = new Point(41, 291);
+            tableLayoutPanelButtons.Location = new Point(44, 303);
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             tableLayoutPanelButtons.RowCount = 1;
             tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Size = new Size(551, 552);
+            tableLayoutPanelButtons.Size = new Size(540, 540);
             tableLayoutPanelButtons.TabIndex = 19;
             // 
             // actionButtons
