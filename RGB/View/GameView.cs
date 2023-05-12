@@ -123,13 +123,7 @@ namespace RGB.View
 
             exits = _gameHandler.gameRule.exits;
             testLabel.Text = string.Empty;
-            /*
-            foreach (Exit e in exits)
-            {
-                testLabel.Text += $"{e.Coordinate.X} ";
-                testLabel.Text += $"{e.Coordinate.Y}\n";
-            }
-            */
+            
             //Show Table for the first player
             _gameHandler.StartGame();
             NextRobot(null, EventArgs.Empty);
@@ -154,87 +148,6 @@ namespace RGB.View
                     _buttons[i, j].BackColor = Color.DarkGray;
                 }
             }
-        }
-
-        private void SetUpSymbolButtons()
-        {
-            SymbolButton upButton = new SymbolButton(Symbol.GoUp);
-            SymbolButton downButton = new SymbolButton(Symbol.GoDown);
-            SymbolButton leftButton = new SymbolButton(Symbol.GoLeft);
-            SymbolButton rightButton = new SymbolButton(Symbol.GoRight);
-            SymbolButton givingBoxButton = new SymbolButton(Symbol.GivingBoxToYou);
-            SymbolButton givingCaravanButton = new SymbolButton(Symbol.GivingCaravanToYou);
-            SymbolButton askForBoxesButton = new SymbolButton(Symbol.ObligateItFromYou);
-            SymbolButton smileyButton = new SymbolButton(Symbol.Smiley);
-            SymbolButton gloomyButton = new SymbolButton(Symbol.Gloomy);
-            SymbolButton delightedButton = new SymbolButton(Symbol.Delighted);
-            SymbolButton authButton = new SymbolButton(Symbol.Authorative);
-            SymbolButton taskOneButton = new SymbolButton(Symbol.Task1);
-            SymbolButton taskTwoButton = new SymbolButton(Symbol.Task2);
-            SymbolButton taskThreeButton = new SymbolButton(Symbol.Task3);
-
-            upButton.Dock = DockStyle.Fill;
-            downButton.Dock = DockStyle.Fill;
-            leftButton.Dock = DockStyle.Fill;
-            rightButton.Dock = DockStyle.Fill;
-            givingBoxButton.Dock = DockStyle.Fill;
-            givingCaravanButton.Dock = DockStyle.Fill;
-            askForBoxesButton.Dock = DockStyle.Fill;
-            smileyButton.Dock = DockStyle.Fill;
-            gloomyButton.Dock = DockStyle.Fill;
-            delightedButton.Dock = DockStyle.Fill;
-            authButton.Dock = DockStyle.Fill;
-            taskOneButton.Dock = DockStyle.Fill;
-            taskTwoButton.Dock = DockStyle.Fill;
-            taskThreeButton.Dock = DockStyle.Fill;
-
-            upButton.Click += SymbolButton_Click;
-            downButton.Click += SymbolButton_Click;
-            leftButton.Click += SymbolButton_Click;
-            rightButton.Click += SymbolButton_Click;
-            givingBoxButton.Click += SymbolButton_Click;
-            givingCaravanButton.Click += SymbolButton_Click;
-            askForBoxesButton.Click += SymbolButton_Click;
-            smileyButton.Click += SymbolButton_Click;
-            gloomyButton.Click += SymbolButton_Click;
-            delightedButton.Click += SymbolButton_Click;
-            authButton.Click += SymbolButton_Click;
-            taskOneButton.Click += SymbolButton_Click;
-            taskTwoButton.Click += SymbolButton_Click;
-            taskThreeButton.Click += SymbolButton_Click;
-
-            symbolLayoutPanel.RowCount = 2;
-            symbolLayoutPanel.ColumnCount = 7;
-            symbolLayoutPanel.RowStyles.Clear();
-            symbolLayoutPanel.ColumnStyles.Clear();
-
-            symbolLayoutPanel.Margin = new Padding(0);
-            symbolLayoutPanel.Padding = new Padding(0);
-            symbolLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
-
-            for (int i = 0; i < symbolLayoutPanel.ColumnCount; i++)
-            {
-                symbolLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / symbolLayoutPanel.ColumnCount));
-            }
-            for (int i = 0; i < symbolLayoutPanel.RowCount; i++)
-            {
-                symbolLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / symbolLayoutPanel.RowCount));
-            }
-
-            symbolLayoutPanel.Controls.Add(upButton, 0, 0);
-            symbolLayoutPanel.Controls.Add(downButton, 1, 0);
-            symbolLayoutPanel.Controls.Add(leftButton, 2, 0);
-            symbolLayoutPanel.Controls.Add(rightButton, 3, 0);
-            symbolLayoutPanel.Controls.Add(givingBoxButton, 4, 0);
-            symbolLayoutPanel.Controls.Add(givingCaravanButton, 5, 0);
-            symbolLayoutPanel.Controls.Add(askForBoxesButton, 6, 0);
-            symbolLayoutPanel.Controls.Add(smileyButton, 0, 1);
-            symbolLayoutPanel.Controls.Add(gloomyButton, 1, 1);
-            symbolLayoutPanel.Controls.Add(delightedButton, 2, 1);
-            symbolLayoutPanel.Controls.Add(authButton, 3, 1);
-            symbolLayoutPanel.Controls.Add(taskOneButton, 4, 1);
-            symbolLayoutPanel.Controls.Add(taskTwoButton, 5, 1);
-            symbolLayoutPanel.Controls.Add(taskThreeButton, 6, 1);
         }
 
         private void RefreshTaskDisplays(object? sender, UpdateTasksEventArgs e)
@@ -597,14 +510,59 @@ namespace RGB.View
             for (int i = msgs.Count - 1; i > -1; i--)
             {
                 Label msgSender = new Label();
-                Label msgContent = new Label();
+                PictureBox msgContent = new PictureBox();
+                msgContent.Height = 44;
+                msgContent.Width = 44;
+                switch (msgs[i].symbol)
+                {
+                    case Symbol.GoDown:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.godown);
+                        break;
+                    case Symbol.GoUp:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.goup);
+                        break;
+                    case Symbol.GoLeft:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.goleft);
+                        break;
+                    case Symbol.GoRight:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.goright);
+                        break;
+                    case Symbol.Weld:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.weld);
+                        break;
+                    case Symbol.Question:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.question);
+                        break;
+                    case Symbol.Angry:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.angry);
+                        break;
+                    case Symbol.Smile:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.smile);
+                        break;
+                    case Symbol.Sad:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.sad);
+                        break;
+                    case Symbol.Task1:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.task1);
+                        break;
+                    case Symbol.Task2:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.task2);
+                        break;
+                    case Symbol.Task3:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.task3);
+                        break;
+                    case Symbol.Task4:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.task4);
+                        break;
+                    case Symbol.Task5:
+                        msgContent.BackgroundImage = new Bitmap(Properties.Resources.task5);
+                        break;
+
+                }
 
                 msgSender.Text = $"{msgs[i].robot.team}, {msgs[i].robot.name}";
-                msgContent.Text = $"{msgs[i].symbol}";
                 msgSender.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                msgContent.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                 msgSender.Dock = DockStyle.Fill;
-                msgContent.Dock = DockStyle.Fill;
 
                 if (msgNum < 8)
                 {
@@ -622,8 +580,12 @@ namespace RGB.View
 
         private void SendButton_Click(object? sender, EventArgs e)
         {
-            _gameHandler.messageHandler.CreateMessage
+            if (selectedSymbol != Symbol.None) 
+            {
+                _gameHandler.messageHandler.CreateMessage
                 (_gameHandler.GetCurrentPlayer(), selectedSymbol);
+            }
+            RefreshMessages();
         }
 
         private void NextRobot(object? sender, EventArgs e)
@@ -950,6 +912,111 @@ namespace RGB.View
             }
         }
 
+        private void SetUpSymbolButtons()
+        {
+            SymbolButton upButton = new SymbolButton(Symbol.GoUp);
+            SymbolButton downButton = new SymbolButton(Symbol.GoDown);
+            SymbolButton leftButton = new SymbolButton(Symbol.GoLeft);
+            SymbolButton rightButton = new SymbolButton(Symbol.GoRight);
+            SymbolButton weldButton = new SymbolButton(Symbol.Weld);
+            SymbolButton questionButton = new SymbolButton(Symbol.Question);
+            SymbolButton angryButton = new SymbolButton(Symbol.Angry);
+            SymbolButton smileButton = new SymbolButton(Symbol.Smile);
+            SymbolButton sadButton = new SymbolButton(Symbol.Sad);
+            SymbolButton taskOneButton = new SymbolButton(Symbol.Task1);
+            SymbolButton taskTwoButton = new SymbolButton(Symbol.Task2);
+            SymbolButton taskThreeButton = new SymbolButton(Symbol.Task3);
+            SymbolButton taskFourButton = new SymbolButton(Symbol.Task4);
+            SymbolButton taskFiveButton = new SymbolButton(Symbol.Task5);
+
+            upButton.Dock = DockStyle.Fill;
+            downButton.Dock = DockStyle.Fill;
+            leftButton.Dock = DockStyle.Fill;
+            rightButton.Dock = DockStyle.Fill;
+            weldButton.Dock = DockStyle.Fill;
+            questionButton.Dock = DockStyle.Fill;
+            angryButton.Dock = DockStyle.Fill;
+            smileButton.Dock = DockStyle.Fill;
+            sadButton.Dock = DockStyle.Fill;
+            taskOneButton.Dock = DockStyle.Fill;
+            taskTwoButton.Dock = DockStyle.Fill;
+            taskThreeButton.Dock = DockStyle.Fill;
+            taskFourButton.Dock = DockStyle.Fill;
+            taskFiveButton.Dock = DockStyle.Fill;
+
+            upButton.Click += SymbolButton_Click;
+            downButton.Click += SymbolButton_Click;
+            leftButton.Click += SymbolButton_Click;
+            rightButton.Click += SymbolButton_Click;
+            weldButton.Click += SymbolButton_Click;
+            questionButton.Click += SymbolButton_Click;
+            angryButton.Click += SymbolButton_Click;
+            smileButton.Click += SymbolButton_Click;
+            sadButton.Click += SymbolButton_Click;
+            taskOneButton.Click += SymbolButton_Click;
+            taskTwoButton.Click += SymbolButton_Click;
+            taskThreeButton.Click += SymbolButton_Click;
+            taskFourButton.Click += SymbolButton_Click;
+            taskFiveButton.Click += SymbolButton_Click;
+
+            upButton.BackgroundImage = Properties.Resources.goup;
+            downButton.BackgroundImage = Properties.Resources.godown;
+            leftButton.BackgroundImage = Properties.Resources.goleft;
+            rightButton.BackgroundImage = Properties.Resources.goright;
+            weldButton.BackgroundImage = Properties.Resources.weld;
+            questionButton.BackgroundImage = Properties.Resources.question;
+            angryButton.BackgroundImage = Properties.Resources.angry;
+            smileButton.BackgroundImage = Properties.Resources.smile;
+            sadButton.BackgroundImage = Properties.Resources.sad;
+            taskOneButton.BackgroundImage = Properties.Resources.task1;
+            taskTwoButton.BackgroundImage = Properties.Resources.task2;
+            taskThreeButton.BackgroundImage = Properties.Resources.task3;
+            taskFourButton.BackgroundImage = Properties.Resources.task4;
+            taskFiveButton.BackgroundImage = Properties.Resources.task5;
+
+            symbolLayoutPanel.RowCount = 2;
+            symbolLayoutPanel.ColumnCount = 7;
+            symbolLayoutPanel.RowStyles.Clear();
+            symbolLayoutPanel.ColumnStyles.Clear();
+
+            symbolLayoutPanel.Margin = new Padding(0);
+            symbolLayoutPanel.Padding = new Padding(0);
+            symbolLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+
+            for (int i = 0; i < symbolLayoutPanel.ColumnCount; i++)
+            {
+                symbolLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / symbolLayoutPanel.ColumnCount));
+            }
+            for (int i = 0; i < symbolLayoutPanel.RowCount; i++)
+            {
+                symbolLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / symbolLayoutPanel.RowCount));
+            }
+
+            symbolLayoutPanel.Controls.Add(upButton, 0, 0);
+            symbolLayoutPanel.Controls.Add(downButton, 1, 0);
+            symbolLayoutPanel.Controls.Add(leftButton, 2, 0);
+            symbolLayoutPanel.Controls.Add(rightButton, 3, 0);
+            symbolLayoutPanel.Controls.Add(weldButton, 4, 0);
+            symbolLayoutPanel.Controls.Add(questionButton, 5, 0);
+            symbolLayoutPanel.Controls.Add(angryButton, 6, 0);
+            symbolLayoutPanel.Controls.Add(smileButton, 0, 1);
+            symbolLayoutPanel.Controls.Add(sadButton, 1, 1);
+            symbolLayoutPanel.Controls.Add(taskOneButton, 2, 1);
+            symbolLayoutPanel.Controls.Add(taskTwoButton, 3, 1);
+            symbolLayoutPanel.Controls.Add(taskThreeButton, 4, 1);
+            symbolLayoutPanel.Controls.Add(taskFourButton, 5, 1);
+            symbolLayoutPanel.Controls.Add(taskFiveButton, 6, 1);
+
+            foreach (Control c in symbolLayoutPanel.Controls)
+            {
+                if (c is SymbolButton)
+                {
+                    SymbolButton current = (SymbolButton)c;
+                    current.FlatStyle = FlatStyle.Flat;
+                }
+            }
+        }
+
         private void UpdateLabels()
         {
             if (selectionsNeeded > 0)
@@ -967,7 +1034,7 @@ namespace RGB.View
                     alertLabel.Text = string.Empty;
                 }
             }
-            testLabel.Text = $"{_buttons[0, 0].Width},{_buttons[0, 0].Height}";
+            testLabel.Text = $"{symbolLayoutPanel.Controls[0].Width}, {symbolLayoutPanel.Controls[0].Height}";
             int rounds = _gameHandler.round;
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";

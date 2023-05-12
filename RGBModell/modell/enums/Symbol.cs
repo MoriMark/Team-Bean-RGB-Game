@@ -10,10 +10,8 @@ namespace RGBModell.modell.enums
     {
         GoUp, GoDown, GoLeft, GoRight,
 
-        GivingBoxToYou, GivingCaravanToYou, ObligateItFromYou,
-
-        Smiley, Gloomy, Delighted, Authorative,
-        Task1, Task2, Task3,
+        Weld, Question, Angry, Smile, Sad,
+        Task1, Task2, Task3, Task4, Task5,
         None
     }
 }
