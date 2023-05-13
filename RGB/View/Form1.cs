@@ -32,6 +32,7 @@ namespace RGB
             layoutRobotsPanel.Padding = new Padding(0);
             layoutRobotsPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
 
+            //GridButton setup
             _buttons = new GridButton[4, 4];
             for (int i = 0; i < 4; i++)
             {
@@ -40,15 +41,15 @@ namespace RGB
                     _buttons[i, j] = new GridButton(i, j);
                     _buttons[i, j].Dock = DockStyle.Fill;
                     _buttons[i, j].Font = new Font("Segoe UI", 9);
-                    _buttons[i, j].ForeColor = Color.White;
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].MouseEnter += new EventHandler(GridButton_MouseEnter);
                     _buttons[i, j].MouseLeave += new EventHandler(GridButton_MouseLeave);
                     _buttons[i, j].Padding = new Padding(0);
                     _buttons[i, j].Margin = new Padding(0);
                     _buttons[i, j].FlatStyle = FlatStyle.Flat;
-                    _buttons[i, j].FlatAppearance.BorderSize = 1;
+                    _buttons[i, j].FlatAppearance.BorderSize = 0;
                     _buttons[i, j].BackgroundImageLayout = ImageLayout.Zoom;
+                    _buttons[i, j].BackColor = Color.White;
 
                     layoutRobotsPanel.Controls.Add(_buttons[i, j], j, i);
                 }
@@ -64,6 +65,12 @@ namespace RGB
             {
                 layoutRobotsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / layoutRobotsPanel.ColumnCount));
             }
+            buttonGameStart.MouseEnter += Button_MouseEnterLeave;
+            buttonGameStart.MouseLeave += Button_MouseEnterLeave;
+
+            buttonHelp.MouseEnter += Button_MouseEnterLeave;
+            buttonHelp.MouseLeave += Button_MouseEnterLeave;
+
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -207,6 +214,23 @@ namespace RGB
                     }
                 }
             }
+        }
+
+        private void Button_MouseEnterLeave(object? sender, EventArgs e) 
+        {
+            Button btn;
+            if (sender is Button)
+            {
+                btn = (Button)sender;
+                invertButtonColors(btn);
+            }
+        }
+
+        private void invertButtonColors(Button btn)
+        {
+            Color tmp = btn.BackColor;
+            btn.BackColor = btn.ForeColor;
+            btn.ForeColor = tmp;
         }
     }
 }
