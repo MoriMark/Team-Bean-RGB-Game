@@ -60,6 +60,19 @@ namespace RGB.View
             currentRobotCoords = new Coordinate();
             selectedSymbol = Symbol.None;
 
+            //Subscribe to other events
+            sendButton.MouseEnter += Button_MouseEnterLeave;
+            sendButton.MouseLeave += Button_MouseEnterLeave;
+
+            mapButton.MouseEnter += Button_MouseEnterLeave;
+            mapButton.MouseLeave += Button_MouseEnterLeave;
+
+            mapmodeNormalButton.MouseEnter += Button_MouseEnterLeave;
+            mapmodeNormalButton.MouseLeave += Button_MouseEnterLeave;
+
+            mapmodeGroupButton.MouseEnter += Button_MouseEnterLeave;
+            mapmodeGroupButton.MouseLeave += Button_MouseEnterLeave;
+
             //Subscribe to gameHandler events
             _gameHandler.robotChanged += NextRobot;
             sendButton.Click += SendButton_Click;
@@ -123,7 +136,7 @@ namespace RGB.View
 
             exits = _gameHandler.gameRule.exits;
             testLabel.Text = string.Empty;
-            
+
             //Show Table for the first player
             _gameHandler.StartGame();
             NextRobot(null, EventArgs.Empty);
@@ -492,21 +505,44 @@ namespace RGB.View
             {
                 teamMessagePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / teamMessagePanel.RowCount));
             }
-            Label msgSenderHeader = new Label();
-            Label msgContentHeader = new Label();
+            Label msgHeader1 = new Label();
+            Label msgHeader2 = new Label();
 
-            msgSenderHeader.Text = "Sender";
-            msgContentHeader.Text = "Message";
-            msgSenderHeader.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            msgContentHeader.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            msgSenderHeader.Dock = DockStyle.Fill;
-            msgContentHeader.Dock = DockStyle.Fill;
+            msgHeader1.Text = "Message";
+            msgHeader2.Text = "Board";
+            msgHeader1.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            msgHeader2.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            msgHeader1.Dock = DockStyle.Fill;
+            msgHeader2.Dock = DockStyle.Fill;
 
-            teamMessagePanel.Controls.Add(msgSenderHeader, 0, 0);
-            teamMessagePanel.Controls.Add(msgContentHeader, 1, 0);
+            switch (_gameHandler.GetCurrentPlayer().team)
+            {
+                case Team.Red:
+                    msgHeader1.ForeColor = Color.Red;
+                    msgHeader2.ForeColor = Color.Red;
+                    teamMessagePanel.BackColor = Color.MistyRose;
+                    break;
+                case Team.Blue:
+                    msgHeader1.ForeColor = Color.Blue;
+                    msgHeader2.ForeColor = Color.Blue;
+                    teamMessagePanel.BackColor = Color.LightCyan;
+                    break;
+                case Team.Green:
+                    msgHeader1.ForeColor = Color.Green;
+                    msgHeader2.ForeColor = Color.Green;
+                    teamMessagePanel.BackColor = Color.PaleGreen;
+                    break;
+                case Team.Yellow:
+                    msgHeader1.ForeColor = Color.Yellow;
+                    msgHeader2.ForeColor = Color.Yellow;
+                    teamMessagePanel.BackColor = Color.Goldenrod;
+                    break;
+            }
+
+            teamMessagePanel.Controls.Add(msgHeader1, 0, 0);
+            teamMessagePanel.Controls.Add(msgHeader2, 1, 0);
 
             int msgNum = 1;
-
             for (int i = msgs.Count - 1; i > -1; i--)
             {
                 Label msgSender = new Label();
@@ -564,6 +600,22 @@ namespace RGB.View
                 msgSender.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                 msgSender.Dock = DockStyle.Fill;
 
+                switch (msgs[i].robot.team)
+                {
+                    case Team.Red:
+                        msgSender.ForeColor = Color.Red;
+                        break;
+                    case Team.Blue:
+                        msgSender.ForeColor = Color.Blue;
+                        break;
+                    case Team.Green:
+                        msgSender.ForeColor = Color.Green;
+                        break;
+                    case Team.Yellow:
+                        msgSender.ForeColor = Color.Yellow;
+                        break;
+                }
+
                 if (msgNum < 8)
                 {
                     teamMessagePanel.Controls.Add(msgSender, 0, msgNum);
@@ -580,7 +632,7 @@ namespace RGB.View
 
         private void SendButton_Click(object? sender, EventArgs e)
         {
-            if (selectedSymbol != Symbol.None) 
+            if (selectedSymbol != Symbol.None)
             {
                 _gameHandler.messageHandler.CreateMessage
                 (_gameHandler.GetCurrentPlayer(), selectedSymbol);
@@ -813,6 +865,7 @@ namespace RGB.View
             cleanButton.Click += ActionButton_Click;
             cancelButton.Click += ActionButton_Click;
 
+
             switch (layout)
             {
                 case ButtonLayouts.Default:
@@ -909,6 +962,33 @@ namespace RGB.View
                     actionButtons.Controls.Add(cancelButton, 1, 0);
 
                     break;
+            }
+            ActionButton abtn;
+            int count = 0;
+            int col = 0;
+            foreach (Control c in actionButtons.Controls)
+            {
+                if (c is ActionButton)
+                {
+                    abtn = (ActionButton)c;
+                    abtn.MouseEnter += Button_MouseEnterLeave;
+                    abtn.MouseLeave += Button_MouseEnterLeave;
+                    abtn.FlatStyle = FlatStyle.Flat;
+                    col = count % 3;
+                    switch (col)
+                    {
+                        case 0:
+                            abtn.ForeColor = Color.Red;
+                            break;
+                        case 1:
+                            abtn.ForeColor = Color.Green;
+                            break;
+                        case 2:
+                            abtn.ForeColor = Color.Blue;
+                            break;
+                    }
+                    count++;
+                }
             }
         }
 
@@ -1013,8 +1093,55 @@ namespace RGB.View
                 {
                     SymbolButton current = (SymbolButton)c;
                     current.FlatStyle = FlatStyle.Flat;
+                    current.BackColor = Color.White;
+                    current.ForeColor = Color.Red;
+                    current.MouseEnter += Button_MouseEnterLeave;
+                    current.MouseLeave += Button_MouseEnterLeave;
                 }
             }
+        }
+
+        private void Button_MouseEnterLeave(object? sender, EventArgs e)
+        {
+            SymbolButton sbtn;
+            ActionButton abtn;
+            Button btn;
+            if (sender is SymbolButton)
+            {
+                sbtn = (SymbolButton)sender;
+                invertButtonColors(sbtn);
+            }
+            else if (sender is ActionButton)
+            {
+                abtn = (ActionButton)sender;
+                invertButtonColors(abtn);
+            }
+            else if (sender is Button)
+            {
+                btn = (Button)sender;
+                invertButtonColors(btn);
+            }
+        }
+
+        private void invertButtonColors(Button btn)
+        {
+            Color tmp = btn.BackColor;
+            btn.BackColor = btn.ForeColor;
+            btn.ForeColor = tmp;
+        }
+
+        private void invertButtonColors(SymbolButton btn)
+        {
+            Color tmp = btn.BackColor;
+            btn.BackColor = btn.ForeColor;
+            btn.ForeColor = tmp;
+        }
+
+        private void invertButtonColors(ActionButton btn)
+        {
+            Color tmp = btn.BackColor;
+            btn.BackColor = btn.ForeColor;
+            btn.ForeColor = tmp;
         }
 
         private void UpdateLabels()

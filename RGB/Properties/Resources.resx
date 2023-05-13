@@ -237,6 +237,10 @@
         rkJggg==
 </value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gameview" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gameview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="godown" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAYAAAAehFoBAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKM+VkT1I
@@ -406,6 +410,15 @@
         hx9B8oygLgngMhlJGvhM/3fnoHKMIFcBcFlGigx8pv/7ERFCCCGEEKIOw/AL+2iotS3lRvEAAAAASUVO
         RK5CYII=
 </value>
+  </data>
+  <data name="groupMode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groupMode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mainmenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mainmenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="normalMode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\normalMode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="question" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
