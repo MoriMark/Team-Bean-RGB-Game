@@ -40,11 +40,11 @@
             // 
             buttonGameStart.Anchor = AnchorStyles.None;
             buttonGameStart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonGameStart.Location = new Point(333, 555);
+            buttonGameStart.Location = new Point(333, 616);
             buttonGameStart.Name = "buttonGameStart";
             buttonGameStart.Size = new Size(240, 50);
             buttonGameStart.TabIndex = 0;
-            buttonGameStart.Text = "Játék Indítása";
+            buttonGameStart.Text = "Start Game";
             buttonGameStart.UseVisualStyleBackColor = true;
             buttonGameStart.Click += buttonGameStart_Click;
             // 
@@ -52,11 +52,11 @@
             // 
             buttonHelp.Anchor = AnchorStyles.Top;
             buttonHelp.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonHelp.Location = new Point(333, 641);
+            buttonHelp.Location = new Point(333, 723);
             buttonHelp.Name = "buttonHelp";
             buttonHelp.Size = new Size(240, 50);
             buttonHelp.TabIndex = 1;
-            buttonHelp.Text = "Súgó";
+            buttonHelp.Text = "Help";
             buttonHelp.UseVisualStyleBackColor = true;
             buttonHelp.Click += buttonHelp_Click;
             // 
@@ -75,12 +75,12 @@
             // 
             layoutRobotsPanel.ColumnCount = 1;
             layoutRobotsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutRobotsPanel.Location = new Point(333, 210);
+            layoutRobotsPanel.Location = new Point(299, 219);
             layoutRobotsPanel.Margin = new Padding(0);
             layoutRobotsPanel.Name = "layoutRobotsPanel";
             layoutRobotsPanel.RowCount = 1;
             layoutRobotsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutRobotsPanel.Size = new Size(240, 240);
+            layoutRobotsPanel.Size = new Size(310, 314);
             layoutRobotsPanel.TabIndex = 11;
             // 
             // labelNumOfPlayers

@@ -32,7 +32,7 @@ namespace RGB
             layoutRobotsPanel.Padding = new Padding(0);
             layoutRobotsPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
 
-            _buttons = new GridButton[4,4];
+            _buttons = new GridButton[4, 4];
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -43,14 +43,14 @@ namespace RGB
                     _buttons[i, j].ForeColor = Color.White;
                     _buttons[i, j].Click += new EventHandler(GridButton_Click);
                     _buttons[i, j].MouseEnter += new EventHandler(GridButton_MouseEnter);
-                    _buttons[i,j].MouseLeave += new EventHandler(GridButton_MouseLeave);
+                    _buttons[i, j].MouseLeave += new EventHandler(GridButton_MouseLeave);
                     _buttons[i, j].Padding = new Padding(0);
                     _buttons[i, j].Margin = new Padding(0);
                     _buttons[i, j].FlatStyle = FlatStyle.Flat;
                     _buttons[i, j].FlatAppearance.BorderSize = 1;
                     _buttons[i, j].BackgroundImageLayout = ImageLayout.Zoom;
 
-                    layoutRobotsPanel.Controls.Add(_buttons[i, j],j,i);
+                    layoutRobotsPanel.Controls.Add(_buttons[i, j], j, i);
                 }
             }
             layoutRobotsPanel.RowStyles.Clear();
@@ -80,6 +80,10 @@ namespace RGB
                 this.Hide();
                 gameView.Show();
                 gameView.FormClosing += QuitGame;
+            }
+            else
+            {
+                MessageBox.Show("Please select a number of robots!");
             }
         }
 
@@ -121,7 +125,6 @@ namespace RGB
                 GridButton btn = (GridButton)sender;
                 numOfRobots = btn.GridX + 1;
                 numOfTeams = btn.GridY + 1;
-                labelNumOfPlayers.Text = $"{numOfRobots},{numOfTeams}";
             }
         }
 
@@ -132,18 +135,17 @@ namespace RGB
             if (sender is GridButton && null != sender)
             {
                 hoveredBtn = (GridButton)sender;
-                labelNumOfPlayers.Text = $"{hoveredBtn.GridX},{hoveredBtn.GridY}";
 
 
-                foreach (Control c in layoutRobotsPanel.Controls) 
-                { 
-                    if (c is GridButton) 
-                    { 
+                foreach (Control c in layoutRobotsPanel.Controls)
+                {
+                    if (c is GridButton)
+                    {
                         currentBtn = (GridButton)c;
                         if (currentBtn.GridX <= hoveredBtn.GridX && currentBtn.GridY <= hoveredBtn.GridY)
                         {
-                            switch(currentBtn.GridY) 
-                            { 
+                            switch (currentBtn.GridY)
+                            {
                                 case 0:
                                     currentBtn.BackgroundImage = Properties.Resources.red_down;
                                     break;
@@ -174,11 +176,11 @@ namespace RGB
         {
             GridButton btn;
             foreach (Control c in layoutRobotsPanel.Controls)
-            { 
+            {
                 if (c is GridButton)
                 {
                     btn = (GridButton)c;
-                    if (btn.GridX > numOfRobots-1 || btn.GridY > numOfTeams - 1)
+                    if (btn.GridX > numOfRobots - 1 || btn.GridY > numOfTeams - 1)
                     {
                         btn.BackgroundImage = null;
                     }
