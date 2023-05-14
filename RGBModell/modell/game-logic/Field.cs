@@ -20,6 +20,9 @@ namespace RGBModell.modell.game_logic
         public List<Exit> exits { get; private set; }
         private const Int32 NUMBER_OF_EXITS = 5;
 
+        //[0,100]
+        private const Int32 COVERAGE_RATIO_OF_BOXES = 40;
+
         public Field(Int32 tableSize)
         {
             if (tableSize <= 0)
@@ -212,6 +215,84 @@ namespace RGBModell.modell.game_logic
             }
         }
 
+        private Int32 NumberOfBoxTypeInField(BoxColor boxColor)
+        {
+            Int32 count = 0;
+            for (int i = 0; i < MatrixSize; ++i)
+            {
+                for (int j = 0; j < MatrixSize; ++j)
+                {
+                    if (field[i, j] is Box && (field[i, j] as Box).color == boxColor)
+                        count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Determines how many of each box types should be placed on average
+        /// </summary>
+        /// <returns>The number of boxes of each color should be placed at one time.</returns>
+        private Int32 GetAverageBoxNumberOfEachType()
+        {
+            Int32 fields = TableSize * TableSize;
+            // exclude NoColor
+            Int32 numberOfBoxTypes = Enum.GetValues(typeof(BoxColor)).Length - 1;
+            Double numberOfBoxesOfEachType = fields * ((Double)COVERAGE_RATIO_OF_BOXES / 100) / numberOfBoxTypes;
+            return (Int32)numberOfBoxesOfEachType;
+        }
+
+        private void CheckBoxExistance()
+        {
+            Int32 numOfBoxes = TableSize;
+            BoxColor[] boxColors = Enum.GetValues(typeof(BoxColor))
+                .Cast<BoxColor>()
+                .Where(x => x != BoxColor.NoColor)
+                .ToArray();
+
+            Random RNG = new Random();
+            int x; int y;
+
+            foreach (BoxColor boxColor in boxColors)
+            {
+                Int32 count = GetAverageBoxNumberOfEachType() - NumberOfBoxTypeInField(boxColor);
+
+                while (count > 0)
+                {
+                    do
+                    {
+                        x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
+                    }
+                    while (!BetweenBorders(x, y) && GetValue(x,y).IsEmpty());
+
+                    switch (boxColor)
+                    {
+                        case BoxColor.Red:
+                            SetValue(x, y, new Box(x, y, boxColor, TileType.RedBox));
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Green:
+                            SetValue(x, y, new Box(x, y, boxColor, TileType.GreenBox));
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Yellow:
+                            SetValue(x, y, new Box(x, y, boxColor, TileType.YellowBox));
+                            numOfBoxes--;
+                            break;
+
+                        case BoxColor.Blue:
+                            SetValue(x, y, new Box(x, y, boxColor, TileType.BlueBox));
+                            numOfBoxes--;
+                            break;
+                    }
+
+                    count--;
+                }
+            }
+        }
+
         //Field generation for the start of the game
         public List<Robot> GenerateField(Int32 numOfRobots, Int32 numOfTeams)
         {
@@ -224,42 +305,7 @@ namespace RGBModell.modell.game_logic
             Random RNG = new Random();
             int x; int y;
             #region Setting boxes
-            Int32 numOfBoxes = TableSize;
-            BoxColor[] boxColors = { BoxColor.Red, BoxColor.Green, BoxColor.Yellow, BoxColor.Blue };
-
-            while (numOfBoxes > 0)
-            {
-                x = RNG.Next(MatrixSize); y = RNG.Next(MatrixSize);
-                if (!BetweenBorders(x, y))
-                    continue;
-
-                if (RNG.Next(100) > 90 && GetValue(x, y).IsEmpty())
-                {
-                    BoxColor boxCol = boxColors[RNG.Next(0,4)];
-                    switch (boxCol)
-                    { 
-                        case BoxColor.Red:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.RedBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Green:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.GreenBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Yellow:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.YellowBox));
-                            numOfBoxes--;
-                            break;
-
-                        case BoxColor.Blue:
-                            SetValue(x, y, new Box(x, y, boxCol, TileType.BlueBox));
-                            numOfBoxes--;
-                            break;
-                    }
-                }
-            }
+            CheckBoxExistance();
             #endregion
             #region Setting robots
             Int32 numOfPlayers = numOfRobots * numOfTeams;
@@ -283,41 +329,34 @@ namespace RGBModell.modell.game_logic
                     Team teamCol = teamColors[current];
                     if (playersNeeded[current] > 0)
                     {
-                        Robot robotAdd;
+                        Robot robotAdd = null;
                         switch (teamCol)
                         {
                             case Team.Red:
                                 robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
                                 break;
 
                             case Team.Green:
                                 robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
                                 break;
 
                             case Team.Yellow:
                                 robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
                                 numOfPlayers--;
                                 break;
 
                             case Team.Blue:
                                 robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
                                 break;
                         }
+
+                        if (robotAdd == null)
+                            throw new NullReferenceException("Unexpected error when placing robots");
+
+                        SetValue(x, y, robotAdd!);
+                        robots.Add(robotAdd);
+                        playersNeeded[current]--;
+                        numOfPlayers--;
                     }
                 }
             }
