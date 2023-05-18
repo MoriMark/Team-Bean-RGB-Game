@@ -170,7 +170,11 @@ namespace RGB.View
 
         private void SetMapLabel()
         {
-
+            mapLabel.Text = $"{robot.name}, {robot.team}'s map\nSynchronized with: ";
+            foreach (Robot r in robot.seenRobots)
+            {
+                mapLabel.Text += $"{r.name}, {r.team}   ";
+            }
         }
     }
 }

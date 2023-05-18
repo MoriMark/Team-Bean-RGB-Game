@@ -48,7 +48,7 @@
             // 
             mapLabel.AutoSize = true;
             mapLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            mapLabel.Location = new Point(303, 19);
+            mapLabel.Location = new Point(237, 9);
             mapLabel.Name = "mapLabel";
             mapLabel.Size = new Size(0, 21);
             mapLabel.TabIndex = 1;

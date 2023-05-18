@@ -68,9 +68,8 @@ namespace RGBModell.modell.game_logic
             GameIsPaused = false;
 
             currentRobot = robots[0];
-            currentRobot.UpdateMap(field.CalculateMapOfRobot(currentRobot), numberOfCurrentRound);
             OnFieldsUpdate();
-
+            UpdateMapsOfRobots();
             return true;
         }
 
@@ -148,9 +147,7 @@ namespace RGBModell.modell.game_logic
             }
 
             GenerateTasks();
-
             taskHandler.OnTasksUpdate(currentRobot.team);
-            currentRobot.UpdateMap(field.CalculateMapOfRobot(currentRobot), numberOfCurrentRound);
             OnFieldsUpdate();
         }
 
@@ -818,6 +815,14 @@ namespace RGBModell.modell.game_logic
             {
                 Box b = currentRobot.Attached;
                 field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+            }
+        }
+
+        public void UpdateMapsOfRobots()
+        {
+            for (int i = 0; i < robots.Count; i++)
+            {
+                robots[i].UpdateMap(field.CalculateMapOfRobot(robots[i]), numberOfCurrentRound);
             }
         }
 
