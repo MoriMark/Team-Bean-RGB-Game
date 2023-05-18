@@ -30,172 +30,103 @@
         {
             buttonGameStart = new Button();
             buttonHelp = new Button();
-            numOfRobots = new NumericUpDown();
-            numOfTeams = new NumericUpDown();
-            label1 = new Label();
-            label2 = new Label();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)numOfRobots).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numOfTeams).BeginInit();
-            tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            logoPicture = new PictureBox();
+            layoutRobotsPanel = new TableLayoutPanel();
+            labelNumOfPlayers = new Label();
+            ((System.ComponentModel.ISupportInitialize)logoPicture).BeginInit();
             SuspendLayout();
             // 
             // buttonGameStart
             // 
             buttonGameStart.Anchor = AnchorStyles.None;
+            buttonGameStart.BackColor = Color.White;
+            buttonGameStart.FlatStyle = FlatStyle.Flat;
             buttonGameStart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonGameStart.Location = new Point(317, 640);
+            buttonGameStart.ForeColor = Color.Red;
+            buttonGameStart.Location = new Point(333, 769);
             buttonGameStart.Name = "buttonGameStart";
-            buttonGameStart.Size = new Size(250, 50);
+            buttonGameStart.Size = new Size(240, 50);
             buttonGameStart.TabIndex = 0;
-            buttonGameStart.Text = "Játék Indítása";
-            buttonGameStart.UseVisualStyleBackColor = true;
+            buttonGameStart.Text = "Start Game";
+            buttonGameStart.UseVisualStyleBackColor = false;
             buttonGameStart.Click += buttonGameStart_Click;
             // 
             // buttonHelp
             // 
             buttonHelp.Anchor = AnchorStyles.Top;
+            buttonHelp.FlatStyle = FlatStyle.Flat;
             buttonHelp.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonHelp.Location = new Point(317, 738);
+            buttonHelp.ForeColor = Color.Green;
+            buttonHelp.Location = new Point(333, 856);
             buttonHelp.Name = "buttonHelp";
-            buttonHelp.Size = new Size(250, 50);
+            buttonHelp.Size = new Size(240, 50);
             buttonHelp.TabIndex = 1;
-            buttonHelp.Text = "Súgó";
+            buttonHelp.Text = "Help";
             buttonHelp.UseVisualStyleBackColor = true;
             buttonHelp.Click += buttonHelp_Click;
             // 
-            // numOfRobots
+            // logoPicture
             // 
-            numOfRobots.Anchor = AnchorStyles.Left;
-            numOfRobots.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numOfRobots.Location = new Point(486, 35);
-            numOfRobots.Margin = new Padding(10);
-            numOfRobots.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
-            numOfRobots.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numOfRobots.Name = "numOfRobots";
-            numOfRobots.Size = new Size(55, 29);
-            numOfRobots.TabIndex = 2;
-            numOfRobots.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            logoPicture.BackColor = Color.White;
+            logoPicture.BackgroundImage = Properties.Resources.teambeanlogo_cropped;
+            logoPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            logoPicture.Location = new Point(0, 0);
+            logoPicture.Name = "logoPicture";
+            logoPicture.Size = new Size(890, 969);
+            logoPicture.TabIndex = 10;
+            logoPicture.TabStop = false;
             // 
-            // numOfTeams
+            // layoutRobotsPanel
             // 
-            numOfTeams.Anchor = AnchorStyles.Left;
-            numOfTeams.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numOfTeams.Location = new Point(486, 35);
-            numOfTeams.Margin = new Padding(10);
-            numOfTeams.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
-            numOfTeams.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numOfTeams.Name = "numOfTeams";
-            numOfTeams.Size = new Size(55, 29);
-            numOfTeams.TabIndex = 3;
-            numOfTeams.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            layoutRobotsPanel.ColumnCount = 1;
+            layoutRobotsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            layoutRobotsPanel.Location = new Point(295, 358);
+            layoutRobotsPanel.Margin = new Padding(0);
+            layoutRobotsPanel.Name = "layoutRobotsPanel";
+            layoutRobotsPanel.RowCount = 1;
+            layoutRobotsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            layoutRobotsPanel.Size = new Size(310, 314);
+            layoutRobotsPanel.TabIndex = 11;
             // 
-            // label1
+            // labelNumOfPlayers
             // 
-            label1.Anchor = AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(330, 39);
-            label1.Margin = new Padding(10);
-            label1.Name = "label1";
-            label1.Size = new Size(136, 21);
-            label1.TabIndex = 4;
-            label1.Text = "Csapatok száma:";
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(335, 39);
-            label2.Margin = new Padding(10);
-            label2.Name = "label2";
-            label2.Size = new Size(131, 21);
-            label2.TabIndex = 5;
-            label2.Text = "Robotok száma:";
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 1);
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
-            tableLayoutPanel2.Controls.Add(buttonHelp, 0, 3);
-            tableLayoutPanel2.Controls.Add(buttonGameStart, 0, 2);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(0, 0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 4;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 52.20949F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 47.79051F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 140F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 225F));
-            tableLayoutPanel2.Size = new Size(884, 961);
-            tableLayoutPanel2.TabIndex = 7;
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2141228F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.7858772F));
-            tableLayoutPanel3.Controls.Add(label1, 0, 0);
-            tableLayoutPanel3.Controls.Add(numOfTeams, 1, 0);
-            tableLayoutPanel3.Dock = DockStyle.Bottom;
-            tableLayoutPanel3.Location = new Point(3, 208);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(878, 100);
-            tableLayoutPanel3.TabIndex = 8;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2141228F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.7858772F));
-            tableLayoutPanel1.Controls.Add(numOfRobots, 1, 0);
-            tableLayoutPanel1.Controls.Add(label2, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Top;
-            tableLayoutPanel1.Location = new Point(3, 314);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(878, 100);
-            tableLayoutPanel1.TabIndex = 8;
+            labelNumOfPlayers.AutoSize = true;
+            labelNumOfPlayers.BackColor = Color.White;
+            labelNumOfPlayers.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelNumOfPlayers.ForeColor = Color.Blue;
+            labelNumOfPlayers.Location = new Point(352, 282);
+            labelNumOfPlayers.Name = "labelNumOfPlayers";
+            labelNumOfPlayers.Size = new Size(196, 30);
+            labelNumOfPlayers.TabIndex = 12;
+            labelNumOfPlayers.Text = "Number of Players";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.mainmenu;
             ClientSize = new Size(884, 961);
-            Controls.Add(tableLayoutPanel2);
+            Controls.Add(logoPicture);
+            Controls.Add(labelNumOfPlayers);
+            Controls.Add(layoutRobotsPanel);
+            Controls.Add(buttonHelp);
+            Controls.Add(buttonGameStart);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "RGB";
-            ((System.ComponentModel.ISupportInitialize)numOfRobots).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numOfTeams).EndInit();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel3.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)logoPicture).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button buttonGameStart;
         private Button buttonHelp;
-        private NumericUpDown numOfRobots;
-        private NumericUpDown numOfTeams;
-        private Label label1;
-        private Label label2;
-        private TableLayoutPanel tableLayoutPanel2;
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel3;
+        private PictureBox logoPicture;
+        private TableLayoutPanel layoutRobotsPanel;
+        private Label labelNumOfPlayers;
     }
 }

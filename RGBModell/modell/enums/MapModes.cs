@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.enums
 {
-    public enum Symbol
+    public enum MapModes
     {
-        GoUp, GoDown, GoLeft, GoRight,
-
-        Weld, Question, Angry, Smile, Sad,
-        Task1, Task2, Task3, Task4, Task5,
-        None
+        Normal, Groups
     }
 }

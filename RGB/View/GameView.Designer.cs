@@ -44,6 +44,8 @@
             alertAndSymbols = new TableLayoutPanel();
             symbolLayoutPanel = new TableLayoutPanel();
             tableTaskView = new TableLayoutPanel();
+            mapmodeNormalButton = new Button();
+            mapmodeGroupButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
             SuspendLayout();
@@ -52,15 +54,17 @@
             // 
             listScores.FormattingEnabled = true;
             listScores.ItemHeight = 15;
-            listScores.Location = new Point(595, 734);
+            listScores.Location = new Point(595, 764);
             listScores.Name = "listScores";
-            listScores.Size = new Size(250, 109);
+            listScores.Size = new Size(250, 79);
             listScores.TabIndex = 7;
             // 
             // sendButton
             // 
+            sendButton.FlatStyle = FlatStyle.Flat;
             sendButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sendButton.Location = new Point(629, 39);
+            sendButton.ForeColor = Color.Green;
+            sendButton.Location = new Point(639, 39);
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(100, 100);
             sendButton.TabIndex = 14;
@@ -69,8 +73,10 @@
             // 
             // mapButton
             // 
+            mapButton.FlatStyle = FlatStyle.Flat;
             mapButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            mapButton.Location = new Point(745, 39);
+            mapButton.ForeColor = Color.Blue;
+            mapButton.Location = new Point(741, 39);
             mapButton.Name = "mapButton";
             mapButton.Size = new Size(100, 100);
             mapButton.TabIndex = 15;
@@ -94,7 +100,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.41791F));
             tableLayoutPanel1.Controls.Add(remaningTimeLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(remaningTimeBar, 1, 0);
-            tableLayoutPanel1.Location = new Point(41, 251);
+            tableLayoutPanel1.Location = new Point(41, 263);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -106,6 +112,7 @@
             remaningTimeLabel.AutoSize = true;
             remaningTimeLabel.Dock = DockStyle.Fill;
             remaningTimeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            remaningTimeLabel.ForeColor = Color.Green;
             remaningTimeLabel.Location = new Point(3, 0);
             remaningTimeLabel.Name = "remaningTimeLabel";
             remaningTimeLabel.Size = new Size(63, 37);
@@ -128,12 +135,12 @@
             // 
             tableLayoutPanelButtons.ColumnCount = 1;
             tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Location = new Point(41, 291);
+            tableLayoutPanelButtons.Location = new Point(44, 303);
             tableLayoutPanelButtons.Margin = new Padding(0);
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             tableLayoutPanelButtons.RowCount = 1;
             tableLayoutPanelButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelButtons.Size = new Size(551, 552);
+            tableLayoutPanelButtons.Size = new Size(540, 540);
             tableLayoutPanelButtons.TabIndex = 19;
             // 
             // actionButtons
@@ -154,8 +161,9 @@
             // 
             alertLabel.Anchor = AnchorStyles.None;
             alertLabel.AutoSize = true;
+            alertLabel.BackColor = Color.Transparent;
             alertLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            alertLabel.Location = new Point(320, 6);
+            alertLabel.Location = new Point(412, 9);
             alertLabel.Name = "alertLabel";
             alertLabel.Size = new Size(62, 30);
             alertLabel.TabIndex = 21;
@@ -165,6 +173,7 @@
             // 
             roundLabel.AutoSize = true;
             roundLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            roundLabel.ForeColor = Color.Red;
             roundLabel.Location = new Point(38, 52);
             roundLabel.Name = "roundLabel";
             roundLabel.Size = new Size(57, 21);
@@ -175,6 +184,7 @@
             // 
             moveLabel.AutoSize = true;
             moveLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            moveLabel.ForeColor = Color.Blue;
             moveLabel.Location = new Point(38, 74);
             moveLabel.Name = "moveLabel";
             moveLabel.Size = new Size(66, 21);
@@ -183,9 +193,10 @@
             // 
             // teamMessagePanel
             // 
+            teamMessagePanel.BackColor = Color.White;
             teamMessagePanel.ColumnCount = 1;
             teamMessagePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            teamMessagePanel.Location = new Point(595, 291);
+            teamMessagePanel.Location = new Point(595, 303);
             teamMessagePanel.Margin = new Padding(0);
             teamMessagePanel.Name = "teamMessagePanel";
             teamMessagePanel.RowCount = 1;
@@ -198,7 +209,7 @@
             alertAndSymbols.ColumnCount = 1;
             alertAndSymbols.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             alertAndSymbols.Controls.Add(symbolLayoutPanel, 0, 0);
-            alertAndSymbols.Location = new Point(211, 39);
+            alertAndSymbols.Location = new Point(286, 39);
             alertAndSymbols.Margin = new Padding(0);
             alertAndSymbols.Name = "alertAndSymbols";
             alertAndSymbols.RowCount = 1;
@@ -208,6 +219,7 @@
             // 
             // symbolLayoutPanel
             // 
+            symbolLayoutPanel.BackColor = Color.White;
             symbolLayoutPanel.ColumnCount = 1;
             symbolLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             symbolLayoutPanel.Dock = DockStyle.Fill;
@@ -230,11 +242,40 @@
             tableTaskView.Size = new Size(800, 100);
             tableTaskView.TabIndex = 26;
             // 
+            // mapmodeNormalButton
+            // 
+            mapmodeNormalButton.BackgroundImage = Properties.Resources.normalMode;
+            mapmodeNormalButton.FlatStyle = FlatStyle.Flat;
+            mapmodeNormalButton.ForeColor = Color.Blue;
+            mapmodeNormalButton.Location = new Point(113, 39);
+            mapmodeNormalButton.Margin = new Padding(0);
+            mapmodeNormalButton.Name = "mapmodeNormalButton";
+            mapmodeNormalButton.Size = new Size(50, 50);
+            mapmodeNormalButton.TabIndex = 27;
+            mapmodeNormalButton.UseVisualStyleBackColor = true;
+            mapmodeNormalButton.Click += mapmodeNormalButton_Click;
+            // 
+            // mapmodeGroupButton
+            // 
+            mapmodeGroupButton.BackgroundImage = Properties.Resources.groupMode;
+            mapmodeGroupButton.FlatStyle = FlatStyle.Flat;
+            mapmodeGroupButton.ForeColor = Color.Green;
+            mapmodeGroupButton.Location = new Point(113, 89);
+            mapmodeGroupButton.Margin = new Padding(0);
+            mapmodeGroupButton.Name = "mapmodeGroupButton";
+            mapmodeGroupButton.Size = new Size(50, 50);
+            mapmodeGroupButton.TabIndex = 28;
+            mapmodeGroupButton.UseVisualStyleBackColor = true;
+            mapmodeGroupButton.Click += mapmodeGroupButton_Click;
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(884, 961);
+            Controls.Add(mapmodeGroupButton);
+            Controls.Add(mapmodeNormalButton);
             Controls.Add(tableTaskView);
             Controls.Add(alertLabel);
             Controls.Add(alertAndSymbols);
@@ -248,6 +289,7 @@
             Controls.Add(mapButton);
             Controls.Add(sendButton);
             Controls.Add(listScores);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "GameView";
@@ -277,5 +319,7 @@
         private TableLayoutPanel alertAndSymbols;
         private TableLayoutPanel symbolLayoutPanel;
         private TableLayoutPanel tableTaskView;
+        private Button mapmodeNormalButton;
+        private Button mapmodeGroupButton;
     }
 }
