@@ -645,25 +645,32 @@ namespace RGBModell.modell.game_logic
                     if (field.GetValue(r.i - 1, r.j).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i - 1, r.j)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Down:
                     if (field.GetValue(r.i + 1, r.j).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i + 1, r.j)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Left:
                     if (field.GetValue(r.i, r.j - 1).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i, r.j - 1)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Right:
                     if (field.GetValue(r.i, r.j + 1).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i, r.j + 1)).attaching = r.team;
+                        r.actionsucces = true;
                     }
+                    break;
+                default:
+                    r.actionsucces = false;
                     break;
             }
             OnFieldsUpdate();
