@@ -64,11 +64,11 @@ namespace RGB.View
 
             if (sizeX > sizeY)
             {
-                return sizeX;
+                return sizeX + 1;
             }
             else
             {
-                return sizeY;
+                return sizeY + 1;
             }
         }
 
@@ -141,19 +141,18 @@ namespace RGB.View
                     Color darker = Color.FromArgb(255, red, green, blue);
                     pb.BackColor = darker;
                 }
-                /*
+
                 Coordinate shift;
                 if (sizeX > sizeY)
                 {
-                    shift = new Coordinate();
-                    mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
+                    shift = new Coordinate(0,(sizeX - sizeY)/2);
+                    mapTable.Controls.Add(pb, field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
                 }
                 else    //if sizeY >= sizeX
                 {
-                    mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
+                    shift = new Coordinate((sizeY - sizeX) / 2,0);
+                    mapTable.Controls.Add(pb, field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
                 }
-                */
-                mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
             }
         }
     }

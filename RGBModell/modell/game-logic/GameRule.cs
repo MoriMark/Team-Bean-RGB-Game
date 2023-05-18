@@ -68,6 +68,7 @@ namespace RGBModell.modell.game_logic
             GameIsPaused = false;
 
             currentRobot = robots[0];
+            currentRobot.UpdateMap(field.CalculateMapOfRobot(currentRobot), numberOfCurrentRound);
             OnFieldsUpdate();
 
             return true;
