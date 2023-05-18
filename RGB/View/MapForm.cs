@@ -74,6 +74,7 @@ namespace RGB.View
 
         private void SetUpMapView()
         {
+            int viewDist = 4;
             mapTable.RowCount = size;
             mapTable.ColumnCount = size;
             mapTable.Margin = new Padding(0);
@@ -126,13 +127,33 @@ namespace RGB.View
                         pb.Image = Properties.Resources.blue_down;
                         break;
                     case TileType.Wall:
-                        pb.BackColor = Color.Black;
+                        pb.BackColor = Color.Violet;
                         break;
                     case TileType.Obstacle:
                         pb.BackColor = Color.DarkGray;
                         break;
                 }
-                mapTable.Controls.Add(pb,field.coords.Y-minY,field.coords.X-minX);
+                if (Math.Abs(field.coords.X - robot.i) + Math.Abs(field.coords.Y - robot.j) > viewDist)
+                {
+                    int red = (int)Math.Floor(pb.BackColor.R * 0.8);
+                    int green = (int)Math.Floor(pb.BackColor.G * 0.8);
+                    int blue = (int)Math.Floor(pb.BackColor.B * 0.8);
+                    Color darker = Color.FromArgb(255, red, green, blue);
+                    pb.BackColor = darker;
+                }
+                /*
+                Coordinate shift;
+                if (sizeX > sizeY)
+                {
+                    shift = new Coordinate();
+                    mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
+                }
+                else    //if sizeY >= sizeX
+                {
+                    mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
+                }
+                */
+                mapTable.Controls.Add(pb, field.coords.Y - minY, field.coords.X - minX);
             }
         }
     }
