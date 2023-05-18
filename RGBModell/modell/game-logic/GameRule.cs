@@ -142,14 +142,14 @@ namespace RGBModell.modell.game_logic
                 taskHandler.ReduceTasksTime();
 
                 currentRobot.UpdateMap
-                    (field.CalculateVisionOfRobot(currentRobot), numberOfCurrentRound);
+                    (field.CalculateMapOfRobot(currentRobot), numberOfCurrentRound);
             }
             else
             {
                 currentRobot = robots[i + 1];
 
                 currentRobot.UpdateMap
-                    (field.CalculateVisionOfRobot(currentRobot), numberOfCurrentRound);
+                    (field.CalculateMapOfRobot(currentRobot), numberOfCurrentRound);
             }
 
             GenerateTasks();
