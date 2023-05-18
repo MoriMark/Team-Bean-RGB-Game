@@ -31,6 +31,7 @@ namespace RGB.View
             this.map = robot.map;
             size = SizeOfMap(this.map);
             SetUpMapView();
+            SetMapLabel();
         }
 
         private int SizeOfMap(List<Mapfield> map)
@@ -100,7 +101,7 @@ namespace RGB.View
                 pb.Padding = new Padding(0);
                 pb.SizeMode = PictureBoxSizeMode.Zoom;
                 pb.Dock = DockStyle.Fill;
-                switch(field.type)
+                switch (field.type)
                 {
                     case TileType.RedBox:
                         pb.BackColor = Color.Red;
@@ -133,7 +134,18 @@ namespace RGB.View
                         pb.BackColor = Color.DarkGray;
                         break;
                 }
-                if (Math.Abs(field.coords.X - robot.i) + Math.Abs(field.coords.Y - robot.j) > viewDist)
+                bool darken = true;
+                //check if none of the synced robots see a tile
+                foreach (Robot r in robot.seenRobots)
+                {
+                    if (Math.Abs(field.coords.X - r.i) + Math.Abs(field.coords.Y - r.j) <= viewDist)
+                        darken = false;
+                }
+                //check if the current robot sees the tile
+                if (Math.Abs(field.coords.X - robot.i) + Math.Abs(field.coords.Y - robot.j) <= viewDist)
+                    darken = false;
+
+                if (darken)
                 {
                     int red = (int)Math.Floor(pb.BackColor.R * 0.8);
                     int green = (int)Math.Floor(pb.BackColor.G * 0.8);
@@ -145,15 +157,20 @@ namespace RGB.View
                 Coordinate shift;
                 if (sizeX > sizeY)
                 {
-                    shift = new Coordinate(0,(sizeX - sizeY)/2);
+                    shift = new Coordinate(0, (sizeX - sizeY) / 2);
                     mapTable.Controls.Add(pb, field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
                 }
                 else    //if sizeY >= sizeX
                 {
-                    shift = new Coordinate((sizeY - sizeX) / 2,0);
+                    shift = new Coordinate((sizeY - sizeX) / 2, 0);
                     mapTable.Controls.Add(pb, field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
                 }
             }
+        }
+
+        private void SetMapLabel()
+        {
+
         }
     }
 }

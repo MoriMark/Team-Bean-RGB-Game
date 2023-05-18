@@ -29,34 +29,47 @@
         private void InitializeComponent()
         {
             mapTable = new TableLayoutPanel();
+            mapLabel = new Label();
             SuspendLayout();
             // 
             // mapTable
             // 
             mapTable.ColumnCount = 1;
             mapTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            mapTable.Location = new Point(15, 25);
+            mapTable.Location = new Point(8, 52);
             mapTable.Margin = new Padding(0);
             mapTable.Name = "mapTable";
             mapTable.RowCount = 1;
             mapTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            mapTable.Size = new Size(600, 600);
+            mapTable.Size = new Size(650, 650);
             mapTable.TabIndex = 0;
+            // 
+            // mapLabel
+            // 
+            mapLabel.AutoSize = true;
+            mapLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            mapLabel.Location = new Point(303, 19);
+            mapLabel.Name = "mapLabel";
+            mapLabel.Size = new Size(0, 21);
+            mapLabel.TabIndex = 1;
             // 
             // MapForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(634, 661);
+            ClientSize = new Size(667, 711);
+            Controls.Add(mapLabel);
             Controls.Add(mapTable);
             Name = "MapForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Map";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel mapTable;
+        private Label mapLabel;
     }
 }
