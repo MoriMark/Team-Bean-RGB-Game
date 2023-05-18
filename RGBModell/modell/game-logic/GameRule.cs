@@ -19,7 +19,7 @@ namespace RGBModell.modell.game_logic
 
         private Dictionary<int, BoxGroup> boxgroups;
 
-        Int32 numberOfCurrentRound;
+        public Int32 numberOfCurrentRound { get; set; }
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
         public List<Exit> exits { get; private set; }
@@ -140,10 +140,16 @@ namespace RGBModell.modell.game_logic
                 currentRobot = robots[0];
                 numberOfCurrentRound++;
                 taskHandler.ReduceTasksTime();
+
+                currentRobot.UpdateMap
+                    (field.CalculateVisionOfRobot(currentRobot), numberOfCurrentRound);
             }
             else
             {
                 currentRobot = robots[i + 1];
+
+                currentRobot.UpdateMap
+                    (field.CalculateVisionOfRobot(currentRobot), numberOfCurrentRound);
             }
 
             GenerateTasks();

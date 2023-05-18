@@ -62,6 +62,7 @@ namespace RGBModell.modell
                 resolveActions();
                 gameRule.WeldCheck();
             }
+            gameRule.numberOfCurrentRound = round;
             robotChanged(this, EventArgs.Empty);
         }
 
