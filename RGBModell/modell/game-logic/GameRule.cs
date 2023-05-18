@@ -835,36 +835,27 @@ namespace RGBModell.modell.game_logic
                 case 1:
                     
                     field.SetValue(x, y, new Obstacle(x, y, 1));
-                    if (field.BetweenBorders(x - 1, y) && (field.GetValue(x - 1, y).IsEmpty() ))
+                    for(int i=1; i < 3; i++)
                     {
-                        field.SetValue(x - 1, y, new Obstacle(x - 1, y, 1));
-                        gameobjectcount++;
+                        if (field.BetweenBorders(x - i, y) && (field.GetValue(x - i, y).IsEmpty()))
+                        {
+                            field.SetValue(x - i, y, new Obstacle(x - i, y, 1));
+                            gameobjectcount++;
+                        }
                     }
-                    if (field.BetweenBorders(x - 2, y) && (field.GetValue(x - 2, y).IsEmpty() ))
-                    {
-                        field.SetValue(x - 2, y, new Obstacle(x - 2, y, 1));
-                        gameobjectcount++;
-                    }
-                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Wall", gameobjectcount));
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Vertical Wall", gameobjectcount));
                     break;
                 case 2:
-                    field.SetValue(x, y, new Box(x, y, BoxColor.Red, TileType.RedBox));
-                    if (field.BetweenBorders(x + 1, y) && (field.GetValue(x + 1, y).IsEmpty() ))
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    for (int i = 1; i < 3; i++)
                     {
-                        field.SetValue(x + 1, y, new Box(x + 1, y, BoxColor.Yellow, TileType.YellowBox));
-                        gameobjectcount++;
+                        if (field.BetweenBorders(x, y - i) && (field.GetValue(x, y - i).IsEmpty()))
+                        {
+                            field.SetValue(x, y - i, new Obstacle(x, y - i, 1));
+                            gameobjectcount++;
+                        }
                     }
-                    if (field.BetweenBorders(x + 1, y + 1) && (field.GetValue(x + 1, y + 1).IsEmpty() ))
-                    {
-                        field.SetValue(x + 1, y + 1, new Box(x + 1, y + 1, BoxColor.Green, TileType.GreenBox));
-                        gameobjectcount++;
-                    }
-                    if (field.BetweenBorders(x, y + 1) && (field.GetValue(x, y + 1).IsEmpty()))
-                    {
-                        field.SetValue(x, y + 1, new Box(x, y + 1, BoxColor.Blue, TileType.BlueBox));
-                        gameobjectcount++;
-                    }
-                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Extra Boxes", gameobjectcount));
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Horizontal Wall", gameobjectcount));
                     break;
             }
             OnFieldsUpdate();
