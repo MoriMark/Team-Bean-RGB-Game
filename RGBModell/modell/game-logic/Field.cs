@@ -110,7 +110,6 @@ namespace RGBModell.modell.game_logic
                 }
                 i++;
             }
-
             /*
             GameObject[,] calculateMatrix = new GameObject[MatrixSize, MatrixSize];
             for (Int32 i = 0; i < MatrixSize; ++i)

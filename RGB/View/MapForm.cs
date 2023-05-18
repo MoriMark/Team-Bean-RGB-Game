@@ -35,10 +35,10 @@ namespace RGB.View
 
         private int SizeOfMap(List<Mapfield> map)
         {
-            maxX = 0;
-            maxY = 0;
-            minX = 0;
-            minY = 0;
+            maxX = map[0].coords.X;
+            maxY = map[0].coords.Y;
+            minX = map[0].coords.X;
+            minY = map[0].coords.Y;
 
             for (int i = 0; i < map.Count; i++)
             {
@@ -54,7 +54,7 @@ namespace RGB.View
                 {
                     maxY = map[i].coords.Y;
                 }
-                if (map[i].coords.X < minY)
+                if (map[i].coords.Y < minY)
                 {
                     minY = map[i].coords.Y;
                 }
@@ -98,6 +98,7 @@ namespace RGB.View
                 pb.Margin = new Padding(0);
                 pb.Padding = new Padding(0);
                 pb.SizeMode = PictureBoxSizeMode.Zoom;
+                pb.Dock = DockStyle.Fill;
                 switch(field.type)
                 {
                     case TileType.RedBox:
@@ -129,9 +130,6 @@ namespace RGB.View
                         break;
                     case TileType.Obstacle:
                         pb.BackColor = Color.DarkGray;
-                        break;
-                    case TileType.Empty:
-                        pb.BackColor = Color.White;
                         break;
                 }
                 mapTable.Controls.Add(pb,field.coords.Y-minY,field.coords.X-minX);

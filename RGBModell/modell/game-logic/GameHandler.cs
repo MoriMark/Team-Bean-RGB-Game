@@ -54,8 +54,7 @@ namespace RGBModell.modell
         {
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
             move++;
-            gameRule.NextRobot();
-            if (move > (numOfTeams*numOfPlayers))
+            if (move > (numOfTeams * numOfPlayers))
             {
                 move = 1;
                 round++;
@@ -63,6 +62,7 @@ namespace RGBModell.modell
                 gameRule.WeldCheck();
             }
             gameRule.numberOfCurrentRound = round;
+            gameRule.NextRobot();
             robotChanged(this, EventArgs.Empty);
         }
 

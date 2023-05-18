@@ -44,21 +44,25 @@ namespace RGBModell.modell.gameobjects
 
         public void UpdateMap(GameObject[,] vision, int round)
         {
+            int viewDist = 4;
             foreach (GameObject obj in vision) 
             {
-                bool coordFound = false;
-                Coordinate c = new Coordinate(obj.i, obj.j);
-                for (int i = 0; i < map.Count; i++)
+                if (Math.Abs(obj.i - this.i) + Math.Abs(obj.j - this.j) <= viewDist)
                 {
-                    if (map[i].coords.X == obj.i && map[i].coords.Y == obj.j)
+                    bool coordFound = false;
+                    Coordinate c = new Coordinate(obj.i, obj.j);
+                    for (int i = 0; i < map.Count; i++)
                     {
-                        coordFound = true;
-                        map[i] = new Mapfield(round,c,obj.TileType());
+                        if (map[i].coords.X == obj.i && map[i].coords.Y == obj.j)
+                        {
+                            coordFound = true;
+                            map[i] = new Mapfield(round, c, obj.TileType());
+                        }
                     }
-                }
-                if (!coordFound)
-                {
-                    map.Add(new Mapfield(round, c, obj.TileType()));
+                    if (!coordFound)
+                    {
+                        map.Add(new Mapfield(round, c, obj.TileType()));
+                    }
                 }
             }
         }
