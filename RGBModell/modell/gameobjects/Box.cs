@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.gameobjects
 {
+    /// <summary>
+    /// Class <c>Box</c> is a derived class from <c>DeletableObject</c> base class, which represents different colored Boxes on the field.
+    /// </summary>
     public class Box : DeletableObject
     {
         public int id { get; }
@@ -15,6 +18,9 @@ namespace RGBModell.modell.gameobjects
         public BoxColor color { get; }
         public int ingroup { get; set; }
         public Team attaching { get; set; }
+        /// <summary>
+        /// This cnstructor takes the same parameters as <c>GameObject</c> plus the color of the box.
+        /// </summary>
         public Box(int i, int j, BoxColor color, TileType type) : base(i,j, type)
         {
             id = staticid;
