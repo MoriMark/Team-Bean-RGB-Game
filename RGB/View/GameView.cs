@@ -173,14 +173,19 @@ namespace RGB.View
             tableTaskView.Margin = new Padding(0);
 
             tableTaskView.RowCount = 1;
-            tableTaskView.ColumnCount = e.tasks.Count;
+            tableTaskView.ColumnCount = 5;
+
+            for (int i = 0; i < tableTaskView.ColumnCount; i++)
+            {
+                tableTaskView.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / 5));
+            }
 
             for (int i = 0; i < e.tasks.Count; i++)
             {
-                tableTaskView.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / e.tasks.Count));
                 tableTaskView.Controls.Add
                     (new TaskView(e.tasks[i].task.GetLength(1), e.tasks[i].task.GetLength(0), e.tasks[i]).wrap, i, 0);
             }
+            testLabel.Text = $"Task Count\n {e.tasks.Count}";
         }
 
         private void RefreshTable(object? o, UpdateFieldsEventArgs e)
@@ -1161,7 +1166,7 @@ namespace RGB.View
                     alertLabel.Text = string.Empty;
                 }
             }
-            testLabel.Text = $"{symbolLayoutPanel.Controls[0].Width}, {symbolLayoutPanel.Controls[0].Height}";
+            //testLabel.Text = $"{symbolLayoutPanel.Controls[0].Width}, {symbolLayoutPanel.Controls[0].Height}";
             int rounds = _gameHandler.round;
             int moves = _gameHandler.move;
             roundLabel.Text = $"Round {rounds}";

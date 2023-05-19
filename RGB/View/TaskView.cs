@@ -38,8 +38,8 @@ namespace RGB.View
             _view.Dock = DockStyle.Fill;
             _view.Padding = new Padding(0);
             _view.Margin = new Padding(0);
-            _view.ColumnCount = width;
-            _view.RowCount = height;
+            _view.ColumnCount = 3;
+            _view.RowCount = 3;
             for (int i = 0; i < _view.ColumnCount; i++)
             { _view.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / _view.ColumnCount)); }
             for (int i = 0; i < _view.RowCount; i++)
@@ -58,9 +58,9 @@ namespace RGB.View
             details.Text = $"{task.direction}\n{task.expiration}";
             wrap.Controls.Add( details,1,0);
 
-            for (int i = 0; i < _view.RowCount; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < _view.ColumnCount; j++)
+                for (int j = 0; j < width; j++)
                 {
                     PictureBox tile = new PictureBox();
                     tile.Dock = DockStyle.Fill;
