@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using Task = RGBModell.modell.structs.Task;
 using BoxColor = RGBModell.modell.enums.BoxColor;
+using RGBModell.modell.enums;
 
 namespace RGB.View
 {
@@ -16,14 +17,16 @@ namespace RGB.View
     {
         private int width;
         private int height;
+        private Team team;
         public TableLayoutPanel wrap { get; private set; }
         public TableLayoutPanel _view { get; private set; }
 
 
-        public TaskView(int width, int height, Task task)
+        public TaskView(int width, int height, Task task, Team team)
         { 
             this.width = width;
             this.height = height;
+            this.team = team;
             wrap = new TableLayoutPanel();
             wrap.Dock = DockStyle.Fill;
             wrap.Padding = new Padding(0);
@@ -55,7 +58,27 @@ namespace RGB.View
             Label details = new Label();
             details.Dock = DockStyle.Fill;
             details.Padding = new Padding(0); details.Margin = new Padding(0);
-            details.Text = $"{task.direction}\n{task.expiration}";
+            details.Text = $"Exit: {task.direction}\nTurns left: {task.expiration}";
+            details.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            details.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            details.Dock = DockStyle.Fill;
+
+            switch(team)
+            {
+                case Team.Red:
+                    details.ForeColor = Color.Red;
+                    break;
+                case Team.Green:
+                    details.ForeColor = Color.Green;
+                    break;
+                case Team.Blue:
+                    details.ForeColor = Color.Blue;
+                    break;
+                case Team.Yellow:
+                    details.ForeColor = Color.Goldenrod;
+                    break;
+            }
+
             wrap.Controls.Add( details,1,0);
 
             for (int i = 0; i < height; i++)
@@ -83,7 +106,7 @@ namespace RGB.View
                             _view.Controls.Add(tile, j, i);
                             break;
                         case BoxColor.NoColor:
-                            tile.BackColor = Color.White;
+                            tile.BackColor = Color.Transparent;
                             _view.Controls.Add(tile, j, i);
                             break;
                     }

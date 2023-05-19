@@ -233,6 +233,7 @@
             // 
             // tableTaskView
             // 
+            tableTaskView.BackColor = Color.White;
             tableTaskView.ColumnCount = 1;
             tableTaskView.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableTaskView.Location = new Point(41, 145);

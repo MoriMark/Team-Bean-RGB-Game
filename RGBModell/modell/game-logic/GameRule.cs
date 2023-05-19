@@ -147,6 +147,7 @@ namespace RGBModell.modell.game_logic
             }
 
             GenerateTasks();
+            UpdateMapsOfRobots();
             taskHandler.OnTasksUpdate(currentRobot.team);
             OnFieldsUpdate();
         }
