@@ -666,6 +666,7 @@ namespace RGB.View
         /// <returns></returns>
         private void Map_Closed(object? sender, EventArgs e)
         {
+            map._timer.Stop();
             map = null!;
         }
 

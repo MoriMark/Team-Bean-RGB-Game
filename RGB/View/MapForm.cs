@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RGBModell.modell.enums;
+using Timer =  System.Windows.Forms.Timer;
 
 namespace RGB.View
 {
@@ -28,6 +29,9 @@ namespace RGB.View
         private int maxY;
         private int minX;
         private int minY;
+        public Timer _timer;
+        private Coordinate currentCoord;
+        private Color tmp;
         public MapForm(Robot robot)
         {
             InitializeComponent();
@@ -36,6 +40,10 @@ namespace RGB.View
             size = SizeOfMap(this.map);
             SetUpMapView();
             SetMapLabel();
+            _timer = new Timer();
+            _timer.Interval = 750;
+            _timer.Tick += Blink;
+            _timer.Start();
         }
 
         /// <summary>
@@ -179,6 +187,11 @@ namespace RGB.View
                     shift = new Coordinate((sizeY - sizeX) / 2, 0);
                     mapTable.Controls.Add(pb, field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
                 }
+
+                if (robot.i == field.coords.X && robot.j == field.coords.Y)
+                {
+                    currentCoord = new Coordinate(field.coords.Y - minY + shift.Y, field.coords.X - minX + shift.X);
+                }
             }
         }
 
@@ -192,6 +205,19 @@ namespace RGB.View
             foreach (Robot r in robot.seenRobots)
             {
                 mapLabel.Text += $"{r.name}, {r.team}   ";
+            }
+        }
+
+        private void Blink(object? sender, EventArgs e)
+        {
+            tmp = mapTable.GetControlFromPosition(currentCoord.X, currentCoord.Y).BackColor;
+            if (tmp == Color.Yellow)
+            {
+                mapTable.GetControlFromPosition(currentCoord.X, currentCoord.Y).BackColor = Color.Black;
+            }
+            else
+            {
+                mapTable.GetControlFromPosition(currentCoord.X, currentCoord.Y).BackColor = Color.Yellow;
             }
         }
     }
