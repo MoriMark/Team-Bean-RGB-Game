@@ -381,6 +381,10 @@ namespace RGB.View
                                                     _buttons[i, j].BackgroundImage = Properties.Resources.blue_right;
                                                     break;
                                             }
+                                            if (null != currentRobot.Attached)
+                                            {
+                                                _buttons[i, j].Text += "\nCon";
+                                            }
                                         }
                                         _buttons[i, j].BackColor = Color.White;
                                         _buttons[i, j].ForeColor = Color.White;
@@ -411,6 +415,10 @@ namespace RGB.View
                                                     _buttons[i, j].BackgroundImage = Properties.Resources.green_right;
                                                     break;
                                             }
+                                            if (null != currentRobot.Attached)
+                                            {
+                                                _buttons[i, j].Text += "\nCon";
+                                            }
                                         }
                                         _buttons[i, j].BackColor = Color.White;
                                         _buttons[i, j].ForeColor = Color.White;
@@ -440,6 +448,10 @@ namespace RGB.View
                                                     _buttons[i, j].Text = $"{currentRobot.name}";
                                                     _buttons[i, j].BackgroundImage = Properties.Resources.yellow_right;
                                                     break;
+                                            }
+                                            if (null != currentRobot.Attached)
+                                            {
+                                                _buttons[i, j].Text += "\nCon";
                                             }
                                         }
                                         _buttons[i, j].BackColor = Color.White;
@@ -910,7 +922,7 @@ namespace RGB.View
             weldButton.Text = "Weld";
             unWeldButton.Text = "Unweld";
             connectButton.Text = "Connect";
-            disConnectButton.Text = "Disconnect";
+            disConnectButton.Text = "Dis-\nconnect";
             waitButton.Text = "Wait";
             moveUpButton.Text = "Up";
             moveDownButton.Text = "Down";
