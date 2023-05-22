@@ -3,6 +3,10 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace RGB
 {
+    /// <summary>
+    /// Main menu
+    /// </summary>
+    /// <returns></returns>
     public partial class Form1 : Form
     {
         private static HelpForm help = null!;
@@ -73,12 +77,20 @@ namespace RGB
 
         }
 
+        /// <summary>
+        /// Opens the help
+        /// </summary>
+        /// <returns></returns>
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             help = new HelpForm();
             help.Show();
         }
 
+        /// <summary>
+        /// starts the game with the selected number of teams and players
+        /// </summary>
+        /// <returns></returns>
         private void buttonGameStart_Click(object sender, EventArgs e)
         {
             if (numOfRobots > 0 && numOfTeams > 0)
@@ -94,6 +106,10 @@ namespace RGB
             }
         }
 
+        /// <summary>
+        /// Handles the event if an active game is closed
+        /// </summary>
+        /// <returns></returns>
         private void QuitGame(object? sender, EventArgs e)
         {
             gameView.Hibernate();
@@ -102,6 +118,10 @@ namespace RGB
             this.Show();
         }
 
+        /// <summary>
+        /// Primitive logo animation logic
+        /// </summary>
+        /// <returns></returns>
         private void Animate(object? sender, EventArgs e)
         {
             if (waitTime > 0)

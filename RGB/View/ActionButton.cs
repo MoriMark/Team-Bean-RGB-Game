@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace RGB.View
 {
+    /// <summary>
+    /// Actionbutton stores an action corresponding with the action
+    /// defined
+    /// </summary>
+    /// <returns></returns>
     public class ActionButton : Button
     {
         private Actions action;

@@ -52,13 +52,17 @@ namespace RGBModell.modell
             return gameRule.GetFieldValue(x, y);
         }
 
+        public Int32 GetTeamPoints(Team team)
+        {
+            return gameRule.GetTeamPoints(team);
+        }
+
         public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
             Random rnd = new Random();
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
             move++;
-            gameRule.NextRobot();
-            if (move > (numOfTeams*numOfPlayers))
+            if (move > (numOfTeams * numOfPlayers))
             {
                 move = 1;
                 round++;
@@ -72,6 +76,9 @@ namespace RGBModell.modell
                     gameRule.SpecialEvent();
                 }
             }
+            gameRule.numberOfCurrentRound = round;
+            gameRule.UpdateMapsOfRobots();
+            gameRule.NextRobot();
             robotChanged(this, EventArgs.Empty);
         }
 

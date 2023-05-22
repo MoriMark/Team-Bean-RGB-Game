@@ -110,7 +110,6 @@ namespace RGBModell.modell.game_logic
                 }
                 i++;
             }
-
             /*
             GameObject[,] calculateMatrix = new GameObject[MatrixSize, MatrixSize];
             for (Int32 i = 0; i < MatrixSize; ++i)
@@ -132,6 +131,31 @@ namespace RGBModell.modell.game_logic
                 }
             }
             */
+
+            return calculateMatrix;
+        }
+        public GameObject[,] CalculateMapOfRobot(Robot robot)
+        {
+            const Int32 viewDistance = 4;
+
+            GameObject[,] calculateMatrix = new GameObject[viewDistance * 2 + 1, viewDistance * 2 + 1];
+
+            Int32 i = 0, j = 0;
+            for (Int32 ii = robot.i - viewDistance; ii <= robot.i + viewDistance; ++ii)
+            {
+                j = 0;
+                for (Int32 jj = robot.j - viewDistance; jj <= robot.j + viewDistance; ++jj)
+                {
+                    if (Math.Abs(ii - robot.i) + Math.Abs(jj - robot.j) <= viewDistance && BetweenBorders(ii, jj))
+                        calculateMatrix[i, j] = field[ii, jj];
+                    else if (!BetweenBorders(ii,jj))
+                        calculateMatrix[i,j] = new Wall(ii, jj);
+                    else
+                        calculateMatrix[i, j] = new Empty(ii, jj);
+                    j++;
+                }
+                i++;
+            }
 
             return calculateMatrix;
         }

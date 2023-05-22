@@ -19,7 +19,7 @@ namespace RGBModell.modell.game_logic
 
         private Dictionary<int, BoxGroup> boxgroups;
 
-        Int32 numberOfCurrentRound;
+        public Int32 numberOfCurrentRound { get; set; }
         public Boolean GameIsActive { get; private set; }
         public Boolean GameIsPaused { get; private set; }
         public List<Exit> exits { get; private set; }
@@ -70,7 +70,7 @@ namespace RGBModell.modell.game_logic
 
             currentRobot = robots[0];
             OnFieldsUpdate();
-
+            UpdateMapsOfRobots();
             return true;
         }
 
@@ -148,7 +148,7 @@ namespace RGBModell.modell.game_logic
             }
 
             GenerateTasks();
-
+            UpdateMapsOfRobots();
             taskHandler.OnTasksUpdate(currentRobot.team);
             OnFieldsUpdate();
         }
@@ -797,7 +797,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Randomly chooses an event wich can place obstacles or boxes on the map.
+        /// Randomly chooses an event which places obstacles or boxes on the map.
         /// </summary>
         /// <returns></returns>
         public void SpecialEvent()
@@ -859,6 +859,19 @@ namespace RGBModell.modell.game_logic
                     break;
             }
             OnFieldsUpdate();
+        }
+
+        public void UpdateMapsOfRobots()
+        {
+            for (int i = 0; i < robots.Count; i++)
+            {
+                robots[i].UpdateMap(field.CalculateMapOfRobot(robots[i]), numberOfCurrentRound);
+            }
+        }
+
+        public Int32 GetTeamPoints(Team team)
+        {
+            return taskHandler.GetTeamPoints(team);
         }
 
         private void OnFieldsUpdate()
