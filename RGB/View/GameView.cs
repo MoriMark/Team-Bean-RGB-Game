@@ -704,6 +704,7 @@ namespace RGB.View
             _timer.Start();
             RefreshMessages();
             UpdatePoints();
+            SuccessUpdate();
             RefreshViewTable(_viewField, MapModes.Normal);
         }
 

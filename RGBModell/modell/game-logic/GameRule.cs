@@ -457,7 +457,7 @@ namespace RGBModell.modell.game_logic
         /// </summary>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
         /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
-        public void Pass()
+        public void Pass(Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
@@ -465,7 +465,7 @@ namespace RGBModell.modell.game_logic
                 throw new GameIsPausedException();
 
             // Additional code here
-
+            r.actionsucces = true;
             OnFieldsUpdate();
         }
 
@@ -614,7 +614,7 @@ namespace RGBModell.modell.game_logic
                 throw new NoActiveGameException();
             if (GameIsPaused)
                 throw new GameIsPausedException();
-            if (!r.IsAttached())
+            if (r.IsAttached())
             {
                 r.actionsucces = true;
                 r.Attached = null;
