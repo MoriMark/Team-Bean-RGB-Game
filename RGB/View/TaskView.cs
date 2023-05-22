@@ -69,34 +69,6 @@ namespace RGB.View
 
         private void SetTask(Task task)
         {
-            /*
-            Label details = new Label();
-            details.Dock = DockStyle.Fill;
-            details.Padding = new Padding(0); details.Margin = new Padding(0);
-            details.Text = $"Exit: {task.direction}\nTurns left: {task.expiration}";
-            details.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            details.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            details.Dock = DockStyle.Fill;
-
-            switch(team)
-            {
-                case Team.Red:
-                    details.ForeColor = Color.Red;
-                    break;
-                case Team.Green:
-                    details.ForeColor = Color.Green;
-                    break;
-                case Team.Blue:
-                    details.ForeColor = Color.Blue;
-                    break;
-                case Team.Yellow:
-                    details.ForeColor = Color.Goldenrod;
-                    break;
-            }
-
-            wrap.Controls.Add( details,1,0);
-            */
-
             Label tLeft = new Label();
             Label tLeftCount = new Label();
             Label exit = new Label();

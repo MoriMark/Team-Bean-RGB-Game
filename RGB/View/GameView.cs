@@ -47,11 +47,6 @@ namespace RGB.View
         private List<Exit> exits;
         private GameObject[,] _viewField = null!;
 
-        public GameView(int i)
-        {
-
-        }
-
         public GameView(int players, int teams)
         {
             InitializeComponent();
@@ -1193,10 +1188,6 @@ namespace RGB.View
                 case Team.Red:
                     tableTaskView.BackColor = redTeamBcgColor;
                     teamMessagePanel.BackColor = redTeamBcgColor;
-                    /*
-                    symbolLayoutPanel.BackColor = redTeamBcgColor;
-                    this.BackColor = redTeamBcgColor;
-                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1205,10 +1196,6 @@ namespace RGB.View
                 case Team.Blue:
                     tableTaskView.BackColor = blueTeamBcgColor;
                     teamMessagePanel.BackColor = blueTeamBcgColor;
-                    /*
-                    symbolLayoutPanel.BackColor = blueTeamBcgColor;
-                    this.BackColor = blueTeamBcgColor;
-                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1217,10 +1204,6 @@ namespace RGB.View
                 case Team.Green:
                     tableTaskView.BackColor = greenTeamBcgColor;
                     teamMessagePanel.BackColor = greenTeamBcgColor;
-                    /*
-                    symbolLayoutPanel.BackColor = greenTeamBcgColor;
-                    this.BackColor = greenTeamBcgColor;
-                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1229,10 +1212,6 @@ namespace RGB.View
                 case Team.Yellow:
                     tableTaskView.BackColor = yellowTeamBcgColor;
                     teamMessagePanel.BackColor = yellowTeamBcgColor;
-                    /*
-                    symbolLayoutPanel.BackColor = yellowTeamBcgColor;
-                    this.BackColor = yellowTeamBcgColor;
-                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
