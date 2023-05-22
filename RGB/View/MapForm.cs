@@ -13,6 +13,10 @@ using RGBModell.modell.enums;
 
 namespace RGB.View
 {
+    /// <summary>
+    /// In-game map for specific player
+    /// </summary>
+    /// <returns></returns>
     public partial class MapForm : Form
     {
         private List<Mapfield> map;
@@ -34,6 +38,11 @@ namespace RGB.View
             SetMapLabel();
         }
 
+        /// <summary>
+        /// Calculates the size needed to display the full map based on the
+        /// stored coordinates
+        /// </summary>
+        /// <returns></returns>
         private int SizeOfMap(List<Mapfield> map)
         {
             maxX = map[0].coords.X;
@@ -73,6 +82,11 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Generates the mapView based on the robot's stored map and
+        /// the calculated size in SizeOfMap
+        /// </summary>
+        /// <returns></returns>
         private void SetUpMapView()
         {
             int viewDist = 4;
@@ -168,6 +182,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// infolabel setup
+        /// </summary>
+        /// <returns></returns>
         private void SetMapLabel()
         {
             mapLabel.Text = $"{robot.name}, {robot.team}'s map\nSynchronized with: ";

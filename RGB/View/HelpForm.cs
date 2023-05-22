@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace RGB
 {
+    /// <summary>
+    /// Help screen
+    /// </summary>
+    /// <returns></returns>
     public partial class HelpForm : Form
     {
         public HelpForm()

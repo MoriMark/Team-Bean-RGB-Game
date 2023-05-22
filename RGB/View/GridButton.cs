@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace RGB.View
 {
+    /// <summary>
+    /// Playfield buttons, a gridbutton stores its coordinates
+    /// </summary>
+    /// <returns></returns>
     public class GridButton : Button
     {
         private Int32 _x;

@@ -156,6 +156,10 @@ namespace RGB.View
             NextRobot(null, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Map button event handler
+        /// </summary>
+        /// <returns></returns>
         private void MapButton_Click(object? sender, EventArgs e)
         {
             map = new MapForm(_gameHandler.GetCurrentPlayer());
@@ -163,6 +167,10 @@ namespace RGB.View
             map.FormClosing += Map_Closed;
         }
 
+        /// <summary>
+        /// Disables field of view of game
+        /// </summary>
+        /// <returns></returns>
         private void DisableRobotFov()
         {
             for (int i = 0; i < viewDist * 2 + 1; i++)
@@ -177,6 +185,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Updates tableTaskView content with current teams tasks
+        /// </summary>
+        /// <returns></returns>
         private void RefreshTaskDisplays(object? sender, UpdateTasksEventArgs e)
         {
             tableTaskView.Controls.Clear();
@@ -204,11 +216,19 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Updates the stored field of view in gameView
+        /// </summary>
+        /// <returns></returns>
         private void RefreshTable(object? o, UpdateFieldsEventArgs e)
         {
             _viewField = e.gameObjects;
         }
 
+        /// <summary>
+        /// Draws field of view of currently playing robot based on the stored fov.
+        /// </summary>
+        /// <returns></returns>
         private void RefreshViewTable(GameObject[,] field, MapModes mode)
         {
             switch (mode)
@@ -494,6 +514,10 @@ namespace RGB.View
 
         }
 
+        /// <summary>
+        /// Updates teamMessagePanel with the current robot's team messages.
+        /// </summary>
+        /// <returns></returns>
         private void RefreshMessages()
         {
             teamMessagePanel.Controls.Clear();
@@ -636,11 +660,19 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Deletes current reference of the map
+        /// </summary>
+        /// <returns></returns>
         private void Map_Closed(object? sender, EventArgs e)
         {
             map = null!;
         }
 
+        /// <summary>
+        /// SendButton event handler
+        /// </summary>
+        /// <returns></returns>
         private void SendButton_Click(object? sender, EventArgs e)
         {
             if (selectedSymbol != Symbol.None)
@@ -651,6 +683,10 @@ namespace RGB.View
             RefreshMessages();
         }
 
+        /// <summary>
+        /// Function to handle intra-turn part of the game.
+        /// </summary>
+        /// <returns></returns>
         private void NextRobot(object? sender, EventArgs e)
         {
             if (map != null)
@@ -671,6 +707,10 @@ namespace RGB.View
             RefreshViewTable(_viewField, MapModes.Normal);
         }
 
+        /// <summary>
+        /// _timer Tick event handler
+        /// </summary>
+        /// <returns></returns>
         private void RoundTimerTick(object? sender, EventArgs e)
         {
             remainingTime--;
@@ -686,6 +726,10 @@ namespace RGB.View
             UpdateLabels();
         }
 
+        /// <summary>
+        /// GridButton Click event handler
+        /// </summary>
+        /// <returns></returns>
         private void GridButton_Click(object? sender, EventArgs e)
         {
             if (sender is GridButton button)
@@ -702,6 +746,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Actionbutton Click event handler
+        /// </summary>
+        /// <returns></returns>
         private void ActionButton_Click(object? sender, EventArgs e)
         {
             //testLabel.Text = "Action Recieved!";
@@ -770,6 +818,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Symbolbutton click event handler
+        /// </summary>
+        /// <returns></returns>
         private void SymbolButton_Click(object? sender, EventArgs e)
         {
             if (sender is SymbolButton)
@@ -780,6 +832,11 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Sets the UI button layout if the action button clicked does not immediately 
+        /// do action
+        /// </summary>
+        /// <returns></returns>
         private void SetButtonLayout(ButtonLayouts layout)
         {
             Button moveButton = new ActionButton(Actions.Move);
@@ -1005,6 +1062,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Sets up the emote panel during initialization
+        /// </summary>
+        /// <returns></returns>
         private void SetUpSymbolButtons()
         {
             SymbolButton upButton = new SymbolButton(Symbol.GoUp);
@@ -1114,6 +1175,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Handles both enter and leave events of all buttons for visual effect
+        /// </summary>
+        /// <returns></returns>
         private void Button_MouseEnterLeave(object? sender, EventArgs e)
         {
             SymbolButton sbtn;
@@ -1157,6 +1222,10 @@ namespace RGB.View
             btn.ForeColor = tmp;
         }
 
+        /// <summary>
+        /// Updates certain labels every tick
+        /// </summary>
+        /// <returns></returns>
         private void UpdateLabels()
         {
             if (selectionsNeeded > 0)
@@ -1181,6 +1250,10 @@ namespace RGB.View
             moveLabel.Text = $"Move {moves}";
         }
 
+        /// <summary>
+        /// Sets theme based on current robot's team
+        /// </summary>
+        /// <returns></returns>
         private void UpdateTeamColor()
         {
             switch (_gameHandler.GetCurrentPlayer().team)
@@ -1220,6 +1293,10 @@ namespace RGB.View
             }
         }
 
+        /// <summary>
+        /// Updates point table
+        /// </summary>
+        /// <returns></returns>
         private void UpdatePoints()
         {
             points[0] = _gameHandler.GetTeamPoints(Team.Red);
@@ -1233,8 +1310,10 @@ namespace RGB.View
             labelYellowTeamScore.Text = $"{points[3]}";
         }
 
-        //Used to stop random popups after game is closed
-        //Could not delete instances of gameView from Form1
+        /// <summary>
+        /// Used in form1 to stop closed games from generating popups
+        /// </summary>
+        /// <returns></returns>
         public void Hibernate()
         {
             _timer.Tick -= RoundTimerTick;

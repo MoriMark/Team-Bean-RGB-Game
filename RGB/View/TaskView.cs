@@ -14,6 +14,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace RGB.View
 {
+    /// <summary>
+    /// A visual representation of a given teams tasks
+    /// </summary>
+    /// <returns></returns>
     public class TaskView
     {
         private int width;
@@ -67,6 +71,10 @@ namespace RGB.View
             SetTask(task);
         }
 
+        /// <summary>
+        /// Adds a task to the taskView
+        /// </summary>
+        /// <returns></returns>
         private void SetTask(Task task)
         {
             Label tLeft = new Label();
