@@ -797,7 +797,7 @@ namespace RGBModell.modell.game_logic
         }
 
         /// <summary>
-        /// Randomly chooses an event wich can place obstacles or boxes on the map.
+        /// Randomly chooses an event which places obstacles or boxes on the map.
         /// </summary>
         /// <returns></returns>
         public void SpecialEvent()
@@ -867,6 +867,11 @@ namespace RGBModell.modell.game_logic
             {
                 robots[i].UpdateMap(field.CalculateMapOfRobot(robots[i]), numberOfCurrentRound);
             }
+        }
+
+        public Int32 GetTeamPoints(Team team)
+        {
+            return taskHandler.GetTeamPoints(team);
         }
 
         private void OnFieldsUpdate()

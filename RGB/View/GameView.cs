@@ -29,6 +29,8 @@ namespace RGB.View
         private int tableSize;
         private int remainingTime = 300;
         private System.Windows.Forms.Timer _timer;
+        //0 - red, 1 - blue, 2 - green, 3 - yellow
+        private int[] points;
 
         private Color redTeamBcgColor;
         private Color greenTeamBcgColor;
@@ -64,6 +66,7 @@ namespace RGB.View
             currentLayout = ButtonLayouts.Default;
             currentRobotCoords = new Coordinate();
             selectedSymbol = Symbol.None;
+            points = new int[] { 0, 0, 0, 0 };
 
             redTeamBcgColor = Color.MistyRose;
             blueTeamBcgColor = Color.LightCyan;
@@ -194,7 +197,7 @@ namespace RGB.View
             for (int i = 0; i < e.tasks.Count; i++)
             {
                 TaskView t = new TaskView
-                    (e.tasks[i].task.GetLength(1), e.tasks[i].task.GetLength(0), 
+                    (e.tasks[i].task.GetLength(1), e.tasks[i].task.GetLength(0),
                     e.tasks[i], _gameHandler.GetCurrentPlayer().team);
 
                 tableTaskView.Controls.Add(t.wrap, i, 0);
@@ -215,7 +218,7 @@ namespace RGB.View
                     {
                         for (int j = 0; j < viewDist * 2 + 1; j++)
                         {
-                            if (_buttons[i,j].seen)
+                            if (_buttons[i, j].seen)
                             {
                                 _buttons[i, j].BackgroundImage = null;
 
@@ -1222,6 +1225,14 @@ namespace RGB.View
                     mapmodeGroupButton.BackColor = Color.White;
                     break;
             }
+        }
+
+        private void UpdatePoints()
+        {
+            points[0] = _gameHandler.GetTeamPoints(Team.Red);
+            points[1] = _gameHandler.GetTeamPoints(Team.Blue);
+            points[2] = _gameHandler.GetTeamPoints(Team.Green);
+            points[3] = _gameHandler.GetTeamPoints(Team.Yellow);
         }
 
         //Used to stop random popups after game is closed

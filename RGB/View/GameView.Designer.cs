@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listScores = new ListBox();
             sendButton = new Button();
             mapButton = new Button();
             testLabel = new Label();
@@ -46,18 +45,31 @@
             tableTaskView = new TableLayoutPanel();
             mapmodeNormalButton = new Button();
             mapmodeGroupButton = new Button();
+            scoreTable = new TableLayoutPanel();
+            redTeamScore = new TableLayoutPanel();
+            greenTeamScore = new TableLayoutPanel();
+            blueTeamScore = new TableLayoutPanel();
+            yellowTeamScore = new TableLayoutPanel();
+            redTeamPicture = new PictureBox();
+            greenTeamPicture = new PictureBox();
+            blueTeamPicture = new PictureBox();
+            yellowTeamPicture = new PictureBox();
+            labelRedTeamScore = new Label();
+            labelGreenTeamScore = new Label();
+            label1 = new Label();
+            labelYellowTeamScore = new Label();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
+            scoreTable.SuspendLayout();
+            redTeamScore.SuspendLayout();
+            greenTeamScore.SuspendLayout();
+            blueTeamScore.SuspendLayout();
+            yellowTeamScore.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)redTeamPicture).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)greenTeamPicture).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)blueTeamPicture).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)yellowTeamPicture).BeginInit();
             SuspendLayout();
-            // 
-            // listScores
-            // 
-            listScores.FormattingEnabled = true;
-            listScores.ItemHeight = 15;
-            listScores.Location = new Point(595, 764);
-            listScores.Name = "listScores";
-            listScores.Size = new Size(250, 79);
-            listScores.TabIndex = 7;
             // 
             // sendButton
             // 
@@ -269,12 +281,195 @@
             mapmodeGroupButton.UseVisualStyleBackColor = true;
             mapmodeGroupButton.Click += mapmodeGroupButton_Click;
             // 
+            // scoreTable
+            // 
+            scoreTable.ColumnCount = 2;
+            scoreTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            scoreTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            scoreTable.Controls.Add(redTeamScore, 0, 0);
+            scoreTable.Controls.Add(greenTeamScore, 1, 0);
+            scoreTable.Controls.Add(blueTeamScore, 0, 1);
+            scoreTable.Controls.Add(yellowTeamScore, 1, 1);
+            scoreTable.Location = new Point(595, 738);
+            scoreTable.Name = "scoreTable";
+            scoreTable.RowCount = 2;
+            scoreTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            scoreTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            scoreTable.Size = new Size(250, 108);
+            scoreTable.TabIndex = 29;
+            // 
+            // redTeamScore
+            // 
+            redTeamScore.ColumnCount = 2;
+            redTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            redTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            redTeamScore.Controls.Add(redTeamPicture, 0, 0);
+            redTeamScore.Controls.Add(labelRedTeamScore, 1, 0);
+            redTeamScore.Location = new Point(0, 0);
+            redTeamScore.Margin = new Padding(0);
+            redTeamScore.Name = "redTeamScore";
+            redTeamScore.RowCount = 1;
+            redTeamScore.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            redTeamScore.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            redTeamScore.Size = new Size(125, 54);
+            redTeamScore.TabIndex = 0;
+            // 
+            // greenTeamScore
+            // 
+            greenTeamScore.ColumnCount = 2;
+            greenTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            greenTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            greenTeamScore.Controls.Add(greenTeamPicture, 0, 0);
+            greenTeamScore.Controls.Add(labelGreenTeamScore, 1, 0);
+            greenTeamScore.Location = new Point(125, 0);
+            greenTeamScore.Margin = new Padding(0);
+            greenTeamScore.Name = "greenTeamScore";
+            greenTeamScore.RowCount = 1;
+            greenTeamScore.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            greenTeamScore.Size = new Size(125, 54);
+            greenTeamScore.TabIndex = 1;
+            // 
+            // blueTeamScore
+            // 
+            blueTeamScore.ColumnCount = 2;
+            blueTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            blueTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            blueTeamScore.Controls.Add(blueTeamPicture, 0, 0);
+            blueTeamScore.Controls.Add(label1, 1, 0);
+            blueTeamScore.Location = new Point(0, 54);
+            blueTeamScore.Margin = new Padding(0);
+            blueTeamScore.Name = "blueTeamScore";
+            blueTeamScore.RowCount = 1;
+            blueTeamScore.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            blueTeamScore.Size = new Size(125, 54);
+            blueTeamScore.TabIndex = 2;
+            // 
+            // yellowTeamScore
+            // 
+            yellowTeamScore.ColumnCount = 2;
+            yellowTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            yellowTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            yellowTeamScore.Controls.Add(yellowTeamPicture, 0, 0);
+            yellowTeamScore.Controls.Add(labelYellowTeamScore, 1, 0);
+            yellowTeamScore.Location = new Point(125, 54);
+            yellowTeamScore.Margin = new Padding(0);
+            yellowTeamScore.Name = "yellowTeamScore";
+            yellowTeamScore.RowCount = 1;
+            yellowTeamScore.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            yellowTeamScore.Size = new Size(125, 54);
+            yellowTeamScore.TabIndex = 3;
+            // 
+            // redTeamPicture
+            // 
+            redTeamPicture.BackColor = Color.Transparent;
+            redTeamPicture.BackgroundImage = Properties.Resources.red_down;
+            redTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            redTeamPicture.Dock = DockStyle.Fill;
+            redTeamPicture.Location = new Point(0, 0);
+            redTeamPicture.Margin = new Padding(0);
+            redTeamPicture.Name = "redTeamPicture";
+            redTeamPicture.Size = new Size(62, 54);
+            redTeamPicture.TabIndex = 0;
+            redTeamPicture.TabStop = false;
+            // 
+            // greenTeamPicture
+            // 
+            greenTeamPicture.BackColor = Color.Transparent;
+            greenTeamPicture.BackgroundImage = Properties.Resources.green_down;
+            greenTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            greenTeamPicture.Dock = DockStyle.Fill;
+            greenTeamPicture.Location = new Point(0, 0);
+            greenTeamPicture.Margin = new Padding(0);
+            greenTeamPicture.Name = "greenTeamPicture";
+            greenTeamPicture.Size = new Size(62, 54);
+            greenTeamPicture.TabIndex = 0;
+            greenTeamPicture.TabStop = false;
+            // 
+            // blueTeamPicture
+            // 
+            blueTeamPicture.BackColor = Color.Transparent;
+            blueTeamPicture.BackgroundImage = Properties.Resources.blue_down;
+            blueTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            blueTeamPicture.Dock = DockStyle.Fill;
+            blueTeamPicture.Location = new Point(0, 0);
+            blueTeamPicture.Margin = new Padding(0);
+            blueTeamPicture.Name = "blueTeamPicture";
+            blueTeamPicture.Size = new Size(62, 54);
+            blueTeamPicture.TabIndex = 0;
+            blueTeamPicture.TabStop = false;
+            // 
+            // yellowTeamPicture
+            // 
+            yellowTeamPicture.BackColor = Color.Transparent;
+            yellowTeamPicture.BackgroundImage = Properties.Resources.yellow_down;
+            yellowTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            yellowTeamPicture.Dock = DockStyle.Fill;
+            yellowTeamPicture.Location = new Point(0, 0);
+            yellowTeamPicture.Margin = new Padding(0);
+            yellowTeamPicture.Name = "yellowTeamPicture";
+            yellowTeamPicture.Size = new Size(62, 54);
+            yellowTeamPicture.TabIndex = 0;
+            yellowTeamPicture.TabStop = false;
+            // 
+            // labelRedTeamScore
+            // 
+            labelRedTeamScore.Anchor = AnchorStyles.None;
+            labelRedTeamScore.AutoSize = true;
+            labelRedTeamScore.BackColor = Color.Transparent;
+            labelRedTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelRedTeamScore.ForeColor = Color.Red;
+            labelRedTeamScore.Location = new Point(84, 16);
+            labelRedTeamScore.Name = "labelRedTeamScore";
+            labelRedTeamScore.Size = new Size(19, 21);
+            labelRedTeamScore.TabIndex = 1;
+            labelRedTeamScore.Text = "0";
+            // 
+            // labelGreenTeamScore
+            // 
+            labelGreenTeamScore.Anchor = AnchorStyles.None;
+            labelGreenTeamScore.AutoSize = true;
+            labelGreenTeamScore.BackColor = Color.Transparent;
+            labelGreenTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelGreenTeamScore.ForeColor = Color.Green;
+            labelGreenTeamScore.Location = new Point(84, 16);
+            labelGreenTeamScore.Name = "labelGreenTeamScore";
+            labelGreenTeamScore.Size = new Size(19, 21);
+            labelGreenTeamScore.TabIndex = 1;
+            labelGreenTeamScore.Text = "0";
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Blue;
+            label1.Location = new Point(84, 16);
+            label1.Name = "label1";
+            label1.Size = new Size(19, 21);
+            label1.TabIndex = 1;
+            label1.Text = "0";
+            // 
+            // labelYellowTeamScore
+            // 
+            labelYellowTeamScore.Anchor = AnchorStyles.None;
+            labelYellowTeamScore.AutoSize = true;
+            labelYellowTeamScore.BackColor = Color.Transparent;
+            labelYellowTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelYellowTeamScore.ForeColor = Color.Goldenrod;
+            labelYellowTeamScore.Location = new Point(84, 16);
+            labelYellowTeamScore.Name = "labelYellowTeamScore";
+            labelYellowTeamScore.Size = new Size(19, 21);
+            labelYellowTeamScore.TabIndex = 1;
+            labelYellowTeamScore.Text = "0";
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(884, 961);
+            Controls.Add(scoreTable);
             Controls.Add(mapmodeGroupButton);
             Controls.Add(mapmodeNormalButton);
             Controls.Add(tableTaskView);
@@ -289,7 +484,6 @@
             Controls.Add(testLabel);
             Controls.Add(mapButton);
             Controls.Add(sendButton);
-            Controls.Add(listScores);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -299,12 +493,24 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             alertAndSymbols.ResumeLayout(false);
+            scoreTable.ResumeLayout(false);
+            redTeamScore.ResumeLayout(false);
+            redTeamScore.PerformLayout();
+            greenTeamScore.ResumeLayout(false);
+            greenTeamScore.PerformLayout();
+            blueTeamScore.ResumeLayout(false);
+            blueTeamScore.PerformLayout();
+            yellowTeamScore.ResumeLayout(false);
+            yellowTeamScore.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)redTeamPicture).EndInit();
+            ((System.ComponentModel.ISupportInitialize)greenTeamPicture).EndInit();
+            ((System.ComponentModel.ISupportInitialize)blueTeamPicture).EndInit();
+            ((System.ComponentModel.ISupportInitialize)yellowTeamPicture).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private ListBox listScores;
         private Button sendButton;
         private Button mapButton;
         private Label testLabel;
@@ -322,5 +528,18 @@
         private TableLayoutPanel tableTaskView;
         private Button mapmodeNormalButton;
         private Button mapmodeGroupButton;
+        private TableLayoutPanel scoreTable;
+        private TableLayoutPanel redTeamScore;
+        private PictureBox redTeamPicture;
+        private TableLayoutPanel greenTeamScore;
+        private TableLayoutPanel blueTeamScore;
+        private TableLayoutPanel yellowTeamScore;
+        private PictureBox greenTeamPicture;
+        private PictureBox blueTeamPicture;
+        private PictureBox yellowTeamPicture;
+        private Label labelRedTeamScore;
+        private Label labelGreenTeamScore;
+        private Label label1;
+        private Label labelYellowTeamScore;
     }
 }

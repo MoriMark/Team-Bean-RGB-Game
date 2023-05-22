@@ -52,6 +52,11 @@ namespace RGBModell.modell
             return gameRule.GetFieldValue(x, y);
         }
 
+        public Int32 GetTeamPoints(Team team)
+        {
+            return gameRule.GetTeamPoints(team);
+        }
+
         public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
             Random rnd = new Random();
