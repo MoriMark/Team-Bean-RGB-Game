@@ -136,6 +136,32 @@
         YII=
 </value>
   </data>
+  <data name="asteroid" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI
+        A0EYhT8TRZGIhUFELLaIVtqoiKVEMQgGJIngVbi7MVHIrmE3wcZSsA1YeDRehY21tha2giB4gNjaWCna
+        iKz/bIQEIYIDw3y8mfeYeQOBg5xpufUjYNkFJxGLajOzc1rjMw2000KENt108/HkeIqa4+OWOrXe9Kks
+        /jda0kuuCXWa8IiZdwrCi8JDa4W84h3hsLmsp4VPhXsduaDwvdKNMr8ozvocUJlhJ5UYFQ4La9kqNqrY
+        XHYs4UHhSNqyJT8wU+a04nXFVq5o/txTvTC0ZE8nlS6zixgTxJlCw6DICjkK9Mlqi+KSkP1oDX+n758S
+        lyGuFUxxjLGKhe77UX/wu1s3M9BfTgpFoeHJ8966oXELvkqe93noeV9HEHyEC7viXz2A4XfRSxUtsg+t
+        G3B2WdGMbTjfhI6HvO7ovhSUGchk4PVEvmkW2q6heb7c288+x3eQkq4mr2B3D3qykr1Q491N1b39ecbv
+        j+g3qMByvHXo8zMAAAAJcEhZcwAALiIAAC4iAari3ZIAAAAHdElNRQfnBRYNLDkU63ZcAAAAGXRFWHRD
+        b21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAu1JREFUaEPtme1tAkEMRGmQMiiCEqg60UgMMntj
+        r727xx1KfjzlA9szD6IkSi73+/1Hcb1eX9xutyGwq26Tx+PxQj1uqfbwsl1hQulqIPBCySmFSSUQs0Td
+        IocLR8HZwIwoOYWwF06RDGpfcaiwDc+WmKWSZZ9QJdjSFQa2gMXOrEBlADXbkpHmjNrffNNSRUg7W0Xd
+        VKhdi5Xm+y1qD2yEiSoC1GwGdStC3bBk5BSuMFBFiJr3UPugN9c+voJQmLRFiJptqe5VZkfYVXhkh4zu
+        9UgJg7ZAr0R1XjGz65EWBpUCq4pWMjNcRr/bRawsOCts/cDF/rBWC2dgRNhK0hG8CX9K2paxqFkw8irj
+        nhUlL2EQhc5ixVQZfl7tjsiqDLAR9kJn8QpYvOyKMB3UffAmDLjghY8SlSBeZlaYvdVtshEmXPZKWFgo
+        KtUrAryszG2i7lpcYcJDKghY2V4pdd/i5ay4TbrCIJK2srOlTiMM/oWfWNleqV6xEeHMXcvSL2n1uKVX
+        rJehHqvIgrSwCrOyXiELy+Gth9qL7mOn7RvxceFIbITlwlHBqvAe7CKsgsCfEm5ljxSuSH+9MPgaYb46
+        CjXvgXnVXXGYMMW8TKJ2W6JbLcuE1UwLi2XLedmK7M1QmOVUQFWYt1SOR5Tfkr3tCvfCKsLZMopeD5LN
+        2AhnA0BGOFskItOJM2rf8hLmQu+wZe9Xt6XXLZM19Yf4TwuDqKd18Sj9q2UEhKjio7C4ysrwdcLg9MKr
+        pU8tDFZLn14YUHpWnvsqI8PHhC2j4rOy4BBhUpWelQVlYZZsUbMZuK8EW2ZyyJCwKkLUTu8XFLvf3ibR
+        /Qol4ZlS2d/KItROlbKwErV4xSjck96bUNg+u0RJWjCjboEzSLvCWcGWSJi04vZjS7u3glBYCfXgE6Vu
+        WpSgRe2sYLkwyAgDJUrUPJ/MCLVn2U04UyAjael1ymTuIkxWClNG5Vg452UfKgwqwirD41/4yR8Tvv/8
+        ArKyo83Z/5ljAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="bluebox" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAABgmlDQ1BJQ0MgcHJvZmlsZQAAKM+VkTlI

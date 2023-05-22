@@ -297,7 +297,7 @@ namespace RGB.View
                                         _buttons[i, j].BackColor = Color.Violet;
                                         break;
                                     case TileType.Obstacle:
-                                        _buttons[i, j].BackColor = Color.Gray;
+                                        _buttons[i, j].BackgroundImage = Properties.Resources.asteroid;
                                         break;
                                     //draw Boxes
                                     case TileType.RedBox:
@@ -1308,6 +1308,18 @@ namespace RGB.View
             labelBlueTeamScore.Text = $"{points[1]}";
             labelGreenTeamScore.Text = $"{points[2]}";
             labelYellowTeamScore.Text = $"{points[3]}";
+        }
+
+        private void SuccessUpdate()
+        {
+            if (_gameHandler.GetCurrentPlayer().actionsucces)
+            {
+                successBox.BackColor = Color.Green;
+            }
+            else
+            {
+                successBox.BackColor = Color.Red;
+            }
         }
 
         /// <summary>

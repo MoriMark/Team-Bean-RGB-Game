@@ -47,28 +47,31 @@
             mapmodeGroupButton = new Button();
             scoreTable = new TableLayoutPanel();
             redTeamScore = new TableLayoutPanel();
-            greenTeamScore = new TableLayoutPanel();
-            blueTeamScore = new TableLayoutPanel();
-            yellowTeamScore = new TableLayoutPanel();
             redTeamPicture = new PictureBox();
-            greenTeamPicture = new PictureBox();
-            blueTeamPicture = new PictureBox();
-            yellowTeamPicture = new PictureBox();
             labelRedTeamScore = new Label();
+            greenTeamScore = new TableLayoutPanel();
+            greenTeamPicture = new PictureBox();
             labelGreenTeamScore = new Label();
+            blueTeamScore = new TableLayoutPanel();
+            blueTeamPicture = new PictureBox();
             labelBlueTeamScore = new Label();
+            yellowTeamScore = new TableLayoutPanel();
+            yellowTeamPicture = new PictureBox();
             labelYellowTeamScore = new Label();
+            successBox = new PictureBox();
+            labelSuccess = new Label();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
             scoreTable.SuspendLayout();
             redTeamScore.SuspendLayout();
-            greenTeamScore.SuspendLayout();
-            blueTeamScore.SuspendLayout();
-            yellowTeamScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)redTeamPicture).BeginInit();
+            greenTeamScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)greenTeamPicture).BeginInit();
+            blueTeamScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)blueTeamPicture).BeginInit();
+            yellowTeamScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)yellowTeamPicture).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)successBox).BeginInit();
             SuspendLayout();
             // 
             // sendButton
@@ -260,7 +263,7 @@
             mapmodeNormalButton.BackgroundImage = Properties.Resources.normalMode;
             mapmodeNormalButton.FlatStyle = FlatStyle.Flat;
             mapmodeNormalButton.ForeColor = Color.Blue;
-            mapmodeNormalButton.Location = new Point(113, 39);
+            mapmodeNormalButton.Location = new Point(217, 39);
             mapmodeNormalButton.Margin = new Padding(0);
             mapmodeNormalButton.Name = "mapmodeNormalButton";
             mapmodeNormalButton.Size = new Size(50, 50);
@@ -273,7 +276,7 @@
             mapmodeGroupButton.BackgroundImage = Properties.Resources.groupMode;
             mapmodeGroupButton.FlatStyle = FlatStyle.Flat;
             mapmodeGroupButton.ForeColor = Color.Green;
-            mapmodeGroupButton.Location = new Point(113, 89);
+            mapmodeGroupButton.Location = new Point(217, 89);
             mapmodeGroupButton.Margin = new Padding(0);
             mapmodeGroupButton.Name = "mapmodeGroupButton";
             mapmodeGroupButton.Size = new Size(50, 50);
@@ -314,6 +317,32 @@
             redTeamScore.Size = new Size(125, 54);
             redTeamScore.TabIndex = 0;
             // 
+            // redTeamPicture
+            // 
+            redTeamPicture.BackColor = Color.Transparent;
+            redTeamPicture.BackgroundImage = Properties.Resources.red_down;
+            redTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            redTeamPicture.Dock = DockStyle.Fill;
+            redTeamPicture.Location = new Point(0, 0);
+            redTeamPicture.Margin = new Padding(0);
+            redTeamPicture.Name = "redTeamPicture";
+            redTeamPicture.Size = new Size(62, 54);
+            redTeamPicture.TabIndex = 0;
+            redTeamPicture.TabStop = false;
+            // 
+            // labelRedTeamScore
+            // 
+            labelRedTeamScore.Anchor = AnchorStyles.None;
+            labelRedTeamScore.AutoSize = true;
+            labelRedTeamScore.BackColor = Color.Transparent;
+            labelRedTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelRedTeamScore.ForeColor = Color.Red;
+            labelRedTeamScore.Location = new Point(84, 16);
+            labelRedTeamScore.Name = "labelRedTeamScore";
+            labelRedTeamScore.Size = new Size(19, 21);
+            labelRedTeamScore.TabIndex = 1;
+            labelRedTeamScore.Text = "0";
+            // 
             // greenTeamScore
             // 
             greenTeamScore.BackColor = Color.White;
@@ -330,6 +359,32 @@
             greenTeamScore.Size = new Size(125, 54);
             greenTeamScore.TabIndex = 1;
             // 
+            // greenTeamPicture
+            // 
+            greenTeamPicture.BackColor = Color.Transparent;
+            greenTeamPicture.BackgroundImage = Properties.Resources.green_down;
+            greenTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            greenTeamPicture.Dock = DockStyle.Fill;
+            greenTeamPicture.Location = new Point(0, 0);
+            greenTeamPicture.Margin = new Padding(0);
+            greenTeamPicture.Name = "greenTeamPicture";
+            greenTeamPicture.Size = new Size(62, 54);
+            greenTeamPicture.TabIndex = 0;
+            greenTeamPicture.TabStop = false;
+            // 
+            // labelGreenTeamScore
+            // 
+            labelGreenTeamScore.Anchor = AnchorStyles.None;
+            labelGreenTeamScore.AutoSize = true;
+            labelGreenTeamScore.BackColor = Color.Transparent;
+            labelGreenTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelGreenTeamScore.ForeColor = Color.Green;
+            labelGreenTeamScore.Location = new Point(84, 16);
+            labelGreenTeamScore.Name = "labelGreenTeamScore";
+            labelGreenTeamScore.Size = new Size(19, 21);
+            labelGreenTeamScore.TabIndex = 1;
+            labelGreenTeamScore.Text = "0";
+            // 
             // blueTeamScore
             // 
             blueTeamScore.ColumnCount = 2;
@@ -344,6 +399,32 @@
             blueTeamScore.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             blueTeamScore.Size = new Size(125, 54);
             blueTeamScore.TabIndex = 2;
+            // 
+            // blueTeamPicture
+            // 
+            blueTeamPicture.BackColor = Color.Transparent;
+            blueTeamPicture.BackgroundImage = Properties.Resources.blue_down;
+            blueTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
+            blueTeamPicture.Dock = DockStyle.Fill;
+            blueTeamPicture.Location = new Point(0, 0);
+            blueTeamPicture.Margin = new Padding(0);
+            blueTeamPicture.Name = "blueTeamPicture";
+            blueTeamPicture.Size = new Size(62, 54);
+            blueTeamPicture.TabIndex = 0;
+            blueTeamPicture.TabStop = false;
+            // 
+            // labelBlueTeamScore
+            // 
+            labelBlueTeamScore.Anchor = AnchorStyles.None;
+            labelBlueTeamScore.AutoSize = true;
+            labelBlueTeamScore.BackColor = Color.Transparent;
+            labelBlueTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelBlueTeamScore.ForeColor = Color.Blue;
+            labelBlueTeamScore.Location = new Point(84, 16);
+            labelBlueTeamScore.Name = "labelBlueTeamScore";
+            labelBlueTeamScore.Size = new Size(19, 21);
+            labelBlueTeamScore.TabIndex = 1;
+            labelBlueTeamScore.Text = "0";
             // 
             // yellowTeamScore
             // 
@@ -360,45 +441,6 @@
             yellowTeamScore.Size = new Size(125, 54);
             yellowTeamScore.TabIndex = 3;
             // 
-            // redTeamPicture
-            // 
-            redTeamPicture.BackColor = Color.Transparent;
-            redTeamPicture.BackgroundImage = Properties.Resources.red_down;
-            redTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
-            redTeamPicture.Dock = DockStyle.Fill;
-            redTeamPicture.Location = new Point(0, 0);
-            redTeamPicture.Margin = new Padding(0);
-            redTeamPicture.Name = "redTeamPicture";
-            redTeamPicture.Size = new Size(62, 54);
-            redTeamPicture.TabIndex = 0;
-            redTeamPicture.TabStop = false;
-            // 
-            // greenTeamPicture
-            // 
-            greenTeamPicture.BackColor = Color.Transparent;
-            greenTeamPicture.BackgroundImage = Properties.Resources.green_down;
-            greenTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
-            greenTeamPicture.Dock = DockStyle.Fill;
-            greenTeamPicture.Location = new Point(0, 0);
-            greenTeamPicture.Margin = new Padding(0);
-            greenTeamPicture.Name = "greenTeamPicture";
-            greenTeamPicture.Size = new Size(62, 54);
-            greenTeamPicture.TabIndex = 0;
-            greenTeamPicture.TabStop = false;
-            // 
-            // blueTeamPicture
-            // 
-            blueTeamPicture.BackColor = Color.Transparent;
-            blueTeamPicture.BackgroundImage = Properties.Resources.blue_down;
-            blueTeamPicture.BackgroundImageLayout = ImageLayout.Zoom;
-            blueTeamPicture.Dock = DockStyle.Fill;
-            blueTeamPicture.Location = new Point(0, 0);
-            blueTeamPicture.Margin = new Padding(0);
-            blueTeamPicture.Name = "blueTeamPicture";
-            blueTeamPicture.Size = new Size(62, 54);
-            blueTeamPicture.TabIndex = 0;
-            blueTeamPicture.TabStop = false;
-            // 
             // yellowTeamPicture
             // 
             yellowTeamPicture.BackColor = Color.Transparent;
@@ -411,45 +453,6 @@
             yellowTeamPicture.Size = new Size(62, 54);
             yellowTeamPicture.TabIndex = 0;
             yellowTeamPicture.TabStop = false;
-            // 
-            // labelRedTeamScore
-            // 
-            labelRedTeamScore.Anchor = AnchorStyles.None;
-            labelRedTeamScore.AutoSize = true;
-            labelRedTeamScore.BackColor = Color.Transparent;
-            labelRedTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelRedTeamScore.ForeColor = Color.Red;
-            labelRedTeamScore.Location = new Point(84, 16);
-            labelRedTeamScore.Name = "labelRedTeamScore";
-            labelRedTeamScore.Size = new Size(19, 21);
-            labelRedTeamScore.TabIndex = 1;
-            labelRedTeamScore.Text = "0";
-            // 
-            // labelGreenTeamScore
-            // 
-            labelGreenTeamScore.Anchor = AnchorStyles.None;
-            labelGreenTeamScore.AutoSize = true;
-            labelGreenTeamScore.BackColor = Color.Transparent;
-            labelGreenTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelGreenTeamScore.ForeColor = Color.Green;
-            labelGreenTeamScore.Location = new Point(84, 16);
-            labelGreenTeamScore.Name = "labelGreenTeamScore";
-            labelGreenTeamScore.Size = new Size(19, 21);
-            labelGreenTeamScore.TabIndex = 1;
-            labelGreenTeamScore.Text = "0";
-            // 
-            // labelBlueTeamScore
-            // 
-            labelBlueTeamScore.Anchor = AnchorStyles.None;
-            labelBlueTeamScore.AutoSize = true;
-            labelBlueTeamScore.BackColor = Color.Transparent;
-            labelBlueTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelBlueTeamScore.ForeColor = Color.Blue;
-            labelBlueTeamScore.Location = new Point(84, 16);
-            labelBlueTeamScore.Name = "labelBlueTeamScore";
-            labelBlueTeamScore.Size = new Size(19, 21);
-            labelBlueTeamScore.TabIndex = 1;
-            labelBlueTeamScore.Text = "0";
             // 
             // labelYellowTeamScore
             // 
@@ -464,12 +467,31 @@
             labelYellowTeamScore.TabIndex = 1;
             labelYellowTeamScore.Text = "0";
             // 
+            // successBox
+            // 
+            successBox.Location = new Point(130, 74);
+            successBox.Name = "successBox";
+            successBox.Size = new Size(51, 50);
+            successBox.TabIndex = 30;
+            successBox.TabStop = false;
+            // 
+            // labelSuccess
+            // 
+            labelSuccess.AutoSize = true;
+            labelSuccess.Location = new Point(128, 52);
+            labelSuccess.Name = "labelSuccess";
+            labelSuccess.Size = new Size(53, 15);
+            labelSuccess.TabIndex = 31;
+            labelSuccess.Text = "Success?";
+            // 
             // GameView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(884, 961);
+            Controls.Add(labelSuccess);
+            Controls.Add(successBox);
             Controls.Add(scoreTable);
             Controls.Add(mapmodeGroupButton);
             Controls.Add(mapmodeNormalButton);
@@ -497,16 +519,17 @@
             scoreTable.ResumeLayout(false);
             redTeamScore.ResumeLayout(false);
             redTeamScore.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)redTeamPicture).EndInit();
             greenTeamScore.ResumeLayout(false);
             greenTeamScore.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)greenTeamPicture).EndInit();
             blueTeamScore.ResumeLayout(false);
             blueTeamScore.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)blueTeamPicture).EndInit();
             yellowTeamScore.ResumeLayout(false);
             yellowTeamScore.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)redTeamPicture).EndInit();
-            ((System.ComponentModel.ISupportInitialize)greenTeamPicture).EndInit();
-            ((System.ComponentModel.ISupportInitialize)blueTeamPicture).EndInit();
             ((System.ComponentModel.ISupportInitialize)yellowTeamPicture).EndInit();
+            ((System.ComponentModel.ISupportInitialize)successBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -542,5 +565,7 @@
         private Label labelGreenTeamScore;
         private Label labelBlueTeamScore;
         private Label labelYellowTeamScore;
+        private PictureBox successBox;
+        private Label labelSuccess;
     }
 }
