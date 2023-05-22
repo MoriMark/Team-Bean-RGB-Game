@@ -4,6 +4,7 @@ using RGBModell.modell.gameobjects;
 
 namespace RGBModell.modell
 {
+    [Obsolete("This class is not used anymore.")]
     public class RobotGroup
     {
         private Dictionary<Team, List<Robot>> groups;

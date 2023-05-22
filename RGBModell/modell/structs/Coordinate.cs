@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.structs
 {
+    /// <summary>
+    /// This struct represents a field in a matrix
+    /// </summary>
     public struct Coordinate
     {
         public int X; public int Y;

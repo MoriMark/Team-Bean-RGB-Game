@@ -56,7 +56,12 @@ namespace RGBModell.modell.game_logic
             return field.GetValue(x, y);
         }
 
-        // TODO doc comment
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="TableIsMissingException">when table is not defined.</exception>
+        /// <exception cref="RobotsReuiredToPlayException">robots not defined.</exception>
         public Boolean StartGame()
         {
             if (field is null) throw new TableIsMissingException();
@@ -74,7 +79,6 @@ namespace RGBModell.modell.game_logic
             return true;
         }
 
-        // TODO doc comment
         public void SetTable(Field field)
         {
             if (GameIsActive) throw new ActiveGameException();
@@ -82,7 +86,6 @@ namespace RGBModell.modell.game_logic
             this.field = field;
         }
 
-        //Temporary
         public void SetRobots(List<Robot> robots)
         {
             if (GameIsActive) throw new ActiveGameException();
@@ -726,6 +729,10 @@ namespace RGBModell.modell.game_logic
 
         public List<Exit> GetExits() { return field.GetExits; }
 
+        /// <summary>
+        /// Returns if the current robot stands on an exit.
+        /// </summary>
+        /// <returns>True if the current robot standing on an exit.</returns>
         public Boolean RobotStandsOnExit()
         {
             foreach(Exit exit in field.GetExits)
@@ -739,6 +746,9 @@ namespace RGBModell.modell.game_logic
             return false;
         }
 
+        /// <summary>
+        /// Check if current robot has done a task.
+        /// </summary>
         private void CheckIfAnyTasksIsDone()
         {
             if (RobotStandsOnExit() && currentRobot.IsAttached())

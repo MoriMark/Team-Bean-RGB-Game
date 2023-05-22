@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.structs
 {
+    /// <summary>
+    /// Represents a message of a robot
+    /// </summary>
     public struct Message
     {
         public readonly Robot robot;

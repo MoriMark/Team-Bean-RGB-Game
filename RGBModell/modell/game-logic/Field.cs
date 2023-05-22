@@ -1,13 +1,6 @@
 ﻿using RGBModell.modell.enums;
 using RGBModell.modell.gameobjects;
 using RGBModell.modell.structs;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RGBModell.modell.game_logic
 {
@@ -21,6 +14,9 @@ namespace RGBModell.modell.game_logic
         private const Int32 NUMBER_OF_EXITS = 5;
 
         //[0,100]
+        /// <summary>
+        /// Indicates the percentage of table filled with boxes
+        /// </summary>
         private const Int32 COVERAGE_RATIO_OF_BOXES = 40;
 
         public Field(Int32 tableSize)
@@ -91,6 +87,11 @@ namespace RGBModell.modell.game_logic
 
         public List<Exit> GetExits { get { return exits; } }
 
+        /// <summary>
+        /// Calculates the vision of robot in the table.
+        /// </summary>
+        /// <param name="robot">robot which view will be calculated.</param>
+        /// <returns>Manhattan view.</returns>
         public GameObject[,] CalculateVisionOfRobot(Robot robot)
         {
             const Int32 viewDistance = 4;
@@ -311,12 +312,12 @@ namespace RGBModell.modell.game_logic
                             numOfBoxes--;
                             break;
                     }
-
+                    
                     count--;
                 }
             }
         }
-
+        
         //Field generation for the start of the game
         public List<Robot> GenerateField(Int32 numOfRobots, Int32 numOfTeams)
         {

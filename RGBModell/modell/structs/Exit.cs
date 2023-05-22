@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.structs
 {
+    /// <summary>
+    /// Loosely coupled exit coordinates used with Field class
+    /// </summary>
     public struct Exit
     {
         public Coordinate Coordinate { get; private set; }
