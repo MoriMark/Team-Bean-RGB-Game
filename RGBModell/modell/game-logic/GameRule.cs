@@ -804,8 +804,8 @@ namespace RGBModell.modell.game_logic
         {
             Random rnd = new Random();
             int x, y;
-            x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
-            while (!field.BetweenBorders(x, y) && (field.GetValue(x,y).IsEmpty() || (field.GetValue(x, y) is Box && ((Box)field.GetValue(x, y)).ingroup == 0)))
+            x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);                                                                            
+            while (!(field.BetweenBorders(x, y)) || !(field.GetValue(x,y).IsEmpty()))
             {
                 x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
             }
