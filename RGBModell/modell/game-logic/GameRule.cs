@@ -804,10 +804,12 @@ namespace RGBModell.modell.game_logic
         {
             Random rnd = new Random();
             int x, y;
+            int triesLeft = 1000;
             x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);                                                                            
-            while (!(field.BetweenBorders(x, y)) || !(field.GetValue(x,y).IsEmpty()))
+            while (!(field.BetweenBorders(x, y)) || !(field.GetValue(x,y).IsEmpty()) && triesLeft > 0)
             {
                 x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
+                triesLeft--;
             }
             int gameobjectcount = 1;                   
             switch (rnd.Next(3))
