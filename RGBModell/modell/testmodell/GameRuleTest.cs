@@ -37,12 +37,13 @@ namespace RGBModell.modell.testmodell
             remove { taskHandler.UpdateFields -= value; }
         }
 
+        public event EventHandler<SpecialEventEventArgs> SpecialEvents;
         public GameRuleTest(Int32 numOfRobots, Int32 numOfTeams)
         {
             GameIsActive = false;
             GameIsPaused = false;
             int totalRobots = numOfRobots * numOfTeams;
-            int tableSize = totalRobots*8;
+            int tableSize = totalRobots * 4;
             field = new FieldTest(tableSize);
             robots = field.GenerateField(numOfRobots, numOfTeams);
             boxgroups = new Dictionary<int, BoxGroup>();
@@ -87,7 +88,7 @@ namespace RGBModell.modell.testmodell
             if (GameIsActive) throw new ActiveGameException();
 
             this.robots = robots;
-        } 
+        }
 
         /// <summary>
         /// Pauses or resumes the game.
@@ -153,31 +154,32 @@ namespace RGBModell.modell.testmodell
         }
 
         /// <summary>
-        /// Checks where the welding is successful
+        /// Checks where the welding is successful and creates or expends the boxgroups.
         /// </summary>
         public void WeldCheck()
         {
-            for(int i=0; i<field.MatrixSize; i++)
+            for (int i = 0; i < field.MatrixSize; i++)
             {
-                for(int j = 0; j < field.MatrixSize; j++)
+                for (int j = 0; j < field.MatrixSize; j++)
                 {
-                    if(field.GetValue(i,j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
+                    if (field.GetValue(i, j).GetType() == typeof(Box) && ((Box)field.GetValue(i, j)).attaching != Team.NoTeam)
                     {
-                        if(i + 1 < field.MatrixSize && field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
+                        if (i + 1 < field.MatrixSize && field.GetValue(i + 1, j).GetType() == typeof(Box) && ((Box)field.GetValue(i + 1, j)).attaching != Team.NoTeam)
                         {
-                            if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
+                            if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
                             {
                                 BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i + 1, j)));
                                 boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
-                                //((Box)field.GetValue(i + 1, j)).attaching= Team.NoTeam;
-                            } else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup == 0)
                             {
-                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j),(Box)field.GetValue(i + 1, j));
-                            } else if(((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
+                                boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j));
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
                             {
-                                boxgroups[((Box)field.GetValue(i + 1, j)).ingroup].AddBox((Box)field.GetValue(i + 1, j), (Box)field.GetValue(i , j));
-                            } else if(((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i+1, j)).ingroup)
+                                boxgroups[((Box)field.GetValue(i + 1, j)).ingroup].AddBox((Box)field.GetValue(i + 1, j), (Box)field.GetValue(i, j));
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i + 1, j)).ingroup)
                             {
                                 int delete1 = ((Box)field.GetValue(i, j)).ingroup;
                                 int delete2 = ((Box)field.GetValue(i + 1, j)).ingroup;
@@ -186,29 +188,28 @@ namespace RGBModell.modell.testmodell
                                 boxgroups.Remove(delete2);
                                 boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
 
-                            } else if(((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
+                            }
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i + 1, j)).ingroup != 0)
                             {
                                 boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i + 1, j));
                             }
                         }
-                        if (j + 1 < field.MatrixSize && field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j+1)).attaching != Team.NoTeam)
+                        if (j + 1 < field.MatrixSize && field.GetValue(i, j + 1).GetType() == typeof(Box) && ((Box)field.GetValue(i, j + 1)).attaching != Team.NoTeam)
                         {
                             if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
                                 BoxGroup tempboxgroup = new BoxGroup(((Box)field.GetValue(i, j)), ((Box)field.GetValue(i, j + 1)));
                                 boxgroups.Add(tempboxgroup.groupid, tempboxgroup);
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
-                                //((Box)field.GetValue(i, j)).attaching= Team.NoTeam;
                             }
                             else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup == 0)
                             {
                                 boxgroups[((Box)field.GetValue(i, j)).ingroup].AddBox((Box)field.GetValue(i, j), (Box)field.GetValue(i, j + 1));
                             }
-                            else if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j +1 )).ingroup != 0)
+                            else if (((Box)field.GetValue(i, j)).ingroup == 0 && ((Box)field.GetValue(i, j + 1)).ingroup != 0)
                             {
-                                boxgroups[((Box)field.GetValue(i, j +1 )).ingroup].AddBox((Box)field.GetValue(i, j + 1), (Box)field.GetValue(i, j));
+                                boxgroups[((Box)field.GetValue(i, j + 1)).ingroup].AddBox((Box)field.GetValue(i, j + 1), (Box)field.GetValue(i, j));
                             }
-                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j +1)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i, j + 1)).ingroup)
+                            else if (((Box)field.GetValue(i, j)).ingroup != 0 && ((Box)field.GetValue(i, j + 1)).ingroup != 0 && ((Box)field.GetValue(i, j)).ingroup != ((Box)field.GetValue(i, j + 1)).ingroup)
                             {
                                 int delete1 = ((Box)field.GetValue(i, j)).ingroup;
                                 int delete2 = ((Box)field.GetValue(i, j + 1)).ingroup;
@@ -239,7 +240,7 @@ namespace RGBModell.modell.testmodell
         }
 
         /// <summary>
-        /// Makes a turn, changing the current direction of the player.
+        /// Makes a turn, changing the current direction of the player, along with any boxes that are connected.
         /// </summary>
         /// <param name="direction">The direction to turn to.</param>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -254,168 +255,96 @@ namespace RGBModell.modell.testmodell
             if (!r.IsAttached())
             {
                 r.facing = direction;
+                r.actionsucces = true;
             }
             else
             {
-                bool boxesplaceable = true;
-                foreach(Robot robot in robots)
+                int rightmult = 1;
+                int leftmult = 1;
+                if (r.facing == Direction.Up && direction == Direction.Right
+                    || r.facing == Direction.Down && direction == Direction.Left
+                    || r.facing == Direction.Right && direction == Direction.Down
+                    || r.facing == Direction.Left && direction == Direction.Up)
                 {
-                    if(robot.IsAttached() && r.GetAttachedGroupId() == 0)
-                    {
-                        if ( robot.Attached.id == r.Attached.id  && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
-                        {
-
-                            boxesplaceable = false;
-                        }
-                    }
-                    else if(robot.IsAttached())
-                    {
-                       if(robot.GetAttachedGroupId() == r.GetAttachedGroupId() && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
-                        {
-                            boxesplaceable = false;
-                        }
-                    }
-                    
-                }
-                if(r.GetAttachedGroupId() != 0)
-                {
-                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
-                    if (r.facing == Direction.Up && direction == Direction.Right
-                        || r.facing == Direction.Down && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up
-                        )
-                    {
-                        //right rotation
-                        //bool boxesplaceable = true;
-                        foreach (Box b in boxes)
-                        {
-                            int diffi = r.i - b.i;
-                            int diffj = (r.j - b.j);
-                            int diffi2 = -1 * diffj;
-                            int diffj2 = diffi;
-                            int newi = diffi2 + r.i;
-                            int newj = diffj2 + r.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
-                        }
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;
-                            foreach (Box b in boxes)
-                            {
-                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
-                                {
-                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                                }
-                                int diffi = r.i - b.i;
-                                int diffj = (r.j - b.j);
-                                int diffi2 = -1 * diffj;
-                                int diffj2 = diffi;
-                                int newi = diffi2 + r.i;
-                                int newj = diffj2 + r.j;
-                                field.SetValue(newi, newj, b);
-                            }
-                        }
-                    }
-                    else if (r.facing == Direction.Down && direction == Direction.Right
-                         || r.facing == Direction.Up && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
-                    {
-                        //left rotation
-                        //bool boxesplaceable = true;
-                        foreach (Box b in boxes)
-                        {
-                            int diffi = r.i - b.i;
-                            int diffj = (r.j - b.j);
-                            int diffi2 = diffj;
-                            int diffj2 = -1 * diffi;
-                            int newi = diffi2 + r.i;
-                            int newj = diffj2 + r.j;
-                            boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && ((field.GetValue(newi, newj).IsEmpty()) || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
-                        }
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;
-                            foreach (Box b in boxes)
-                            {
-                                if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
-                                {
-                                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                                }
-                                int diffi = r.i - b.i;
-                                int diffj = (r.j - b.j);
-                                int diffi2 = diffj;
-                                int diffj2 =  -1 * diffi;
-                                int newi = diffi2 + r.i;
-                                int newj = diffj2 + r.j;
-                                field.SetValue(newi, newj, b);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Wrong direction was added relative to player position!");
-                    }
+                    rightmult = -1;
                 }
                 else
                 {
-                    if ( r.facing == Direction.Up && direction == Direction.Right
-                        || r.facing == Direction.Down && direction == Direction.Left 
-                        || r.facing == Direction.Right && direction == Direction.Down || r.facing == Direction.Left && direction == Direction.Up)
+                    leftmult = -1;
+                }
+                bool boxesplaceable = true;
+                foreach (Robot robot in robots)
+                {
+                    if (robot.IsAttached() && r.GetAttachedGroupId() == 0)
                     {
-                        //Right Rotation
-                        Box b = r.Attached;
-                        //bool boxesplaceable = true;
-                        int diffi = r.i - b.i;
-                        int diffj =  (r.j - b.j);
-                        int diffi2 = -1 * diffj;
-                        int diffj2 = diffi;
-                        int newi = diffi2 + r.i;
-                        int newj = diffj2 + r.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
-                        if (boxesplaceable)
+                        if (robot.Attached.id == r.Attached.id && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
                         {
-                            r.facing = direction;
-                           
-                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            boxesplaceable = false;
+                        }
+                    }
+                    else if (robot.IsAttached())
+                    {
+                        if (robot.GetAttachedGroupId() == r.GetAttachedGroupId() && ((robot.team == r.team && robot.name != r.name) || (robot.team != r.team)))
+                        {
+                            boxesplaceable = false;
+                        }
+                    }
+
+                }
+                if (r.GetAttachedGroupId() != 0)
+                {
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
+                    foreach (Box b in boxes)
+                    {
+                        int newi = (rightmult * (r.j - b.j)) + r.i;
+                        int newj = (leftmult * (r.i - b.i)) + r.j;
+                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && (field.GetValue(newi, newj).IsEmpty() || (field.GetValue(newi, newj).GetType() == typeof(Box) && ((Box)field.GetValue(newi, newj)).ingroup == r.GetAttachedGroupId()));
+                    }
+                    if (boxesplaceable)
+                    {
+                        r.actionsucces = true;
+                        r.facing = direction;
+                        foreach (Box b in boxes)
+                        {
+                            if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
+                            {
+                                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                            }
+                            int newi = (rightmult * (r.j - b.j)) + r.i;
+                            int newj = (leftmult * (r.i - b.i)) + r.j;
                             field.SetValue(newi, newj, b);
                         }
                     }
-                    else if (r.facing == Direction.Down && direction == Direction.Right
-                         || r.facing == Direction.Up && direction == Direction.Left
-                        || r.facing == Direction.Right && direction == Direction.Up || r.facing == Direction.Left && direction == Direction.Down)
+                    else r.actionsucces = false;
+                }
+                else
+                {
+                    Box b = r.Attached;
+                    int newi = (rightmult * (r.j - b.j)) + r.i;
+                    int newj = (leftmult * (r.i - b.i)) + r.j;
+                    boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
+                    if (boxesplaceable)
                     {
-                        //Left Rotation
-                        Box b = r.Attached;
-                        //bool boxesplaceable = true;
-                        int diffi = r.i - b.i;
-                        int diffj = (r.j - b.j);
-                        int diffi2 = diffj;
-                        int diffj2 = -1 * diffi;
-                        int newi = diffi2 + r.i;
-                        int newj = diffj2 + r.j;
-                        boxesplaceable &= !((newi < 0 || newj < 0) || (field.MatrixSize <= newi || field.MatrixSize <= newj)) && field.GetValue(newi, newj).IsEmpty();
-                        if (boxesplaceable)
-                        {
-                            r.facing = direction;                       
-                            field.SetValue(b.i, b.j, new Empty(b.i, b.j));
-                            field.SetValue(newi, newj, b);
-                           
-                        }
+                        r.actionsucces = true;
+                        r.facing = direction;
+                        field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                        field.SetValue(newi, newj, b);
                     }
+                    else r.actionsucces = false;
                 }
             }
             OnFieldsUpdate();
         }
 
         /// <summary>
-        /// 
+        /// Moves the player to the given coordinates if it is possible, along with any boxes that it is connected to.
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <exception cref="NoActiveGameException"></exception>
         /// <exception cref="GameIsPausedException"></exception>
         /// <exception cref="NotImplementedException"></exception>
-        public void MakeStep(Int32 i, Int32 j, Robot robot)
+        public void MakeStep(Int32 i, Int32 j, Robot r)
         {
             if (!GameIsActive)
                 throw new NoActiveGameException();
@@ -427,108 +356,108 @@ namespace RGBModell.modell.testmodell
 
             bool robotplaceable = false;
             bool boxesplaceable = true;
-            int diffi = i - robot.i;
-            int diffj = j - robot.j;
+            int diffi = i - r.i;
+            int diffj = j - r.j;
             try
             {
                 robotplaceable = field.GetValue(i, j).IsEmpty();
-                if(robot.IsAttached() && robot.GetAttachedGroupId() != 0)
+                if (r.IsAttached() && r.GetAttachedGroupId() != 0)
                 {
-                    foreach(Robot r in robots)
+                    foreach (Robot allrob in robots)
                     {
-                        if (r.IsAttached() && r.GetAttachedGroupId() == robot.GetAttachedGroupId() && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (allrob.IsAttached() && allrob.GetAttachedGroupId() == r.GetAttachedGroupId() && ((allrob.team == r.team && allrob.name != r.name) || (allrob.team != r.team)))
                         {
-                            boxesplaceable= false;
+                            boxesplaceable = false;
                         }
                     }
-                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
-                        boxesplaceable &= ( !((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj)) 
-                            && 
-                            ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()) 
-                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == robot.GetAttachedGroupId())
-                            || (field.GetValue(b.i +diffi ,b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                        boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj))
+                            &&
+                            ((field.GetValue(b.i + diffi, b.j + diffj).IsEmpty())
+                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Box) && ((Box)field.GetValue(b.i + diffi, b.j + diffj)).ingroup == r.GetAttachedGroupId())
+                            || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == r.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == r.name)
                             ));
                     }
                 }
-                if(robot.IsAttached() && robot.GetAttachedGroupId() == 0)
+                if (r.IsAttached() && r.GetAttachedGroupId() == 0)
                 {
-                    foreach (Robot r in robots)
+                    foreach (Robot allrob in robots)
                     {
-                        if (r.IsAttached() && r.Attached.id == robot.Attached.id && ((r.team == robot.team && r.name != robot.name) || (r.team != robot.team)))
+                        if (allrob.IsAttached() && allrob.Attached.id == r.Attached.id && ((allrob.team == r.team && allrob.name != r.name) || (allrob.team != r.team)))
                         {
-                            boxesplaceable = false;                   
+                            boxesplaceable = false;
                         }
                     }
-                    Box b = robot.Attached;
+                    Box b = r.Attached;
                     boxesplaceable &= (!((b.i + diffi < 0 || b.j + diffj < 0) || (field.MatrixSize <= b.i + diffi || field.MatrixSize <= b.j + diffj))
                             && (field.GetValue(b.i + diffi, b.j + diffj).IsEmpty()
-                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == robot.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == robot.name)
+                        || (field.GetValue(b.i + diffi, b.j + diffj).GetType() == typeof(Robot) && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).team == r.team && ((Robot)field.GetValue(b.i + diffi, b.j + diffj)).name == r.name)
                        ));
                 }
-
             }
             catch (Exception e)
-            { 
-                
+            {
+
             }
 
             if (!((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j))
-                && robotplaceable && !robot.IsAttached())
+                && robotplaceable && !r.IsAttached())
             {
                 //set empty at robot old location
-                field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                field.SetValue(r.i, r.j, new Empty(r.i, r.j));
                 //set robot to the new location
-                field.SetValue(i, j, robot);
+                field.SetValue(i, j, r);
                 //tell the robot it's new location
-
-
+                r.actionsucces = true;
             }
-            else if(robot.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
+            else if (r.IsAttached() && boxesplaceable && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
             {
-                if(robot.GetAttachedGroupId() != 0)
+                if (r.GetAttachedGroupId() != 0)
                 {
-                    List<Box> boxes = boxgroups[robot.GetAttachedGroupId()].boxes;
-
+                    r.actionsucces = true;
+                    List<Box> boxes = boxgroups[r.GetAttachedGroupId()].boxes;
                     foreach (Box b in boxes)
                     {
-                        if(field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
+                        if (field.GetValue(b.i, b.j).GetType() == typeof(Box) && b.id == ((Box)field.GetValue(b.i, b.j)).id)
                         {
                             field.SetValue(b.i, b.j, new Empty(b.i, b.j));
                         }
                         //set robot to the new location
                         field.SetValue(b.i + diffi, b.j + diffj, b);
                         //tell the robot it's new location
-
                     }
-                    if(field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
+                    if (field.GetValue(r.i, r.j).GetType() == typeof(Robot))
                     {
-                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
+                        field.SetValue(r.i, r.j, new Empty(r.i, r.j));
                     }
                     //set robot to the new location
-                    field.SetValue(i, j, robot);
-                    //tell the robot it's new location
-                } else if(robot.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
-                {
-                    Box box = robot.Attached;
-                    field.SetValue(box.i, box.j , new Empty(box.i, box.j));
-                    field.SetValue(box.i + diffi, box.j + diffj, box);
-                    
-                    if (field.GetValue(robot.i, robot.j).GetType() == typeof(Robot))
-                    {
-                        field.SetValue(robot.i, robot.j, new Empty(robot.i, robot.j));
-                    }
-                    
-                    //set robot to the new location
-                    field.SetValue(i, j, robot);
+                    field.SetValue(i, j, r);
                     //tell the robot it's new location
                 }
-                
-            }
+                else if (r.GetAttachedGroupId() == 0 && !((i < 0 || j < 0) || (field.MatrixSize <= i || field.MatrixSize <= j)))
+                {
+                    r.actionsucces = true;
+                    Box box = r.Attached;
+                    field.SetValue(box.i, box.j, new Empty(box.i, box.j));
+                    field.SetValue(box.i + diffi, box.j + diffj, box);
 
+                    if (field.GetValue(r.i, r.j).GetType() == typeof(Robot))
+                    {
+                        field.SetValue(r.i, r.j, new Empty(r.i, r.j));
+                    }
+                    //set robot to the new location
+                    field.SetValue(i, j, r);
+                    //tell the robot it's new location
+                }
+
+            }
+            else
+            {
+                r.actionsucces = false;
+            }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
@@ -546,11 +475,10 @@ namespace RGBModell.modell.testmodell
             // Additional code here
 
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
-        /// 
+        /// Lowers the health of the box or obstacle infront of the robot and deletes on the field it if it reaches zero.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -566,7 +494,7 @@ namespace RGBModell.modell.testmodell
 
             //Getting the coordinate to be cleaned
             Coordinate cleaning;
-            switch(robot.facing)
+            switch (robot.facing)
             {
                 case Direction.Up:
                     if (robot.i - 1 < 0)
@@ -601,32 +529,33 @@ namespace RGBModell.modell.testmodell
                     cleaning = new Coordinate(robot.i, robot.j + 1);
                     break;
                 default:
-                    cleaning = new Coordinate(-1,-1);
+                    cleaning = new Coordinate(-1, -1);
                     break;
             }
 
-            if (cleaning.X == -1 ||  cleaning.Y == -1)
-                { return;}
+            if (cleaning.X == -1 || cleaning.Y == -1)
+            { return; }
 
-            if (field.GetValue(cleaning.X, cleaning.Y) is Box)
+            if (field.GetValue(cleaning.X, cleaning.Y) is Obstacle || field.GetValue(cleaning.X, cleaning.Y) is Box && ((Box)field.GetValue(cleaning.X, cleaning.Y)).ingroup == 0)
             {
-                Box cleaningBox = (Box)field.GetValue(cleaning.X, cleaning.Y);
-                cleaningBox.health--;
-                if (cleaningBox.health <= 0)
+                robot.actionsucces = true;
+                DeletableObject cleingingobject = (DeletableObject)field.GetValue(cleaning.X, cleaning.Y);
+                cleingingobject.health--;
+                if (cleingingobject.health <= 0)
                 {
                     field.SetValue(cleaning.X, cleaning.Y, new Empty(cleaning.X, cleaning.Y));
                 }
-                else
-                {
-                    field.SetValue(cleaning.X, cleaning.Y, cleaningBox);
-                }
             }
+            else
+            {
+                robot.actionsucces = false;
+            }
+
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         /// <summary>
-        /// 
+        /// Conects the robot to the box in front of it.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
@@ -638,43 +567,79 @@ namespace RGBModell.modell.testmodell
             if (GameIsPaused)
                 throw new GameIsPausedException();
 
+            r.actionsucces = false;
             if (!r.IsAttached())
             {
                 switch (r.facing)
                 {
                     case Direction.Up:
-                        if (field.GetValue(r.i-1, r.j).GetType() == typeof(Box))
+                        if (field.GetValue(r.i - 1, r.j).GetType() == typeof(Box))
                         {
                             r.Attached = (Box)field.GetValue(r.i - 1, r.j);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Down:
-                        if (field.GetValue(r.i+1, r.j).GetType() == typeof(Box))
+                        if (field.GetValue(r.i + 1, r.j).GetType() == typeof(Box))
                         {
-                            r.Attached = (Box)field.GetValue(r.i+1, r.j);
+                            r.Attached = (Box)field.GetValue(r.i + 1, r.j);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Left:
-                        if (field.GetValue(r.i, r.j -1).GetType() == typeof(Box))
+                        if (field.GetValue(r.i, r.j - 1).GetType() == typeof(Box))
                         {
-                            r.Attached = (Box)field.GetValue(r.i, r.j-1);
+                            r.Attached = (Box)field.GetValue(r.i, r.j - 1);
+                            r.actionsucces = true;
                         }
                         break;
                     case Direction.Right:
-                        if (field.GetValue(r.i , r.j+1).GetType() == typeof(Box))
+                        if (field.GetValue(r.i, r.j + 1).GetType() == typeof(Box))
                         {
-                            r.Attached = (Box)field.GetValue(r.i, r.j+1);
+                            r.Attached = (Box)field.GetValue(r.i, r.j + 1);
+                            r.actionsucces = true;
                         }
                         break;
                 }
+                OnFieldsUpdate();
             }
             else
             {
-                r.Attached = null;
+                r.actionsucces = false;
             }
-            OnFieldsUpdate();
+
         }
 
+        /// <summary>
+        /// Disconects the robot if it is connected to a box.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
+        public void UnLift(Robot r)
+        {
+            if (!GameIsActive)
+                throw new NoActiveGameException();
+            if (GameIsPaused)
+                throw new GameIsPausedException();
+            if (!r.IsAttached())
+            {
+                r.actionsucces = true;
+                r.Attached = null;
+                OnFieldsUpdate();
+            }
+            else
+            {
+                r.actionsucces = false;
+            }
+        }
+
+        /// <summary>
+        /// Marks a box in front of the robot for welding with the teams color.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
         public void Weld(Robot r)
         {
             if (!GameIsActive)
@@ -688,31 +653,43 @@ namespace RGBModell.modell.testmodell
                     if (field.GetValue(r.i - 1, r.j).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i - 1, r.j)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Down:
                     if (field.GetValue(r.i + 1, r.j).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i + 1, r.j)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Left:
                     if (field.GetValue(r.i, r.j - 1).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i, r.j - 1)).attaching = r.team;
+                        r.actionsucces = true;
                     }
                     break;
                 case Direction.Right:
                     if (field.GetValue(r.i, r.j + 1).GetType() == typeof(Box))
                     {
                         ((Box)field.GetValue(r.i, r.j + 1)).attaching = r.team;
+                        r.actionsucces = true;
                     }
+                    break;
+                default:
+                    r.actionsucces = false;
                     break;
             }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
+        /// <summary>
+        /// Disconnects an attachment between the two boxes coordinates after it checked wether they are close to the player and that they are boxes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NoActiveGameException">Thrown when there is no active game.</exception>
+        /// <exception cref="GameIsPausedException">Thrown when the active game is paused.</exception>
         public void UnWeld(Int32 i1, Int32 j1, Int32 i2, Int32 j2, Robot r)
         {
             if (!GameIsActive)
@@ -728,39 +705,43 @@ namespace RGBModell.modell.testmodell
             Int32 diffjs = j1 - j2;
 
             bool nexttorobot = (diffi1 <= 1 && diffi1 >= -1 && diffj1 <= 1 && diffj1 >= -1) && (diffi2 <= 1 && diffi2 >= -1 && diffj2 <= 1 && diffj2 >= -1)
-                && (diffis <= 1 && diffis >= -1 && diffjs <= 1 && diffjs >= -1) && (i1!= i2 || j1 != j2) && ((Math.Abs(diffis) + (Math.Abs(diffjs))) < 2);
+                && (diffis <= 1 && diffis >= -1 && diffjs <= 1 && diffjs >= -1) && (i1 != i2 || j1 != j2) && ((Math.Abs(diffis) + (Math.Abs(diffjs))) < 2);
 
-            if ( nexttorobot && field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
+            if (nexttorobot && field.GetValue(i1, j1).GetType() == typeof(Box) && field.GetValue(i2, j2).GetType() == typeof(Box) && ((Box)field.GetValue(i1, j1)).ingroup != 0 && ((Box)field.GetValue(i2, j2)).ingroup != 0 && ((Box)field.GetValue(i1, j1)).ingroup == ((Box)field.GetValue(i2, j2)).ingroup)
             {
+                r.actionsucces = true;
                 BoxGroup tempboxgroup = boxgroups[((Box)field.GetValue(i1, j1)).ingroup];
                 tempboxgroup.DetachAttachment((Box)field.GetValue(i1, j1), (Box)field.GetValue(i2, j2));
-                if (tempboxgroup.CheckGroup() != 0 )
+                if (tempboxgroup.CheckGroup() != 0)
                 {
                     boxgroups.Remove(tempboxgroup.groupid);
                 }
                 else
                 {
                     BoxGroup? boxgroupsplit = tempboxgroup.SplitGroup();
-                    if(boxgroupsplit != null)
+                    if (boxgroupsplit != null)
                     {
-                        boxgroups.Add(boxgroupsplit.groupid,boxgroupsplit);
+                        boxgroups.Add(boxgroupsplit.groupid, boxgroupsplit);
                     }
                 }
             }
+            else
+            {
+                r.actionsucces = false;
+            }
             OnFieldsUpdate();
-            //NextRobot();
         }
 
         public List<Exit> GetExits() { return field.GetExits; }
 
         public Boolean RobotStandsOnExit()
         {
-            foreach(Exit exit in field.GetExits)
+            foreach (Exit exit in field.GetExits)
             {
                 if (currentRobot.i == exit.Coordinate.X &&
                     currentRobot.j == exit.Coordinate.Y &&
                     currentRobot.facing == exit.Direction)
-                        return true;
+                    return true;
             }
 
             return false;
@@ -782,8 +763,8 @@ namespace RGBModell.modell.testmodell
                 if (task.HasValue)
                 {
                     taskHandler.FinishTask(currentRobot.team, task.Value);
-                    currentRobot.Attached = null;
                     DeleteBoxGroup(currentRobot.GetAttachedGroupId());
+                    currentRobot.Attached = null;
                 }
             }
         }
@@ -801,14 +782,91 @@ namespace RGBModell.modell.testmodell
                 taskHandler.GenerateRandomTaskForTeam(currentRobot.team);
         }
 
+        /// <summary>
+        /// Delets a boxgroup from the field and from the dictionary.
+        /// </summary>
+        /// <returns></returns>
         private void DeleteBoxGroup(int key)
         {
-            BoxGroup dboxgroup = boxgroups[key];
-            boxgroups.Remove(key);
-            foreach(Box b in dboxgroup.boxes)
+            if (key != 0)
             {
-                field.SetValue(b.i,b.j,new Empty(b.i,b.j));
+                BoxGroup dboxgroup = boxgroups[key];
+                boxgroups.Remove(key);
+                foreach (Box b in dboxgroup.boxes)
+                {
+                    field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+                }
             }
+            else
+            {
+                Box b = currentRobot.Attached;
+                field.SetValue(b.i, b.j, new Empty(b.i, b.j));
+            }
+        }
+
+        /// <summary>
+        /// Randomly chooses an event wich can place obstacles or boxes on the map.
+        /// </summary>
+        /// <returns></returns>
+        public void SpecialEvent()
+        {
+            Random rnd = new Random();
+            int x, y;
+            x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
+            while (!field.BetweenBorders(x, y) && (field.GetValue(x, y).IsEmpty() || (field.GetValue(x, y) is Box && ((Box)field.GetValue(x, y)).ingroup == 0)))
+            {
+                x = rnd.Next(field.MatrixSize); y = rnd.Next(field.MatrixSize);
+            }
+            int gameobjectcount = 1;
+            switch (rnd.Next(3))
+            {
+                case 0:
+
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    if (field.BetweenBorders(x + 1, y) && (field.GetValue(x + 1, y).IsEmpty()))
+                    {
+                        field.SetValue(x + 1, y, new Obstacle(x + 1, y, 1));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x + 1, y + 1) && (field.GetValue(x + 1, y + 1).IsEmpty()))
+                    {
+                        field.SetValue(x + 1, y + 1, new Obstacle(x + 1, y + 1, 1));
+                        gameobjectcount++;
+                    }
+                    if (field.BetweenBorders(x, y + 1) && (field.GetValue(x, y + 1).IsEmpty()))
+                    {
+                        field.SetValue(x, y + 1, new Obstacle(x, y + 1, 1));
+                        gameobjectcount++;
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Meteor", gameobjectcount));
+                    break;
+                case 1:
+
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    for (int i = 1; i < 3; i++)
+                    {
+                        if (field.BetweenBorders(x - i, y) && (field.GetValue(x - i, y).IsEmpty()))
+                        {
+                            field.SetValue(x - i, y, new Obstacle(x - i, y, 1));
+                            gameobjectcount++;
+                        }
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Vertical Wall", gameobjectcount));
+                    break;
+                case 2:
+                    field.SetValue(x, y, new Obstacle(x, y, 1));
+                    for (int i = 1; i < 3; i++)
+                    {
+                        if (field.BetweenBorders(x, y - i) && (field.GetValue(x, y - i).IsEmpty()))
+                        {
+                            field.SetValue(x, y - i, new Obstacle(x, y - i, 1));
+                            gameobjectcount++;
+                        }
+                    }
+                    SpecialEvents?.Invoke(this, new SpecialEventEventArgs("Horizontal Wall", gameobjectcount));
+                    break;
+            }
+            OnFieldsUpdate();
         }
 
         private void OnFieldsUpdate()

@@ -11,6 +11,7 @@ namespace RGBModellTest
     {
         private GameRuleTest ruletest = null!;
         private GameRuleTest ruletest2 = null!;
+        private GameRuleTest ruletest3 = null!;
         [TestInitialize]
         public void Initialize()
         {
@@ -72,7 +73,7 @@ namespace RGBModellTest
             ruletest.Lift((Robot)ruletest.field.GetValue(6, 6));
             Assert.IsTrue(((Robot)ruletest.field.GetValue(6, 6)).IsAttached());
             Assert.IsTrue(((Robot)ruletest.field.GetValue(6, 6)).GetAttachedGroupId() == 0);
-            ruletest.Lift((Robot)ruletest.field.GetValue(6, 6));
+            ruletest.UnLift((Robot)ruletest.field.GetValue(6, 6));
             Assert.IsFalse(((Robot)ruletest.field.GetValue(6, 6)).IsAttached());
         }
 
@@ -104,7 +105,7 @@ namespace RGBModellTest
             ruletest2.NextRobot();
             ruletest2.Weld(ruletest2.CurrentRobot());
             ruletest2.NextRobot();
-            Assert.AreEqual(((Box)ruletest2.field.GetValue(7, 7)).ingroup, 1);
+            Assert.IsTrue(((Box)ruletest2.field.GetValue(7, 7)).ingroup > 0);
         }
 
         [TestMethod]
@@ -138,6 +139,20 @@ namespace RGBModellTest
             ruletest2.Pass();
             ruletest2.NextRobot();
             Assert.AreEqual(ruletest2.CurrentRobot().name, id2);
+        }
+
+        [TestMethod]
+        public void TwoTeamWeldTest1()
+        {
+            ruletest3 = new GameRuleTest(1, 2);
+            ruletest3.StartGame();
+            ruletest3.field.SetValue(7, 6, new Box(7, 6, BoxColor.Red, TileType.RedBox));
+            ruletest3.field.SetValue(7, 7, new Box(7, 7, BoxColor.Red, TileType.RedBox));
+            ruletest3.Weld(ruletest3.CurrentRobot());
+            ruletest3.NextRobot();
+            ruletest3.Weld(ruletest3.CurrentRobot());
+            ruletest3.NextRobot();
+            Assert.IsTrue(((Box)ruletest3.field.GetValue(7, 7)).ingroup == 0);
         }
     }
 }

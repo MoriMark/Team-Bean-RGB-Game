@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.boxlogic
 {
+    /// <summary>
+    /// Class <c>BoxAttachment</c> represents a connection between two boxes.
+    /// </summary>
     public class BoxAttachment
     {
         private Box[] twoboxes;
         public Direction direction { get; }
 
+        /// <summary>
+        /// Constructor connects two Boxes.
+        /// </summary>
         public BoxAttachment(Box boxa , Box boxb)
         {
             twoboxes = new Box[2];
@@ -23,6 +29,10 @@ namespace RGBModell.modell.boxlogic
 
         }
 
+        /// <summary>
+        /// This method decides which way the second Box is compared to the first box.
+        /// </summary>
+        /// <returns>Returns which way the second Box is compared to the first box.</returns>
         private Direction DirectionDecide(Box boxa, Box boxb)
         {
             if(boxa.i != boxb.i)
@@ -46,19 +56,31 @@ namespace RGBModell.modell.boxlogic
                     return Direction.Left;
                 }
             }
-            throw new InvalidEnumArgumentException("The Boxes are not next to each other!");
+            throw new InvalidEnumArgumentException("The Boxes are the same!");
         }
 
+        /// <summary>
+        /// This method gets the first box in the attachment.
+        /// </summary>
+        /// <returns>Returns the first box in the attachment</returns>
         public Box GetFirstBox()
         {
             return twoboxes[0];
         }
 
+        /// <summary>
+        /// This method gets the second box in the attachment.
+        /// </summary>
+        /// <returns>Returns the second box in the attachment</returns>
         public Box GetSecondBox()
         {
             return twoboxes[1];
         }
 
+        /// <summary>
+        /// This method decides wether the specified box is in the attachment and where.
+        /// </summary>
+        /// <returns>Returns Attachmentlocation enum which can be the firs, second or its not in the attachment</returns>
         public AttachmentLocation ContainsBox(Box box)
         {
             if (twoboxes[0].id == box.id)

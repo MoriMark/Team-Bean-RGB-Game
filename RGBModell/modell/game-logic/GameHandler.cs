@@ -17,6 +17,7 @@ namespace RGBModell.modell
         public int round { get; set; }
         private int numOfPlayers;
         private int numOfTeams;
+        private int eventround;
 
         public event EventHandler robotChanged = null!;
 
@@ -28,6 +29,7 @@ namespace RGBModell.modell
         {
             move = 1;
             round = 1;
+            eventround= 1;
             this.numOfPlayers = numOfPlayers;
             this.numOfTeams = numOfTeams;
             gameRule = new GameRule(numOfPlayers, numOfTeams);
@@ -52,14 +54,22 @@ namespace RGBModell.modell
 
         public void addAction(Robot robot, List<Coordinate> coords, Actions action)
         {
+            Random rnd = new Random();
             actionsThisTurn.Add(new RobotAction(robot, coords, action));
             move++;
             if (move > (numOfTeams * numOfPlayers))
             {
                 move = 1;
                 round++;
+                eventround++;
                 resolveActions();
                 gameRule.WeldCheck();
+                int eventcheck = rnd.Next(10,26);
+                if(eventcheck - eventround < 0)
+                {
+                    eventround = 0;
+                    gameRule.SpecialEvent();
+                }
             }
             gameRule.numberOfCurrentRound = round;
             gameRule.UpdateMapsOfRobots();
@@ -156,7 +166,7 @@ namespace RGBModell.modell
                         break;
 
                     case Actions.Disconnect:
-                        gameRule.Lift(action.robot);
+                        gameRule.UnLift(action.robot);
                         break;
                 }
             }

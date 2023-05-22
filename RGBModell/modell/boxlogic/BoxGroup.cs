@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace RGBModell.modell.boxlogic
 {
+    /// <summary>
+    /// Class <c>BoxGroup</c> stores and manages a group of boxes and their attachments.
+    /// </summary>
     public class BoxGroup
     {
         public int groupid { get; }
@@ -16,6 +19,9 @@ namespace RGBModell.modell.boxlogic
         public List<Box> boxes { get; }
         private List<BoxAttachment> boxattachments;
 
+        /// <summary>
+        /// This constructor takes two boxes and creates a group with them.
+        /// </summary>
         public BoxGroup(Box boxa, Box boxb)
         {
             boxes = new List<Box>();
@@ -29,6 +35,9 @@ namespace RGBModell.modell.boxlogic
             boxattachments.Add(new BoxAttachment(boxa, boxb));
         }
 
+        /// <summary>
+        /// This constructor takes a list of boxes and attachments and creates a group with them.
+        /// </summary>
         public BoxGroup(List<Box> boxes2, List<BoxAttachment> boxattachments2)
         {
             boxes = new List<Box>();
@@ -43,6 +52,9 @@ namespace RGBModell.modell.boxlogic
             }
         }
 
+        /// <summary>
+        /// This constructor takes two groups and combines them based on the originbox and attachbox.
+        /// </summary>
         public BoxGroup(Box originbox, Box attachbox, BoxGroup group1, BoxGroup group2)
         {
             boxes = new List<Box>();
@@ -67,6 +79,10 @@ namespace RGBModell.modell.boxlogic
             }
         }
 
+
+        /// <summary>
+        /// This method adds the attachbox to the group by creating an attachment with the originbox.
+        /// </summary>
         public void AddBox(Box originbox, Box attachbox) 
         {
             if(attachbox.ingroup != groupid)
@@ -94,6 +110,9 @@ namespace RGBModell.modell.boxlogic
             
         }
 
+        /// <summary>
+        /// This method deletes an attachment between two boxes.
+        /// </summary>
         public void DetachAttachment(Box boxa, Box boxb)
         {
             bool found = false;
@@ -137,6 +156,10 @@ namespace RGBModell.modell.boxlogic
             }
         }
 
+        /// <summary>
+        /// This method checks wether a group is viable.
+        /// </summary>
+        /// <returns>Returns a zero if the group is viable, returns its id if it is not viable.</returns>
         public int CheckGroup()
         {
             if(boxes.Count <= 1 || boxattachments.Count < 1)
@@ -152,6 +175,10 @@ namespace RGBModell.modell.boxlogic
             return 0;
         }
 
+        /// <summary>
+        /// This method checks wether a group split into two and returns the not attached group.
+        /// </summary>
+        /// <returns>Returns a null if the group is whole, returns the plit part.</returns>
         public BoxGroup? SplitGroup()
         {
             List<int> boxids = new List<int>();
@@ -231,6 +258,10 @@ namespace RGBModell.modell.boxlogic
 
         }
 
+        /// <summary>
+        /// This method converts the group into a Boxcolor Matrix.
+        /// </summary>
+        /// <returns>Returns the groups Boxcolor matrix.</returns>
         public BoxColor[,] ConvertToMatrix()
         {
             int mini = boxes[0].i;

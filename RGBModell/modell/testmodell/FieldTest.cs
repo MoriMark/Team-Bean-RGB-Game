@@ -231,7 +231,19 @@ namespace RGBModell.modell.testmodell
                 playersNeeded[i] = numOfRobots;
             }
             //Place robots until each of the are placed
-            while (numOfPlayers > 0)
+            Robot robotAdd2;
+            if (numOfTeams == 2 && numOfPlayers == 1)
+            {
+                robotAdd2 = new Robot(6, 6, Direction.Down, Team.Red, TileType.RedRobot, "1");
+                SetValue(6, 6, robotAdd2);
+                robots.Add(robotAdd2);
+                numOfPlayers--;
+                robotAdd2 = new Robot(6, 7, Direction.Down, Team.Blue, TileType.RedRobot, "1");
+                SetValue(6, 7, robotAdd2);
+                robots.Add(robotAdd2);
+                numOfPlayers--;
+            }
+            while (numOfPlayers > 0 && !(numOfTeams == 2 && numOfPlayers == 1))
             {
                 y = y + 1;
                 if (!BetweenBorders(x, y))
@@ -239,46 +251,48 @@ namespace RGBModell.modell.testmodell
 
                 if ( GetValue(x, y).IsEmpty())
                 {
-                    int current = 0;
-                    Team teamCol = teamColors[current];
-                    if (playersNeeded[current] > 0)
-                    {
-                        Robot robotAdd;
-                        switch (teamCol)
+                        int current = 0;
+                        Team teamCol = teamColors[current];
+                        if (playersNeeded[current] > 0)
                         {
-                            case Team.Red:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
-                                break;
+                            Robot robotAdd;
+                            switch (teamCol)
+                            {
+                                case Team.Red:
+                                    robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.RedRobot, playersNeeded[current].ToString());
+                                    SetValue(x, y, robotAdd);
+                                    robots.Add(robotAdd);
+                                    playersNeeded[current]--;
+                                    numOfPlayers--;
+                                    break;
 
-                            case Team.Green:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
-                                break;
+                                case Team.Green:
+                                    robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.GreenRobot, playersNeeded[current].ToString());
+                                    SetValue(x, y, robotAdd);
+                                    robots.Add(robotAdd);
+                                    playersNeeded[current]--;
+                                    numOfPlayers--;
+                                    break;
 
-                            case Team.Yellow:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
-                                break;
+                                case Team.Yellow:
+                                    robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.YellowRobot, playersNeeded[current].ToString());
+                                    SetValue(x, y, robotAdd);
+                                    robots.Add(robotAdd);
+                                    playersNeeded[current]--;
+                                    numOfPlayers--;
+                                    break;
 
-                            case Team.Blue:
-                                robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot, playersNeeded[current].ToString());
-                                SetValue(x, y, robotAdd);
-                                robots.Add(robotAdd);
-                                playersNeeded[current]--;
-                                numOfPlayers--;
-                                break;
+                                case Team.Blue:
+                                    robotAdd = new Robot(x, y, Direction.Up, teamCol, TileType.BlueRobot, playersNeeded[current].ToString());
+                                    SetValue(x, y, robotAdd);
+                                    robots.Add(robotAdd);
+                                    playersNeeded[current]--;
+                                    numOfPlayers--;
+                                    break;
+                            }
                         }
-                    }
+                    
+                    
                 }
             }
             #endregion
