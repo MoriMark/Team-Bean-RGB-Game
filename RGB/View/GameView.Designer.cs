@@ -56,7 +56,7 @@
             yellowTeamPicture = new PictureBox();
             labelRedTeamScore = new Label();
             labelGreenTeamScore = new Label();
-            label1 = new Label();
+            labelBlueTeamScore = new Label();
             labelYellowTeamScore = new Label();
             tableLayoutPanel1.SuspendLayout();
             alertAndSymbols.SuspendLayout();
@@ -316,6 +316,7 @@
             // 
             // greenTeamScore
             // 
+            greenTeamScore.BackColor = Color.White;
             greenTeamScore.ColumnCount = 2;
             greenTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             greenTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -335,7 +336,7 @@
             blueTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             blueTeamScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             blueTeamScore.Controls.Add(blueTeamPicture, 0, 0);
-            blueTeamScore.Controls.Add(label1, 1, 0);
+            blueTeamScore.Controls.Add(labelBlueTeamScore, 1, 0);
             blueTeamScore.Location = new Point(0, 54);
             blueTeamScore.Margin = new Padding(0);
             blueTeamScore.Name = "blueTeamScore";
@@ -437,18 +438,18 @@
             labelGreenTeamScore.TabIndex = 1;
             labelGreenTeamScore.Text = "0";
             // 
-            // label1
+            // labelBlueTeamScore
             // 
-            label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.Blue;
-            label1.Location = new Point(84, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(19, 21);
-            label1.TabIndex = 1;
-            label1.Text = "0";
+            labelBlueTeamScore.Anchor = AnchorStyles.None;
+            labelBlueTeamScore.AutoSize = true;
+            labelBlueTeamScore.BackColor = Color.Transparent;
+            labelBlueTeamScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelBlueTeamScore.ForeColor = Color.Blue;
+            labelBlueTeamScore.Location = new Point(84, 16);
+            labelBlueTeamScore.Name = "labelBlueTeamScore";
+            labelBlueTeamScore.Size = new Size(19, 21);
+            labelBlueTeamScore.TabIndex = 1;
+            labelBlueTeamScore.Text = "0";
             // 
             // labelYellowTeamScore
             // 
@@ -539,7 +540,7 @@
         private PictureBox yellowTeamPicture;
         private Label labelRedTeamScore;
         private Label labelGreenTeamScore;
-        private Label label1;
+        private Label labelBlueTeamScore;
         private Label labelYellowTeamScore;
     }
 }

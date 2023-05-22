@@ -73,6 +73,11 @@ namespace RGB.View
             greenTeamBcgColor = Color.FromArgb(255, 181, 255, 179);
             yellowTeamBcgColor = Color.FromArgb(255, 251, 254, 180);
 
+            redTeamScore.BackColor = redTeamBcgColor;
+            blueTeamScore.BackColor = blueTeamBcgColor;
+            greenTeamScore.BackColor = greenTeamBcgColor;
+            yellowTeamScore.BackColor = yellowTeamBcgColor;
+
             //Subscribe to other events
             sendButton.MouseEnter += Button_MouseEnterLeave;
             sendButton.MouseLeave += Button_MouseEnterLeave;
@@ -661,12 +666,13 @@ namespace RGB.View
             DisableRobotFov();
             _timer.Stop();
             remainingTime = 300;
+            UpdateTeamColor();
             MessageBox.Show($"Next Player: {_gameHandler.GetCurrentPlayer().team}, {_gameHandler.GetCurrentPlayer().name}");
             currentRobotCoords.X = _gameHandler.GetCurrentPlayer().i;
             currentRobotCoords.Y = _gameHandler.GetCurrentPlayer().j;
             _timer.Start();
-            UpdateTeamColor();
             RefreshMessages();
+            UpdatePoints();
             RefreshViewTable(_viewField, MapModes.Normal);
         }
 
@@ -1187,8 +1193,10 @@ namespace RGB.View
                 case Team.Red:
                     tableTaskView.BackColor = redTeamBcgColor;
                     teamMessagePanel.BackColor = redTeamBcgColor;
+                    /*
                     symbolLayoutPanel.BackColor = redTeamBcgColor;
                     this.BackColor = redTeamBcgColor;
+                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1197,8 +1205,10 @@ namespace RGB.View
                 case Team.Blue:
                     tableTaskView.BackColor = blueTeamBcgColor;
                     teamMessagePanel.BackColor = blueTeamBcgColor;
+                    /*
                     symbolLayoutPanel.BackColor = blueTeamBcgColor;
                     this.BackColor = blueTeamBcgColor;
+                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1207,8 +1217,10 @@ namespace RGB.View
                 case Team.Green:
                     tableTaskView.BackColor = greenTeamBcgColor;
                     teamMessagePanel.BackColor = greenTeamBcgColor;
+                    /*
                     symbolLayoutPanel.BackColor = greenTeamBcgColor;
                     this.BackColor = greenTeamBcgColor;
+                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1217,8 +1229,10 @@ namespace RGB.View
                 case Team.Yellow:
                     tableTaskView.BackColor = yellowTeamBcgColor;
                     teamMessagePanel.BackColor = yellowTeamBcgColor;
+                    /*
                     symbolLayoutPanel.BackColor = yellowTeamBcgColor;
                     this.BackColor = yellowTeamBcgColor;
+                    */
                     sendButton.BackColor = Color.White;
                     mapButton.BackColor = Color.White;
                     mapmodeNormalButton.BackColor = Color.White;
@@ -1233,6 +1247,11 @@ namespace RGB.View
             points[1] = _gameHandler.GetTeamPoints(Team.Blue);
             points[2] = _gameHandler.GetTeamPoints(Team.Green);
             points[3] = _gameHandler.GetTeamPoints(Team.Yellow);
+
+            labelRedTeamScore.Text = $"{points[0]}";
+            labelBlueTeamScore.Text = $"{points[1]}";
+            labelGreenTeamScore.Text = $"{points[2]}";
+            labelYellowTeamScore.Text = $"{points[3]}";
         }
 
         //Used to stop random popups after game is closed
